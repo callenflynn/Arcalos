@@ -2,7 +2,9 @@
 
 See [Installation options](/installation-options) if you are not sure which path to take.
 
-From an Arch-based live environment:
+This one-liner is meant to run after Arch is already installed. First use `archinstall` to install Arch, reboot into the new system, then run the command below.
+
+From the installed Arch system:
 
 ```bash
 export ARCALOS_REPO=callenflynn/Arcalos
