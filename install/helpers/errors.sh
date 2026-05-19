@@ -1,4 +1,4 @@
-# Directs user to Omarchy Discord
+# Directs user to Arcalos Discord
 QR_CODE='
 █▀▀▀▀▀█ ▄ ▄ ▀▄▄▄█ █▀▀▀▀▀█
 █ ███ █ ▄▄▄▄▀▄▀▄▀ █ ███ █
@@ -90,7 +90,7 @@ catch_errors() {
   clear_logo
   show_cursor
 
-  gum style --foreground 1 --padding "1 0 1 $PADDING_LEFT" "Omarchy installation stopped!"
+  gum style --foreground 1 --padding "1 0 1 $PADDING_LEFT" "Arcalos installation stopped!"
   show_log_tail
 
   gum style "This command halted with exit code $exit_code:"

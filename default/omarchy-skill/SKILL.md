@@ -11,12 +11,12 @@ description: >
   source development in ~/.local/share/omarchy/ and `omarchy dev` workflows.
 ---
 
-# Omarchy Skill
+# Arcalos Skill
 
-Manage [Omarchy](https://omarchy.org/) Linux systems - a beautiful, modern, opinionated Arch Linux distribution with Hyprland.
+Manage [Arcalos](https://arcalos.dev/) Linux systems - a beautiful, modern, opinionated Arch Linux distribution with Hyprland.
 
 This skill is for end-user customization on installed systems.
-It is not for contributing to Omarchy source code.
+It is not for contributing to Arcalos source code.
 
 ## When This Skill MUST Be Used
 
@@ -40,7 +40,7 @@ It is not for contributing to Omarchy source code.
 
 **For end-user customization tasks, NEVER modify anything in `~/.local/share/omarchy/`** - but READING is safe and encouraged.
 
-This directory contains Omarchy's source files managed by git. Any changes will be:
+This directory contains Arcalos's source files managed by git. Any changes will be:
 - Lost on next `omarchy update`
 - Cause conflicts with upstream
 - Break the system's update mechanism
@@ -56,7 +56,7 @@ This directory contains Omarchy's source files managed by git. Any changes will 
 ```
 
 **Reading `~/.local/share/omarchy/` is SAFE and useful** - do it freely to:
-- Understand how omarchy commands work: `omarchy theme set --help` or `cat $(which omarchy-theme-set)`
+- Understand how Arcalos commands work: `omarchy theme set --help` or `cat $(which omarchy-theme-set)`
 - See default configs before customizing: `cat ~/.local/share/omarchy/config/waybar/config.jsonc`
 - Check stock theme files to copy for customization
 - Reference default hyprland settings: `cat ~/.local/share/omarchy/default/hypr/*`
@@ -70,7 +70,7 @@ If the request is to develop Omarchy itself, this skill is out of scope. Follow 
 
 ## System Architecture
 
-Omarchy is built on:
+Arcalos is built on:
 
 | Component | Purpose | Config Location |
 |-----------|---------|-----------------|
@@ -84,7 +84,7 @@ Omarchy is built on:
 
 ## Command Discovery
 
-Omarchy ships a single `omarchy` CLI that dispatches to all `omarchy-*` binaries via `omarchy <group> <action>`. Always prefer this form — it is self-documenting and stable. The underlying `omarchy-*` binaries still exist on `PATH` and remain safe to read for source.
+Arcalos ships a single `omarchy` CLI that dispatches to all `omarchy-*` binaries via `omarchy <group> <action>`. Always prefer this form — it is self-documenting and stable. The underlying `omarchy-*` binaries still exist on `PATH` and remain safe to read for source.
 
 ```bash
 # List every documented command and its summary
@@ -372,7 +372,7 @@ omarchy reminder clear
 
 ## Out of Scope
 
-This skill intentionally does not cover Omarchy source development. Do not use this skill for:
+This skill intentionally does not cover Arcalos source development. Do not use this skill for:
 - Editing files in `~/.local/share/omarchy/` (`bin/`, `config/`, `default/`, `themes/`, `migrations/`, etc.)
 - Creating or editing migrations
 - Running `omarchy dev ...` commands

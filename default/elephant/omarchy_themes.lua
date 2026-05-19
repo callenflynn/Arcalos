@@ -1,8 +1,8 @@
 --
--- Dynamic Omarchy Theme Menu for Elephant/Walker
+-- Dynamic Arcalos Theme Menu for Elephant/Walker
 --
 Name = "omarchythemes"
-NamePretty = "Omarchy Themes"
+NamePretty = "Arcalos Themes"
 HideFromProviderlist = true
 
 -- Check if file exists using Lua (no subprocess)

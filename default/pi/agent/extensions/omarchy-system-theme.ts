@@ -1,7 +1,7 @@
 /**
- * Syncs pi's light/dark theme with the active Omarchy theme.
+ * Syncs pi's light/dark theme with the active Arcalos theme.
  *
- * Omarchy light themes include:
+ * Arcalos light themes include:
  *   ~/.config/omarchy/current/theme/light.mode
  */
 

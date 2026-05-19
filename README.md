@@ -1,8 +1,8 @@
-# Omarchy
+# Arcalos
 
-Omarchy is a beautiful, modern & opinionated Linux distribution by DHH.
+Arcalos is a sleek, modern, beautiful, and opinionated Linux skin built on Arch, by Cal.
 
-Read more at [omarchy.org](https://omarchy.org).
+Read more at [arcalos.dev](https://arcalos.dev).
 
 ## Install (online)
 
@@ -29,4 +29,4 @@ mkarchiso -v -w work -o out /path/to/your/profile
 
 ## License
 
-Omarchy is released under the [MIT License](https://opensource.org/licenses/MIT).
+Arcalos is released under the [MIT License](https://opensource.org/licenses/MIT).

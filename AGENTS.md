@@ -69,7 +69,7 @@ Install stage files follow this pattern:
 - `install/*/all.sh` lists scripts in execution order
 - leaf scripts are sourced by `run_logged $OMARCHY_INSTALL/path/to/script.sh`
 - avoid `exit` in sourced install scripts unless intentionally aborting the install
-- use `$OMARCHY_INSTALL` and `$OMARCHY_PATH` instead of hard-coded Omarchy paths
+- use `$OMARCHY_INSTALL` and `$OMARCHY_PATH` instead of hard-coded Arcalos paths
 - keep hardware-specific logic under `install/config/hardware/`
 - prefer helper commands for package and command checks where available
 
@@ -120,7 +120,7 @@ New migration format:
 - File permissions must be `0644` (`-rw-r--r--`); migrations are sourced, not executed directly
 - No shebang line
 - Start with an `echo` describing what the migration does
-- Use `$OMARCHY_PATH` to reference the omarchy directory
+- Use `$OMARCHY_PATH` to reference the Arcalos directory
 - Prefer helper commands such as `omarchy-cmd-present`, `omarchy-cmd-missing`, `omarchy-pkg-present`, and `omarchy-pkg-missing`
 
 Some older migrations predate these rules. Do not copy older migrations that start with shebangs, omit the leading `echo`, or hard-code `~/.local/share/omarchy`.

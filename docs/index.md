@@ -1,6 +1,6 @@
 # Arcalos
 
-Arcalos is a beautiful, modern & opinionated Linux distribution by DHH.
+Arcalos is a sleek, modern, beautiful, and opinionated Linux skin built on Arch, by Cal.
 
 ## Quick links
 

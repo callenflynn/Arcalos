@@ -37,7 +37,7 @@ sudo pacman -Syu --noconfirm --needed git
 # Use custom repo if specified, otherwise default to basecamp/omarchy
 OMARCHY_REPO="${OMARCHY_REPO:-basecamp/omarchy}"
 
-echo -e "\nCloning Omarchy from: https://github.com/${OMARCHY_REPO}.git"
+echo -e "\nCloning Arcalos from: https://github.com/${OMARCHY_REPO}.git"
 rm -rf ~/.local/share/omarchy/
 git clone "https://github.com/${OMARCHY_REPO}.git" ~/.local/share/omarchy >/dev/null
 
