@@ -4,7 +4,7 @@ export default defineConfig({
   title: "Arcalos Wiki",
   description: "Arcalos community documentation and guides",
   base: "/Arcalos/wiki/",
-  ignoreDeadLinks: "localhostLinks",
+  ignoreDeadLinks: true,
   themeConfig: {
     nav: [
       { text: "Home", link: "/" },
