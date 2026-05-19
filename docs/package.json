@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "docs:dev": "node ./node_modules/vitepress/bin/vitepress.js dev",
-    "docs:build": "node ./node_modules/vitepress/bin/vitepress.js build",
+    "docs:build": "npm run build:main && npm run build:wiki",
+    "build:main": "node ./node_modules/vitepress/bin/vitepress.js build .",
+    "build:wiki": "node ./node_modules/vitepress/bin/vitepress.js build wiki --outDir dist/wiki",
     "docs:preview": "node ./node_modules/vitepress/bin/vitepress.js preview"
   },
   "devDependencies": {

@@ -9,7 +9,8 @@ export default defineConfig({
       { text: "Home", link: "/" },
       { text: "Install options", link: "/installation-options" },
       { text: "Install", link: "/install" },
-      { text: "ISO", link: "/iso" }
+      { text: "ISO", link: "/iso" },
+      { text: "Wiki", link: "/wiki/" }
     ],
     sidebar: [
       {
