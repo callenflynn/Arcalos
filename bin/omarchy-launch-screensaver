@@ -1,23 +1,23 @@
 #!/bin/bash
 
-# omarchy:summary=Launch the Omarchy screensaver in the default terminal on the system with the correct font configuration.
+# arcalos:summary=Launch the arcalos screensaver in the default terminal on the system with the correct font configuration.
 
 if ! command -v tte &>/dev/null; then
   exit 1
 fi
 
 # Exit early if screensave is already running
-pgrep -f org.omarchy.screensaver && exit 0
+pgrep -f org.arcalos.screensaver && exit 0
 
 # Allow screensaver to be turned off but also force started
-if omarchy-toggle-enabled screensaver-off && [[ $1 != "force" ]]; then
+if arcalos-toggle-enabled screensaver-off && [[ $1 != "force" ]]; then
   exit 1
 fi
 
 # Silently quit Walker on overlay
 walker -q
 
-focused=$(omarchy-hyprland-monitor-focused)
+focused=$(arcalos-hyprland-monitor-focused)
 terminal=$(xdg-terminal-exec --print-id)
 
 hypr_focus_monitor() {
@@ -35,16 +35,16 @@ for m in $(hyprctl monitors -j | jq -r '.[] | .name'); do
 
   case $terminal in
   *Alacritty*)
-    hypr_exec "alacritty --class=org.omarchy.screensaver --config-file ~/.local/share/omarchy/default/alacritty/screensaver.toml -e omarchy-screensaver"
+    hypr_exec "alacritty --class=org.arcalos.screensaver --config-file ~/.local/share/arcalos/default/alacritty/screensaver.toml -e arcalos-screensaver"
     ;;
   *ghostty*)
-    hypr_exec "ghostty --class=org.omarchy.screensaver --config-file=~/.local/share/omarchy/default/ghostty/screensaver --font-size=18 -e omarchy-screensaver"
+    hypr_exec "ghostty --class=org.arcalos.screensaver --config-file=~/.local/share/arcalos/default/ghostty/screensaver --font-size=18 -e arcalos-screensaver"
     ;;
   *foot*)
-    hypr_exec "foot --app-id=org.omarchy.screensaver --config=\"$OMARCHY_PATH/default/foot/screensaver.ini\" -e omarchy-screensaver"
+    hypr_exec "foot --app-id=org.arcalos.screensaver --config=\"$ARCALOS_PATH/default/foot/screensaver.ini\" -e arcalos-screensaver"
     ;;
   *kitty*)
-    hypr_exec "kitty --class=org.omarchy.screensaver --override font_size=18 --override window_padding_width=0 -e omarchy-screensaver"
+    hypr_exec "kitty --class=org.arcalos.screensaver --override font_size=18 --override window_padding_width=0 -e arcalos-screensaver"
     ;;
   *)
     notify-send -u low "✋  Screensaver only runs in Alacritty, Foot, Ghostty, or Kitty"

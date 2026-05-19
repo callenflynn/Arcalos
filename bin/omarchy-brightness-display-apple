@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Adjust the brightness on Apple Studio Displays and Apple XDR Displays using asdcontrol.
-# omarchy:args=<+N%|N%-|N%>
-# omarchy:examples=omarchy brightness display apple +5% | omarchy brightness display apple 5%- | omarchy brightness display apple 50%
+# arcalos:summary=Adjust the brightness on Apple Studio Displays and Apple XDR Displays using asdcontrol.
+# arcalos:args=<+N%|N%-|N%>
+# arcalos:examples=arcalos brightness display apple +5% | arcalos brightness display apple 5%- | arcalos brightness display apple 50%
 
 if (( $# == 0 )); then
   echo "Adjust Apple Display brightness by passing +5%, 5%-, or 100%"
@@ -30,5 +30,5 @@ else
 
   sudo asdcontrol "$device" -- "$step" >/dev/null
   value="$(sudo asdcontrol "$device" | awk -F= '/BRIGHTNESS=/{print $2+0}')"
-  omarchy-swayosd-brightness "$(( value * 100 / 60000 ))"
+  arcalos-swayosd-brightness "$(( value * 100 / 60000 ))"
 fi

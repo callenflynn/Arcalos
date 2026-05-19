@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This hook is called by `omarchy refresh pacman` AFTER the channel template
+# This hook is called by `arcalos refresh pacman` AFTER the channel template
 # is copied to /etc/pacman.conf and BEFORE `pacman -Syyuu` runs. Use it to
 # layer customizations onto the freshly-written pacman.conf so they're
 # respected by the upgrade — common cases are adding a custom repository

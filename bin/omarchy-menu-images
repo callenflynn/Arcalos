@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# omarchy:summary=Open a generic image selector menu
-# omarchy:args=[--selected <image>] [--colors-file <path>] [--print-name] [--show-labels] [--filterable] [--lazy-thumbnails] [--cache-only] <image-dir>...
+# arcalos:summary=Open a generic image selector menu
+# arcalos:args=[--selected <image>] [--colors-file <path>] [--print-name] [--show-labels] [--filterable] [--lazy-thumbnails] [--cache-only] <image-dir>...
 
-OMARCHY_PATH=${OMARCHY_PATH:-$HOME/.local/share/omarchy}
+ARCALOS_PATH=${ARCALOS_PATH:-$HOME/.local/share/arcalos}
 
 selected_image=""
 colors_file=""
@@ -16,7 +16,7 @@ cache_only=false
 image_dirs=()
 
 usage() {
-  echo "Usage: omarchy-menu-images [--selected <image>] [--colors-file <path>] [--print-name] [--show-labels] [--filterable] [--lazy-thumbnails] [--cache-only] <image-dir>..."
+  echo "Usage: arcalos-menu-images [--selected <image>] [--colors-file <path>] [--print-name] [--show-labels] [--filterable] [--lazy-thumbnails] [--cache-only] <image-dir>..."
 }
 
 while [[ $# -gt 0 ]]; do
@@ -83,8 +83,8 @@ selection_file=$(mktemp)
 done_file=$(mktemp)
 rm -f "$done_file"
 trap 'rm -f "$selection_file" "$done_file"' EXIT
-socket_path="${XDG_RUNTIME_DIR:-/run/user/$UID}/omarchy-image-selector.sock"
-selector_qml="$OMARCHY_PATH/default/quickshell/select-by-image.qml"
+socket_path="${XDG_RUNTIME_DIR:-/run/user/$UID}/arcalos-image-selector.sock"
+selector_qml="$ARCALOS_PATH/default/quickshell/select-by-image.qml"
 
 image_dirs_env=""
 for dir in "${image_dirs[@]}"; do
@@ -110,7 +110,7 @@ if [[ -n $current_image ]]; then
   done
 fi
 
-cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/omarchy/image-selector
+cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/arcalos/image-selector
 index_file="$cache_dir/index.tsv"
 rows=""
 mkdir -p "$cache_dir"
@@ -216,7 +216,7 @@ fi
 
 rows_payload=${rows//$'\t'/$'\f'}
 rows_payload=${rows_payload//$'\n'/$'\v'}
-colors_file=${colors_file:-$HOME/.config/omarchy/current/theme/quickshell.json}
+colors_file=${colors_file:-$HOME/.config/arcalos/current/theme/quickshell.json}
 colors_payload=""
 
 if [[ -f $colors_file ]]; then

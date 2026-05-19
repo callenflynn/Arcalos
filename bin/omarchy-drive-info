@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Print drive information such as size, model, and mount details
-# omarchy:args=<drive>
+# arcalos:summary=Print drive information such as size, model, and mount details
+# arcalos:args=<drive>
 
 if (($# == 0)); then
-  echo "Usage: omarchy-drive-info [/dev/drive]"
+  echo "Usage: arcalos-drive-info [/dev/drive]"
   exit 1
 else
   drive="$1"

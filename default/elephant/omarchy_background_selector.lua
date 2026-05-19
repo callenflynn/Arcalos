@@ -1,4 +1,4 @@
-Name = "omarchyBackgroundSelector"
+Name = "arcalosBackgroundSelector"
 NamePretty = "Arcalos Background Selector"
 Cache = false
 HideFromProviderlist = true
@@ -27,7 +27,7 @@ function GetEntries()
   local home = os.getenv("HOME")
 
   -- Read current theme name
-  local theme_name_file = io.open(home .. "/.config/omarchy/current/theme.name", "r")
+  local theme_name_file = io.open(home .. "/.config/arcalos/current/theme.name", "r")
   local theme_name = theme_name_file and theme_name_file:read("*l") or nil
   if theme_name_file then
     theme_name_file:close()
@@ -35,10 +35,10 @@ function GetEntries()
 
   -- Directories to search
   local dirs = {
-    home .. "/.config/omarchy/current/theme/backgrounds",
+    home .. "/.config/arcalos/current/theme/backgrounds",
   }
   if theme_name then
-    table.insert(dirs, home .. "/.config/omarchy/backgrounds/" .. theme_name)
+    table.insert(dirs, home .. "/.config/arcalos/backgrounds/" .. theme_name)
   end
 
   -- Track added files to avoid duplicates
@@ -58,7 +58,7 @@ function GetEntries()
             Text = FormatName(filename),
             Value = background,
             Actions = {
-              activate = "omarchy-theme-bg-set " .. ShellEscape(background),
+              activate = "arcalos-theme-bg-set " .. ShellEscape(background),
             },
             Preview = background,
             PreviewType = "file",

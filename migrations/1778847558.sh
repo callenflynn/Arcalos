@@ -1,3 +1,3 @@
 echo "Refresh Hyprland Lua language server config"
 
-omarchy-refresh-config hypr/.luarc.json
+arcalos-refresh-config hypr/.luarc.json

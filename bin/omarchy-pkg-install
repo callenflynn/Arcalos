@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Show a fuzzy-finder TUI for picking new Arch and OPR packages to install.
-# omarchy:requires-sudo=true
+# arcalos:summary=Show a fuzzy-finder TUI for picking new Arch and OPR packages to install.
+# arcalos:requires-sudo=true
 
 fzf_args=(
   --multi
@@ -18,9 +18,9 @@ fzf_args=(
 pkg_names=$(pacman -Slq | fzf "${fzf_args[@]}")
 
 if [[ -n $pkg_names ]]; then
-  source omarchy-sudo-keepalive
+  source arcalos-sudo-keepalive
 
   # Convert newline-separated selections to space-separated for pacman
   echo "$pkg_names" | tr '\n' ' ' | xargs sudo pacman -S --noconfirm
-  omarchy-show-done
+  arcalos-show-done
 fi

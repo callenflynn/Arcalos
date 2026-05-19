@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Apply the current theme keyboard color to Framework Laptop 16 keyboards
-# omarchy:hidden=true
+# arcalos:summary=Apply the current theme keyboard color to Framework Laptop 16 keyboards
+# arcalos:hidden=true
 
-FRAMEWORK16_THEME=~/.config/omarchy/current/theme/keyboard.rgb
+FRAMEWORK16_THEME=~/.config/arcalos/current/theme/keyboard.rgb
 
-if omarchy-cmd-present qmk_hid && [[ -f $FRAMEWORK16_THEME ]]; then
+if arcalos-cmd-present qmk_hid && [[ -f $FRAMEWORK16_THEME ]]; then
   hex=$(cat "$FRAMEWORK16_THEME")
   hex="${hex#\#}"
 

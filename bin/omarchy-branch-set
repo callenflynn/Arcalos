@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Set the branch for Omarchy's git repository.
-# omarchy:args=<master|rc|dev>
+# arcalos:summary=Set the branch for arcalos's git repository.
+# arcalos:args=<master|rc|dev>
 
 if (($# == 0)); then
-  echo "Usage: omarchy-branch-set [master|rc|dev]"
+  echo "Usage: arcalos-branch-set [master|rc|dev]"
   exit 1
 else
   branch="$1"
@@ -15,4 +15,4 @@ if [[ $branch != "master" && $branch != "rc" && $branch != "dev" ]]; then
   exit 1
 fi
 
-git -C $OMARCHY_PATH switch $branch
+git -C $ARCALOS_PATH switch $branch

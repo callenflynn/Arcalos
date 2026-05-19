@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Detect whether the computer is a Framework Laptop 16.
+# arcalos:summary=Detect whether the computer is a Framework Laptop 16.
 
 [[ $(cat /sys/class/dmi/id/sys_vendor 2>/dev/null) == "Framework" ]] &&
-  omarchy-hw-match "Laptop 16"
+  arcalos-hw-match "Laptop 16"

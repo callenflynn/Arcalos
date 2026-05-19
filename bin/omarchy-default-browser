@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Set the default browser for Omarchy and XDG handlers
-# omarchy:args=[chromium|chrome|brave|brave-origin|edge|firefox|zen]
-# omarchy:examples=omarchy default browser firefox | omarchy default browser brave
+# arcalos:summary=Set the default browser for arcalos and XDG handlers
+# arcalos:args=[chromium|chrome|brave|brave-origin|edge|firefox|zen]
+# arcalos:examples=arcalos default browser firefox | arcalos default browser brave
 
 if (($# == 0)); then
   case "$(xdg-settings get default-web-browser)" in
@@ -27,7 +27,7 @@ edge) desktop_id="microsoft-edge.desktop"; name="Edge"; glyph="󰇩" ;;
 firefox) desktop_id="firefox.desktop"; name="Firefox"; glyph="󰈹" ;;
 zen) desktop_id="zen.desktop"; name="Zen"; glyph="󰖟" ;;
 *)
-  echo "Usage: omarchy-default-browser <chromium|chrome|brave|brave-origin|edge|firefox|zen>"
+  echo "Usage: arcalos-default-browser <chromium|chrome|brave|brave-origin|edge|firefox|zen>"
   exit 1
   ;;
 esac

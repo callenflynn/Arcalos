@@ -1,10 +1,10 @@
 Arcalos
 Copyright (c) 2026 Callen Flynn
 
-This project is based on Omarchy (https://github.com/basecamp/omarchy),
+This project is based on arcalos (https://github.com/callenflynn/arcalos),
 originally created by David Heinemeier Hansson (DHH) and Basecamp, LLC.
 
-The original Omarchy source code is used and modified here under the terms
+The original arcalos source code is used and modified here under the terms
 of the MIT License, reproduced below:
 
 ---

@@ -1,14 +1,14 @@
 -- Application bindings.
-o.bind("SUPER + Q", "Terminal", { omarchy = "terminal" })
-o.bind("SUPER + ALT + RETURN", "Tmux", { omarchy = "terminal-tmux" })
-o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
-o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
-o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { omarchy = "nautilus-cwd" })
-o.bind("SUPER + SHIFT + B", "Browser", { omarchy = "browser" })
-o.bind("SUPER + SHIFT + ALT + B", "Browser (private)", { omarchy = "browser --private" })
-o.bind("SUPER + SHIFT + M", "Music", { omarchy = "or-focus spotify" })
+o.bind("SUPER + Q", "Terminal", { arcalos = "terminal" })
+o.bind("SUPER + ALT + RETURN", "Tmux", { arcalos = "terminal-tmux" })
+o.bind("SUPER + SHIFT + RETURN", "Browser", { arcalos = "browser" })
+o.bind("SUPER + SHIFT + F", "File manager", { arcalos = "nautilus" })
+o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { arcalos = "nautilus-cwd" })
+o.bind("SUPER + SHIFT + B", "Browser", { arcalos = "browser" })
+o.bind("SUPER + SHIFT + ALT + B", "Browser (private)", { arcalos = "browser --private" })
+o.bind("SUPER + SHIFT + M", "Music", { arcalos = "or-focus spotify" })
 o.bind("SUPER + SHIFT + ALT + M", "Music TUI", { tui = "cliamp", focus = true })
-o.bind("SUPER + SHIFT + N", "Editor", { omarchy = "editor" })
+o.bind("SUPER + SHIFT + N", "Editor", { arcalos = "editor" })
 o.bind("SUPER + SHIFT + D", "Docker", { tui = "lazydocker" })
 o.bind("SUPER + SHIFT + G", "Signal", { launch = "signal-desktop", focus = "^signal$" })
 o.bind("SUPER + SHIFT + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
@@ -33,9 +33,9 @@ o.bind("SUPER + SHIFT + ALT + X", "X Post", { webapp = "https://x.com/compose/po
 
 -- Overwrite existing bindings with hl.unbind() first if needed.
 -- hl.unbind("SUPER + SPACE")
--- o.bind("SUPER + SPACE", "Omarchy menu", "omarchy-menu")
+-- o.bind("SUPER + SPACE", "arcalos menu", "arcalos-menu")
 
 -- Logitech MX Keys examples:
--- o.bind("SUPER + SHIFT + S", nil, "omarchy-capture-screenshot")
+-- o.bind("SUPER + SHIFT + S", nil, "arcalos-capture-screenshot")
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
--- o.bind("SUPER + PERIOD", nil, { omarchy = "walker -m symbols" })
+-- o.bind("SUPER + PERIOD", nil, { arcalos = "walker -m symbols" })

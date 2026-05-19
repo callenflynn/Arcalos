@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Edit, set, or reset About branding
-# omarchy:group=branding
-# omarchy:name=about
-# omarchy:args=<image|text|reset>
-# omarchy:examples=omarchy branding about image | omarchy branding about text | omarchy branding about reset
+# arcalos:summary=Edit, set, or reset About branding
+# arcalos:group=branding
+# arcalos:name=about
+# arcalos:args=<image|text|reset>
+# arcalos:examples=arcalos branding about image | arcalos branding about text | arcalos branding about reset
 
 set -euo pipefail
 
@@ -12,19 +12,19 @@ SOURCE_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
 
 case "${1:-}" in
 image)
-  image=$(omarchy-menu-file "Pick png/svg from $SOURCE_DIR" "${SOURCE_DIR}" "svg png")
-  if [[ -n $image ]] && omarchy-transcode-ascii "$image" ~/.config/omarchy/branding/about.txt --width 54 --height 26; then
-    omarchy-launch-about >/dev/null 2>&1
+  image=$(arcalos-menu-file "Pick png/svg from $SOURCE_DIR" "${SOURCE_DIR}" "svg png")
+  if [[ -n $image ]] && arcalos-transcode-ascii "$image" ~/.config/arcalos/branding/about.txt --width 54 --height 26; then
+    arcalos-launch-about >/dev/null 2>&1
   fi
   ;;
 text)
-  omarchy-launch-editor ~/.config/omarchy/branding/about.txt >/dev/null 2>&1 && omarchy-launch-about >/dev/null 2>&1
+  arcalos-launch-editor ~/.config/arcalos/branding/about.txt >/dev/null 2>&1 && arcalos-launch-about >/dev/null 2>&1
   ;;
 reset)
-  cp "$OMARCHY_PATH/icon.txt" ~/.config/omarchy/branding/about.txt && omarchy-launch-about >/dev/null 2>&1
+  cp "$ARCALOS_PATH/icon.txt" ~/.config/arcalos/branding/about.txt && arcalos-launch-about >/dev/null 2>&1
   ;;
 *)
-  echo "Usage: omarchy-branding-about <image|text|reset>" >&2
+  echo "Usage: arcalos-branding-about <image|text|reset>" >&2
   exit 1
   ;;
 esac

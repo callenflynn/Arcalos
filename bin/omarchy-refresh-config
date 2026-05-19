@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Copies the named config from ~/.local/share/omarchy/config/X/Y/Z -> ~/.config/X/Y/Z.
-# omarchy:args=<config-path>
+# arcalos:summary=Copies the named config from ~/.local/share/arcalos/config/X/Y/Z -> ~/.config/X/Y/Z.
+# arcalos:args=<config-path>
 
 config_file=$1
 
@@ -10,7 +10,7 @@ if [[ -z $config_file ]]; then
   Usage: $0 [config_file]
 
   Must provide a file path from the .config directory to be refreshed.
-  To copy ~/.local/share/omarchy/config/hypr/hyprlock.conf to ~/.config/hypr/hyprlock.conf
+  To copy ~/.local/share/arcalos/config/hypr/hyprlock.conf to ~/.config/hypr/hyprlock.conf
 
     $0 hypr/hyprlock.conf
 USAGE
@@ -19,7 +19,7 @@ fi
 
 # Backup the destination file (with timestamp) to avoid clobbering (Ex: hyprlock.conf.bak.1753817951)
 user_config_file="${HOME}/.config/$config_file"
-default_config_file="${HOME}/.local/share/omarchy/config/$config_file"
+default_config_file="${HOME}/.local/share/arcalos/config/$config_file"
 backup_config_file="$user_config_file.bak.$(date +%s)"
 
 mkdir -p "$(dirname "$user_config_file")"
@@ -35,7 +35,7 @@ if [[ -f $user_config_file ]]; then
   if cmp -s "$user_config_file" "$backup_config_file"; then
     rm "$backup_config_file"
   else
-    echo -e "\e[31mReplaced $user_config_file with new Omarchy default.\nSaved backup as ${backup_config_file}.\n\n\e[32mChanges:\e[0m"
+    echo -e "\e[31mReplaced $user_config_file with new arcalos default.\nSaved backup as ${backup_config_file}.\n\n\e[32mChanges:\e[0m"
     diff "$user_config_file" "$backup_config_file" || true
   fi
 else

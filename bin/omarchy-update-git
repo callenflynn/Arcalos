@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# omarchy:summary=Pull the latest Omarchy git changes
+# arcalos:summary=Pull the latest arcalos git changes
 
 set -e
 
-echo -e "\e[32mUpdate Omarchy\e[0m"
+echo -e "\e[32mUpdate arcalos\e[0m"
 
-omarchy-update-time
+arcalos-update-time
 
 # Suppress Hyprland config errors while git updates default config files mid-pull
 hyprctl keyword debug:suppress_errors true &>/dev/null || true
 hyprctl eval 'hl.config({ debug = { suppress_errors = true } })' &>/dev/null || true
 
-git -C $OMARCHY_PATH pull --autostash
-git -C $OMARCHY_PATH --no-pager diff --check || git -C $OMARCHY_PATH reset --merge
+git -C $ARCALOS_PATH pull --autostash
+git -C $ARCALOS_PATH --no-pager diff --check || git -C $ARCALOS_PATH reset --merge
 
 hyprctl reload &>/dev/null || true

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Refresh the ~/.config/chromium-flags.conf file from the Omarchy defaults.
+# arcalos:summary=Refresh the ~/.config/chromium-flags.conf file from the arcalos defaults.
 
 CONFIG_FILE="$HOME/.config/chromium-flags.conf"
 INSTALL_GOOGLE_ACCOUNTS=false
@@ -13,9 +13,9 @@ if [[ -f $CONFIG_FILE ]] && \
 fi
 
 # Refresh the Chromium configuration
-omarchy-refresh-config chromium-flags.conf
+arcalos-refresh-config chromium-flags.conf
 
 # Re-install Google accounts if previously configured
 if [[ $INSTALL_GOOGLE_ACCOUNTS == "true" ]]; then
-  omarchy-install-chromium-google-account
+  arcalos-install-chromium-google-account
 fi

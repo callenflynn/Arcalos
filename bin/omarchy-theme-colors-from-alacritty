@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Generate a theme's colors.toml from its alacritty.toml palette
-# omarchy:args=<theme-dir>
-# omarchy:hidden=true
+# arcalos:summary=Generate a theme's colors.toml from its alacritty.toml palette
+# arcalos:args=<theme-dir>
+# arcalos:hidden=true
 
 set -e
 
@@ -11,7 +11,7 @@ COLORS_OUTPUT="$THEME_SOURCE/colors.toml"
 ALACRITTY_FILE="$THEME_SOURCE/alacritty.toml"
 
 if [[ -z $THEME_SOURCE ]]; then
-  echo "Usage: omarchy-theme-colors-from-alacritty <theme-dir>" >&2
+  echo "Usage: arcalos-theme-colors-from-alacritty <theme-dir>" >&2
   exit 1
 fi
 

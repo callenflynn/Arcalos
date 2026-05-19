@@ -1,3 +1,3 @@
-echo "Use new Omarchy mirror as default"
+echo "Use new arcalos mirror as default"
 
-omarchy-refresh-pacman
+arcalos-refresh-pacman

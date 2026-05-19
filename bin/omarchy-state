@@ -1,22 +1,22 @@
 #!/bin/bash
 
-# omarchy:summary=Manage persistent state files for Omarchy toggles and settings.
-# omarchy:args=<set|clear> <state-name-or-pattern>
-# omarchy:hidden=true
+# arcalos:summary=Manage persistent state files for arcalos toggles and settings.
+# arcalos:args=<set|clear> <state-name-or-pattern>
+# arcalos:hidden=true
 
-STATE_DIR="$HOME/.local/state/omarchy"
+STATE_DIR="$HOME/.local/state/arcalos"
 mkdir -p "$STATE_DIR"
 
 COMMAND="$1"
 STATE_NAME="$2"
 
 if [[ -z $COMMAND ]]; then
-  echo "Usage: omarchy-state <set|clear> <state-name-or-pattern>"
+  echo "Usage: arcalos-state <set|clear> <state-name-or-pattern>"
   exit 1
 fi
 
 if [[ -z $STATE_NAME ]]; then
-  echo "Usage: omarchy-state $COMMAND <state-name>"
+  echo "Usage: arcalos-state $COMMAND <state-name>"
   exit 1
 fi
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# omarchy:summary=Remove Voxtype dictation and its configuration
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove Voxtype dictation and its configuration
+# arcalos:requires-sudo=true
 
 set -e
 
 # Remove voxtype and its configurations.
 
-if omarchy-cmd-present voxtype; then
+if arcalos-cmd-present voxtype; then
   echo "Uninstall Voxtype to remove dictation."
 
   # Remove services
@@ -15,7 +15,7 @@ if omarchy-cmd-present voxtype; then
   systemctl --user daemon-reload
 
   # Remove packages and configs
-  omarchy-pkg-drop voxtype-bin
+  arcalos-pkg-drop voxtype-bin
   rm -rf ~/.config/voxtype
   rm -rf ~/.local/share/voxtype
 else

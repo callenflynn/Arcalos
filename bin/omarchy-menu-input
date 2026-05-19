@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Prompt for text input with Walker
-# omarchy:group=menu
-# omarchy:name=input
-# omarchy:args=prompt [walker args...]
-# omarchy:examples=omarchy menu input Reminder|omarchy-menu-input "Reminder in minutes" --width 400
+# arcalos:summary=Prompt for text input with Walker
+# arcalos:group=menu
+# arcalos:name=input
+# arcalos:args=prompt [walker args...]
+# arcalos:examples=arcalos menu input Reminder|arcalos-menu-input "Reminder in minutes" --width 400
 
 set -euo pipefail
 
@@ -13,4 +13,4 @@ if (( $# > 0 )); then
   shift
 fi
 
-omarchy-launch-walker --dmenu --inputonly --width 295 --minheight 1 --maxheight 1 -p "$prompt…" "$@" 2>/dev/null
+arcalos-launch-walker --dmenu --inputonly --width 295 --minheight 1 --maxheight 1 -p "$prompt…" "$@" 2>/dev/null

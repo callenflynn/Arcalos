@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Install one of the approved terminals and set it as the default for Omarchy (Super + Q etc).
-# omarchy:args=<alacritty|foot|ghostty|kitty>
-# omarchy:requires-sudo=true
+# arcalos:summary=Install one of the approved terminals and set it as the default for arcalos (Super + Q etc).
+# arcalos:args=<alacritty|foot|ghostty|kitty>
+# arcalos:requires-sudo=true
 
 if (($# == 0)); then
-  echo "Usage: omarchy-install-terminal [alacritty|foot|ghostty|kitty]"
+  echo "Usage: arcalos-install-terminal [alacritty|foot|ghostty|kitty]"
   exit 1
 fi
 
@@ -26,19 +26,19 @@ esac
 echo "Installing $package..."
 
 # Install package
-if omarchy-pkg-add $package; then
+if arcalos-pkg-add $package; then
   # Copy custom desktop entries with X-TerminalArg* keys
   if [[ $package == "alacritty" ]]; then
     mkdir -p ~/.local/share/applications
-    cp "$OMARCHY_PATH/default/alacritty/$desktop_id" ~/.local/share/applications/
+    cp "$ARCALOS_PATH/default/alacritty/$desktop_id" ~/.local/share/applications/
   elif [[ $package == "foot" ]]; then
     mkdir -p ~/.local/share/applications
-    cp "$OMARCHY_PATH/applications/$desktop_id" ~/.local/share/applications/
+    cp "$ARCALOS_PATH/applications/$desktop_id" ~/.local/share/applications/
   fi
 
   # Copy default config for optional terminals when missing
   if [[ ! -e ~/.config/$package ]]; then
-    cp -Rpf "$OMARCHY_PATH/config/$package" ~/.config/
+    cp -Rpf "$ARCALOS_PATH/config/$package" ~/.config/
   fi
 
   # Update xdg-terminals.list to prioritize the proper terminal

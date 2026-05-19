@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Launch a terminal in the active terminal's current directory
-# omarchy:args=[command...]
+# arcalos:summary=Launch a terminal in the active terminal's current directory
+# arcalos:args=[command...]
 
-exec setsid uwsm-app -- xdg-terminal-exec --dir="$(omarchy-cmd-terminal-cwd)" "$@"
+exec setsid uwsm-app -- xdg-terminal-exec --dir="$(arcalos-cmd-terminal-cwd)" "$@"

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Set or toggle rounded Mako notification corners
-# omarchy:args=[toggle|sharp|round]
-# omarchy:examples=omarchy style corners mako toggle | omarchy style corners mako round | omarchy style corners mako sharp
+# arcalos:summary=Set or toggle rounded Mako notification corners
+# arcalos:args=[toggle|sharp|round]
+# arcalos:examples=arcalos style corners mako toggle | arcalos style corners mako round | arcalos style corners mako sharp
 
-TOGGLES_CONFIG="$HOME/.local/state/omarchy/toggles/mako.ini"
+TOGGLES_CONFIG="$HOME/.local/state/arcalos/toggles/mako.ini"
 
 set_radius() {
   local radius="$1"
@@ -30,7 +30,7 @@ case "${1:-toggle}" in
     fi
     ;;
   *)
-    echo "Usage: omarchy-style-corners-mako [toggle|sharp|round]"
+    echo "Usage: arcalos-style-corners-mako [toggle|sharp|round]"
     exit 1
     ;;
 esac

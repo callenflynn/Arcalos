@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# omarchy:summary=Restore the default Omarchy Plymouth boot theme and SDDM login screen
-# omarchy:requires-sudo=true
+# arcalos:summary=Restore the default arcalos Plymouth boot theme and SDDM login screen
+# arcalos:requires-sudo=true
 
-theme_dir="/usr/share/plymouth/themes/omarchy"
+theme_dir="/usr/share/plymouth/themes/arcalos"
 
-sudo find ~/.local/share/omarchy/default/plymouth -maxdepth 1 -type f -exec cp -t "$theme_dir/" {} +
-sudo plymouth-set-default-theme omarchy
+sudo find ~/.local/share/arcalos/default/plymouth -maxdepth 1 -type f -exec cp -t "$theme_dir/" {} +
+sudo plymouth-set-default-theme arcalos
 
-if omarchy-cmd-present limine-mkinitcpio; then
+if arcalos-cmd-present limine-mkinitcpio; then
   sudo limine-mkinitcpio
 else
   sudo mkinitcpio -P
 fi
 
-omarchy-refresh-sddm
+arcalos-refresh-sddm

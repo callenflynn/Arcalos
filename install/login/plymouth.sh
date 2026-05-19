@@ -1,4 +1,4 @@
-if [[ $(plymouth-set-default-theme) != "omarchy" ]]; then
-  sudo cp -r "$HOME/.local/share/omarchy/default/plymouth" /usr/share/plymouth/themes/omarchy/
-  sudo plymouth-set-default-theme omarchy
+if [[ $(plymouth-set-default-theme) != "arcalos" ]]; then
+  sudo cp -r "$HOME/.local/share/arcalos/default/plymouth" /usr/share/plymouth/themes/arcalos/
+  sudo plymouth-set-default-theme arcalos
 fi

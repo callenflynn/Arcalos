@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Remove Steam and all of its game libraries, configs, and caches.
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove Steam and all of its game libraries, configs, and caches.
+# arcalos:requires-sudo=true
 
 set -e
 
-omarchy-pkg-drop steam
+arcalos-pkg-drop steam
 
 rm -rf \
   "$HOME/.steam" \

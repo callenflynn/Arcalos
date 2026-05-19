@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Configure the system DNS provider
-# omarchy:args=[Cloudflare|Google|DHCP|Custom]
-# omarchy:requires-sudo=true
+# arcalos:summary=Configure the system DNS provider
+# arcalos:args=[Cloudflare|Google|DHCP|Custom]
+# arcalos:requires-sudo=true
 
 lock_dns_to_resolved() {
   for file in /etc/systemd/network/*.network; do

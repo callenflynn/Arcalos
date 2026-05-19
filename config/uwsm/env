@@ -1,11 +1,11 @@
 # Changes require a restart to take effect.
 
 # Ensure Arcalos bins are in the path
-export OMARCHY_PATH=$HOME/.local/share/omarchy
-export PATH=$OMARCHY_PATH/bin:$PATH:$HOME/.local/bin
+export ARCALOS_PATH=$HOME/.local/share/arcalos
+export PATH=$ARCALOS_PATH/bin:$PATH:$HOME/.local/bin
 
 # Set default terminal and editor
 source ~/.config/uwsm/default
 
 # Activate mise if present on the system
-omarchy-cmd-present mise && eval "$(mise activate bash --shims)"
+arcalos-cmd-present mise && eval "$(mise activate bash --shims)"

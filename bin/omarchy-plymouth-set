@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# omarchy:summary=Set the Plymouth boot theme colors and logo
-# omarchy:args=<background-hex> <text-hex> <path-to-logo.png>
-# omarchy:examples=omarchy plymouth set '#1d2021' '#ebdbb2' ~/.config/omarchy/current/theme/plymouth/logo.png
-# omarchy:requires-sudo=true
+# arcalos:summary=Set the Plymouth boot theme colors and logo
+# arcalos:args=<background-hex> <text-hex> <path-to-logo.png>
+# arcalos:examples=arcalos plymouth set '#1d2021' '#ebdbb2' ~/.config/arcalos/current/theme/plymouth/logo.png
+# arcalos:requires-sudo=true
 
 # Configure the Plymouth boot theme with a custom background color, text color, and logo.
 # Stages the change in a temp dir, then commits the staged files to /usr/share and
@@ -11,7 +11,7 @@
 # screen) with the same colors and logo so boot/login stay visually unified.
 
 if [[ $# -ne 3 ]]; then
-  echo "Usage: omarchy-plymouth-set <background-hex> <text-hex> <path-to-logo.png>" >&2
+  echo "Usage: arcalos-plymouth-set <background-hex> <text-hex> <path-to-logo.png>" >&2
   exit 1
 fi
 
@@ -38,34 +38,34 @@ bg_r=$(awk -v n=$((16#${bg_hex:0:2})) 'BEGIN{printf "%.3f", n/255}')
 bg_g=$(awk -v n=$((16#${bg_hex:2:2})) 'BEGIN{printf "%.3f", n/255}')
 bg_b=$(awk -v n=$((16#${bg_hex:4:2})) 'BEGIN{printf "%.3f", n/255}')
 
-theme_dir="/usr/share/plymouth/themes/omarchy"
+theme_dir="/usr/share/plymouth/themes/arcalos"
 staging_dir=$(mktemp -d)
 trap 'rm -rf "$staging_dir"' EXIT
 
-find ~/.local/share/omarchy/default/plymouth -maxdepth 1 -type f -exec cp -t "$staging_dir/" {} +
+find ~/.local/share/arcalos/default/plymouth -maxdepth 1 -type f -exec cp -t "$staging_dir/" {} +
 cp "$logo_path" "$staging_dir/logo.png"
 
 sed -i \
   -e "s/^Window.SetBackgroundTopColor.*/Window.SetBackgroundTopColor($bg_r, $bg_g, $bg_b);/" \
   -e "s/^Window.SetBackgroundBottomColor.*/Window.SetBackgroundBottomColor($bg_r, $bg_g, $bg_b);/" \
-  "$staging_dir/omarchy.script"
+  "$staging_dir/arcalos.script"
 
 for asset in bullet.png entry.png lock.png progress_bar.png; do
   magick "$staging_dir/$asset" -channel RGB +level-colors "#$text_hex","#$text_hex" "$staging_dir/$asset"
 done
 
 sudo cp -a "$staging_dir/." "$theme_dir/"
-sudo plymouth-set-default-theme omarchy
+sudo plymouth-set-default-theme arcalos
 
-if omarchy-cmd-present limine-mkinitcpio; then
+if arcalos-cmd-present limine-mkinitcpio; then
   sudo limine-mkinitcpio
 else
   sudo mkinitcpio -P
 fi
 
 # Sync the SDDM login screen with the same colors and logo.
-sddm_dir="/usr/share/sddm/themes/omarchy"
-sddm_template="$HOME/.local/share/omarchy/default/sddm/omarchy/Main.qml"
+sddm_dir="/usr/share/sddm/themes/arcalos"
+sddm_template="$HOME/.local/share/arcalos/default/sddm/arcalos/Main.qml"
 
 sed \
   -e "s/#1a1b26/#$bg_hex/g" \

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Remove all TUIs installed via omarchy-tui-install.
+# arcalos:summary=Remove all TUIs installed via arcalos-tui-install.
 
 set -e
 

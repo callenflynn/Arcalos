@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Launch the Omarchy Menu or takes a parameter to jump straight to a submenu.
+# arcalos:summary=Launch the arcalos Menu or takes a parameter to jump straight to a submenu.
 
 # Set to true when going directly to a submenu, so we can exit directly
 BACK_TO_EXIT=false
@@ -40,20 +40,20 @@ menu() {
     fi
   fi
 
-  echo -e "$options" | omarchy-launch-walker --dmenu --width 295 --minheight 1 --maxheight 630 -p "$prompt…" "${args[@]}" 2>/dev/null
+  echo -e "$options" | arcalos-launch-walker --dmenu --width 295 --minheight 1 --maxheight 630 -p "$prompt…" "${args[@]}" 2>/dev/null
 }
 
 terminal() {
-  xdg-terminal-exec --app-id=org.omarchy.terminal "$@"
+  xdg-terminal-exec --app-id=org.arcalos.terminal "$@"
 }
 
 present_terminal() {
-  omarchy-launch-floating-terminal-with-presentation $1
+  arcalos-launch-floating-terminal-with-presentation $1
 }
 
 open_in_editor() {
   notify-send -u low "Editing config file" "$1"
-  omarchy-launch-editor "$1"
+  arcalos-launch-editor "$1"
 }
 
 hypr_config_file() {
@@ -62,38 +62,38 @@ hypr_config_file() {
 }
 
 install() {
-  present_terminal "echo 'Installing $1...'; omarchy-pkg-add $2"
+  present_terminal "echo 'Installing $1...'; arcalos-pkg-add $2"
 }
 
 install_and_launch() {
-  present_terminal "echo 'Installing $1...'; omarchy-pkg-add $2 && setsid gtk-launch $3"
+  present_terminal "echo 'Installing $1...'; arcalos-pkg-add $2 && setsid gtk-launch $3"
 }
 
 install_font() {
-  present_terminal "echo 'Installing $1...'; omarchy-pkg-add $2 && sleep 2 && omarchy-font-set '$3'"
+  present_terminal "echo 'Installing $1...'; arcalos-pkg-add $2 && sleep 2 && arcalos-font-set '$3'"
 }
 
 install_terminal() {
-  present_terminal "omarchy-install-terminal $1"
+  present_terminal "arcalos-install-terminal $1"
 }
 
 aur_install() {
-  present_terminal "echo 'Installing $1 from AUR...'; omarchy-pkg-aur-add $2"
+  present_terminal "echo 'Installing $1 from AUR...'; arcalos-pkg-aur-add $2"
 }
 
 aur_install_and_launch() {
-  present_terminal "echo 'Installing $1 from AUR...'; omarchy-pkg-aur-add $2 && setsid gtk-launch $3"
+  present_terminal "echo 'Installing $1 from AUR...'; arcalos-pkg-aur-add $2 && setsid gtk-launch $3"
 }
 
 show_learn_menu() {
-  case $(menu "Learn" "  Keybindings\n  Tmux keybindings\n  Omarchy\n  Hyprland\n󰣇  Arch\n  Neovim\n󱆃  Bash") in
-  *Tmux*) omarchy-menu-tmux-keybindings ;;
-  *Keybindings*) omarchy-menu-keybindings ;;
-  *Omarchy*) omarchy-launch-webapp "https://learn.omacom.io/2/the-omarchy-manual" ;;
-  *Hyprland*) omarchy-launch-webapp "https://wiki.hypr.land/" ;;
-  *Arch*) omarchy-launch-webapp "https://wiki.archlinux.org/title/Main_page" ;;
-  *Bash*) omarchy-launch-webapp "https://devhints.io/bash" ;;
-  *Neovim*) omarchy-launch-webapp "https://www.lazyvim.org/keymaps" ;;
+  case $(menu "Learn" "  Keybindings\n  Tmux keybindings\n  arcalos\n  Hyprland\n󰣇  Arch\n  Neovim\n󱆃  Bash") in
+  *Tmux*) arcalos-menu-tmux-keybindings ;;
+  *Keybindings*) arcalos-menu-keybindings ;;
+  *arcalos*) arcalos-launch-webapp "https://learn.omacom.io/2/the-arcalos-manual" ;;
+  *Hyprland*) arcalos-launch-webapp "https://wiki.hypr.land/" ;;
+  *Arch*) arcalos-launch-webapp "https://wiki.archlinux.org/title/Main_page" ;;
+  *Bash*) arcalos-launch-webapp "https://devhints.io/bash" ;;
+  *Neovim*) arcalos-launch-webapp "https://www.lazyvim.org/keymaps" ;;
   *) show_main_menu ;;
   esac
 }
@@ -102,7 +102,7 @@ show_trigger_menu() {
   case $(menu "Trigger" "󰔛  Reminder\n  Capture\n󰧸  Transcode\n  Share\n󰔎  Toggle\n  Hardware") in
   *Reminder*) show_reminder_menu ;;
   *Capture*) show_capture_menu ;;
-  *Transcode*) omarchy-transcode || back_to show_trigger_menu ;;
+  *Transcode*) arcalos-transcode || back_to show_trigger_menu ;;
   *Share*) show_share_menu ;;
   *Toggle*) show_toggle_menu ;;
   *Hardware*) show_hardware_menu ;;
@@ -113,20 +113,20 @@ show_trigger_menu() {
 show_reminder_menu() {
   case $(menu "Reminder" "󰔛  Set one\n󰔛  Show all\n󰔛  Clear all") in
   *Set*) show_custom_reminder_input ;;
-  *"Show all"*) omarchy-reminder show ;;
-  *"Clear all"*) omarchy-reminder clear ;;
+  *"Show all"*) arcalos-reminder show ;;
+  *"Clear all"*) arcalos-reminder clear ;;
   *) back_to show_trigger_menu ;;
   esac
 }
 
 show_custom_reminder_input() {
   local minutes
-  minutes=$(omarchy-menu-input "Remind in minutes")
+  minutes=$(arcalos-menu-input "Remind in minutes")
 
   if [[ $minutes =~ ^[0-9]+$ ]] && ((minutes > 0)); then
     show_reminder_message_input "$minutes"
   elif [[ -n $minutes ]]; then
-    omarchy-notification-send -g 󰔛 "Invalid reminder" "Enter the number of minutes" -u critical
+    arcalos-notification-send -g 󰔛 "Invalid reminder" "Enter the number of minutes" -u critical
     show_custom_reminder_input
   else
     back_to show_reminder_menu
@@ -136,20 +136,20 @@ show_custom_reminder_input() {
 show_reminder_message_input() {
   local minutes="$1"
   local message
-  message=$(omarchy-menu-input "Reminder message")
+  message=$(arcalos-menu-input "Reminder message")
 
   if [[ -n $message ]]; then
-    omarchy-reminder "$minutes" "$message"
+    arcalos-reminder "$minutes" "$message"
   else
-    omarchy-reminder "$minutes"
+    arcalos-reminder "$minutes"
   fi
 }
 
 show_capture_menu() {
   case $(menu "Capture" "  Screenshot\n  Screenrecord\n󰴑  Text Extraction\n󰃉  Color") in
-  *Screenshot*) omarchy-capture-screenshot ;;
+  *Screenshot*) arcalos-capture-screenshot ;;
   *Screenrecord*) show_screenrecord_menu ;;
-  *Text*) omarchy-capture-text-extraction ;;
+  *Text*) arcalos-capture-text-extraction ;;
   *Color*) pkill hyprpicker || hyprpicker -a ;;
   *) back_to show_trigger_menu ;;
   esac
@@ -183,18 +183,18 @@ show_webcam_select_menu() {
 }
 
 show_screenrecord_menu() {
-  omarchy-capture-screenrecording --stop-recording && exit 0
+  arcalos-capture-screenrecording --stop-recording && exit 0
 
   case $(menu "Screenrecord" "  With no audio\n  With desktop audio\n  With desktop + microphone audio\n  With desktop + microphone audio + webcam") in
-  *"With no audio") omarchy-capture-screenrecording ;;
-  *"With desktop audio") omarchy-capture-screenrecording --with-desktop-audio ;;
-  *"With desktop + microphone audio") omarchy-capture-screenrecording --with-desktop-audio --with-microphone-audio ;;
+  *"With no audio") arcalos-capture-screenrecording ;;
+  *"With desktop audio") arcalos-capture-screenrecording --with-desktop-audio ;;
+  *"With desktop + microphone audio") arcalos-capture-screenrecording --with-desktop-audio --with-microphone-audio ;;
   *"With desktop + microphone audio + webcam")
     local device=$(show_webcam_select_menu) || {
       back_to show_capture_menu
       return
     }
-    omarchy-capture-screenrecording --with-desktop-audio --with-microphone-audio --with-webcam --webcam-device="$device"
+    arcalos-capture-screenrecording --with-desktop-audio --with-microphone-audio --with-webcam --webcam-device="$device"
     ;;
   *) back_to show_capture_menu ;;
   esac
@@ -203,9 +203,9 @@ show_screenrecord_menu() {
 show_share_menu() {
   case $(menu "Share" "  Clipboard\n  File \n  Folder\n󰥦  Receive") in
   *Receive*) uwsm-app -- localsend ;;
-  *Clipboard*) omarchy-menu-share clipboard ;;
-  *File*) terminal bash -c "omarchy-menu-share file" ;;
-  *Folder*) terminal bash -c "omarchy-menu-share folder" ;;
+  *Clipboard*) arcalos-menu-share clipboard ;;
+  *File*) terminal bash -c "arcalos-menu-share file" ;;
+  *Folder*) terminal bash -c "arcalos-menu-share folder" ;;
   *) back_to show_trigger_menu ;;
   esac
 }
@@ -214,17 +214,17 @@ show_toggle_menu() {
   local options="󱄄  Screensaver\n󰔎  Nightlight\n󱫖  Idle Lock\n󰂛  Notifications\n󰍜  Top Bar\n󱂬  Workspace Layout\n  Window Gaps\n  1-Window Ratio\n󰍹  Monitor Scaling\n  Direct Boot\n󰟵  Passwordless Sudo"
 
   case $(menu "Toggle" "$options") in
-  *Screensaver*) omarchy-toggle-screensaver ;;
-  *Nightlight*) omarchy-toggle-nightlight ;;
-  *Idle*) omarchy-toggle-idle ;;
-  *Notifications*) omarchy-toggle-notification-silencing ;;
-  *Bar*) omarchy-toggle-waybar ;;
-  *Layout*) omarchy-hyprland-workspace-layout-toggle ;;
-  *Ratio*) omarchy-hyprland-window-single-square-aspect-toggle ;;
-  *Gaps*) omarchy-hyprland-window-gaps-toggle ;;
-  *Scaling*) omarchy-hyprland-monitor-scaling-cycle ;;
-  *"Direct Boot"*) present_terminal omarchy-config-direct-boot ;;
-  *"Passwordless Sudo"*) present_terminal omarchy-sudo-passwordless ;;
+  *Screensaver*) arcalos-toggle-screensaver ;;
+  *Nightlight*) arcalos-toggle-nightlight ;;
+  *Idle*) arcalos-toggle-idle ;;
+  *Notifications*) arcalos-toggle-notification-silencing ;;
+  *Bar*) arcalos-toggle-waybar ;;
+  *Layout*) arcalos-hyprland-workspace-layout-toggle ;;
+  *Ratio*) arcalos-hyprland-window-single-square-aspect-toggle ;;
+  *Gaps*) arcalos-hyprland-window-gaps-toggle ;;
+  *Scaling*) arcalos-hyprland-monitor-scaling-cycle ;;
+  *"Direct Boot"*) present_terminal arcalos-config-direct-boot ;;
+  *"Passwordless Sudo"*) present_terminal arcalos-sudo-passwordless ;;
   *) back_to show_trigger_menu ;;
   esac
 }
@@ -232,29 +232,29 @@ show_toggle_menu() {
 show_hardware_menu() {
   local options="󰛧  Laptop Display\n 󰍹  Mirror Display"
 
-  if omarchy-hw-hybrid-gpu; then
+  if arcalos-hw-hybrid-gpu; then
     options="$options\n  Hybrid GPU"
   fi
 
-  if omarchy-hw-touchpad; then
+  if arcalos-hw-touchpad; then
     options="$options\n󰟸  Touchpad"
   fi
 
-  if omarchy-hw-dell-xps-haptic-touchpad && omarchy-cmd-present dell-xps-touchpad-haptics; then
+  if arcalos-hw-dell-xps-haptic-touchpad && arcalos-cmd-present dell-xps-touchpad-haptics; then
     options="$options\n󰌌  Touchpad Haptics"
   fi
 
-  if omarchy-hw-touchscreen; then
+  if arcalos-hw-touchscreen; then
     options="$options\n󰆽  Touchscreen"
   fi
 
   case $(menu "Toggle" "$options") in
-  *Laptop*) omarchy-hyprland-monitor-internal toggle ;;
-  *Mirror*) omarchy-hyprland-monitor-internal-mirror toggle ;;
+  *Laptop*) arcalos-hyprland-monitor-internal toggle ;;
+  *Mirror*) arcalos-hyprland-monitor-internal-mirror toggle ;;
   *Haptics*) show_hardware_touchpad_haptics_menu ;;
-  *Touchpad*) omarchy-toggle-touchpad ;;
-  *Touchscreen*) omarchy-toggle-touchscreen ;;
-  *"Hybrid GPU"*) present_terminal omarchy-toggle-hybrid-gpu ;;
+  *Touchpad*) arcalos-toggle-touchpad ;;
+  *Touchscreen*) arcalos-toggle-touchscreen ;;
+  *"Hybrid GPU"*) present_terminal arcalos-toggle-hybrid-gpu ;;
   *) back_to show_trigger_menu ;;
   esac
 }
@@ -274,7 +274,7 @@ show_style_menu() {
   case $(menu "Style" "󰸌  Theme\n󰟵  Unlock\n  Font\n  Background\n󰍜  Waybar\n󰘇  Corners\n  Hyprland\n󱄄  Screensaver\n  About") in
 
   *Theme*) show_theme_menu ;;
-  *Unlock*) omarchy-launch-walker -m menus:omarchyunlocks --width 800 --minheight 400 ;;
+  *Unlock*) arcalos-launch-walker -m menus:arcalosunlocks --width 800 --minheight 400 ;;
   *Font*) show_font_menu ;;
   *Background*) show_background_menu ;;
   *Corners*) show_style_corners_menu ;;
@@ -287,57 +287,57 @@ show_style_menu() {
 }
 
 show_style_corners_menu() {
-  case $(omarchy-menu-select "Corners" "󰝣  Sharp" "󰘇  Round") in
-  *Sharp*) omarchy-style-corners sharp ;;
-  *Round*) omarchy-style-corners round ;;
+  case $(arcalos-menu-select "Corners" "󰝣  Sharp" "󰘇  Round") in
+  *Sharp*) arcalos-style-corners sharp ;;
+  *Round*) arcalos-style-corners round ;;
   *) show_style_menu ;;
   esac
 }
 
 show_waybar_position_menu() {
   case $(menu "Waybar Position" "󰁝  Top\n󰁅  Bottom\n󰁍  Left\n󰁔  Right") in
-  *Top*) omarchy-style-waybar-position top ;;
-  *Bottom*) omarchy-style-waybar-position bottom ;;
-  *Left*) omarchy-style-waybar-position left ;;
-  *Right*) omarchy-style-waybar-position right ;;
+  *Top*) arcalos-style-waybar-position top ;;
+  *Bottom*) arcalos-style-waybar-position bottom ;;
+  *Left*) arcalos-style-waybar-position left ;;
+  *Right*) arcalos-style-waybar-position right ;;
   *) show_style_menu ;;
   esac
 }
 
 show_about_menu() {
   case $(menu "About" "  Edit Text\n  Set From Image\n  Restore Default") in
-  *Text*) omarchy-branding-about text ;;
-  *Image*) omarchy-branding-about image ;;
-  *Default*) omarchy-branding-about reset ;;
+  *Text*) arcalos-branding-about text ;;
+  *Image*) arcalos-branding-about image ;;
+  *Default*) arcalos-branding-about reset ;;
   *) show_style_menu ;;
   esac
 }
 
 show_screensaver_menu() {
   case $(menu "Screensaver" "  Edit Text\n  Set From Image\n  Restore Default") in
-  *Text*) omarchy-branding-screensaver text ;;
-  *Image*) omarchy-branding-screensaver image ;;
-  *Default*) omarchy-branding-screensaver reset ;;
+  *Text*) arcalos-branding-screensaver text ;;
+  *Image*) arcalos-branding-screensaver image ;;
+  *Default*) arcalos-branding-screensaver reset ;;
   *) show_style_menu ;;
   esac
 }
 
 show_theme_menu() {
-  theme=$(omarchy-theme-switcher)
-  [[ -n $theme ]] && omarchy-theme-set "$theme"
+  theme=$(arcalos-theme-switcher)
+  [[ -n $theme ]] && arcalos-theme-set "$theme"
 }
 
 show_background_menu() {
-  background=$(omarchy-theme-bg-switcher)
-  [[ -n $background ]] && omarchy-theme-bg-set "$background"
+  background=$(arcalos-theme-bg-switcher)
+  [[ -n $background ]] && arcalos-theme-bg-set "$background"
 }
 
 show_font_menu() {
-  theme=$(menu "Font" "$(omarchy-font-list)" "--width 350" "$(omarchy-font-current)")
+  theme=$(menu "Font" "$(arcalos-font-list)" "--width 350" "$(arcalos-font-current)")
   if [[ $theme == "CNCLD" || -z $theme ]]; then
     back_to show_style_menu
   else
-    omarchy-font-set "$theme"
+    arcalos-font-set "$theme"
   fi
 }
 
@@ -348,16 +348,16 @@ show_setup_menu() {
   options="$options\n  Defaults\n󰱔  DNS\n  Security\n  Config"
 
   case $(menu "Setup" "$options") in
-  *Audio*) omarchy-launch-audio ;;
-  *Wifi*) omarchy-launch-wifi ;;
-  *Bluetooth*) omarchy-launch-bluetooth ;;
+  *Audio*) arcalos-launch-audio ;;
+  *Wifi*) arcalos-launch-wifi ;;
+  *Bluetooth*) arcalos-launch-bluetooth ;;
   *Power*) show_setup_power_menu ;;
   *System*) show_setup_system_menu ;;
   *Monitors*) open_in_editor "$(hypr_config_file monitors)" ;;
   *Keybindings*) open_in_editor "$(hypr_config_file bindings)" ;;
   *Input*) open_in_editor "$(hypr_config_file input)" ;;
   *Defaults*) show_setup_default_menu ;;
-  *DNS*) present_terminal omarchy-setup-dns ;;
+  *DNS*) present_terminal arcalos-setup-dns ;;
   *Security*) show_setup_security_menu ;;
   *Config*) show_setup_config_menu ;;
   *) show_main_menu ;;
@@ -365,7 +365,7 @@ show_setup_menu() {
 }
 
 show_setup_power_menu() {
-  profile=$(menu "Power Profile" "$(omarchy-powerprofiles-list)" "" "$(powerprofilesctl get)")
+  profile=$(menu "Power Profile" "$(arcalos-powerprofiles-list)" "" "$(powerprofilesctl get)")
 
   if [[ $profile == "CNCLD" || -z $profile ]]; then
     back_to show_setup_menu
@@ -376,8 +376,8 @@ show_setup_power_menu() {
 
 show_setup_security_menu() {
   case $(menu "Setup" "󰈷  Fingerprint\n  Fido2") in
-  *Fingerprint*) present_terminal omarchy-setup-security-fingerprint ;;
-  *Fido2*) present_terminal omarchy-setup-security-fido2 ;;
+  *Fingerprint*) present_terminal arcalos-setup-security-fingerprint ;;
+  *Fido2*) present_terminal arcalos-setup-security-fido2 ;;
   *) show_setup_menu ;;
   esac
 }
@@ -406,7 +406,7 @@ show_setup_default_browser_menu() {
   browser_desktop_exists zen.desktop && options="${options:+$options\n}󰖟  Zen"
 
   local current=""
-  case "$(omarchy-default-browser)" in
+  case "$(arcalos-default-browser)" in
   chromium) current="  Chromium" ;;
   chrome) current="󰊯  Chrome" ;;
   brave) current="󰖟  Brave" ;;
@@ -417,26 +417,26 @@ show_setup_default_browser_menu() {
   esac
 
   case $(menu "Default Browser" "$options" "" "$current") in
-  *Chromium*) omarchy-default-browser chromium ;;
-  *Chrome*) omarchy-default-browser chrome ;;
-  *"Brave Origin"*) omarchy-default-browser brave-origin ;;
-  *Brave*) omarchy-default-browser brave ;;
-  *Edge*) omarchy-default-browser edge ;;
-  *Firefox*) omarchy-default-browser firefox ;;
-  *Zen*) omarchy-default-browser zen ;;
+  *Chromium*) arcalos-default-browser chromium ;;
+  *Chrome*) arcalos-default-browser chrome ;;
+  *"Brave Origin"*) arcalos-default-browser brave-origin ;;
+  *Brave*) arcalos-default-browser brave ;;
+  *Edge*) arcalos-default-browser edge ;;
+  *Firefox*) arcalos-default-browser firefox ;;
+  *Zen*) arcalos-default-browser zen ;;
   *) show_setup_default_menu ;;
   esac
 }
 
 show_setup_default_terminal_menu() {
   local options=""
-  omarchy-cmd-present alacritty && options="$options  Alacritty"
-  omarchy-cmd-present foot && options="${options:+$options\n}  Foot"
-  omarchy-cmd-present ghostty && options="${options:+$options\n}  Ghostty"
-  omarchy-cmd-present kitty && options="${options:+$options\n}  Kitty"
+  arcalos-cmd-present alacritty && options="$options  Alacritty"
+  arcalos-cmd-present foot && options="${options:+$options\n}  Foot"
+  arcalos-cmd-present ghostty && options="${options:+$options\n}  Ghostty"
+  arcalos-cmd-present kitty && options="${options:+$options\n}  Kitty"
 
   local current=""
-  case "$(omarchy-default-terminal)" in
+  case "$(arcalos-default-terminal)" in
   alacritty) current="  Alacritty" ;;
   foot) current="  Foot" ;;
   ghostty) current="  Ghostty" ;;
@@ -444,27 +444,27 @@ show_setup_default_terminal_menu() {
   esac
 
   case $(menu "Default Terminal" "$options" "" "$current") in
-  *Alacritty*) omarchy-default-terminal alacritty ;;
-  *Foot*) omarchy-default-terminal foot ;;
-  *Ghostty*) omarchy-default-terminal ghostty ;;
-  *Kitty*) omarchy-default-terminal kitty ;;
+  *Alacritty*) arcalos-default-terminal alacritty ;;
+  *Foot*) arcalos-default-terminal foot ;;
+  *Ghostty*) arcalos-default-terminal ghostty ;;
+  *Kitty*) arcalos-default-terminal kitty ;;
   *) show_setup_default_menu ;;
   esac
 }
 
 show_setup_default_editor_menu() {
   local options=""
-  omarchy-cmd-present nvim && options="$options  Neovim"
-  omarchy-cmd-present code && options="${options:+$options\n}  VSCode"
-  omarchy-cmd-present cursor && options="${options:+$options\n}  Cursor"
-  omarchy-cmd-present zeditor && options="${options:+$options\n}  Zed"
-  omarchy-cmd-present sublime_text && options="${options:+$options\n}  Sublime Text"
-  omarchy-cmd-present helix && options="${options:+$options\n}  Helix"
-  omarchy-cmd-present vim && options="${options:+$options\n}  Vim"
-  omarchy-cmd-present emacs && options="${options:+$options\n}  Emacs"
+  arcalos-cmd-present nvim && options="$options  Neovim"
+  arcalos-cmd-present code && options="${options:+$options\n}  VSCode"
+  arcalos-cmd-present cursor && options="${options:+$options\n}  Cursor"
+  arcalos-cmd-present zeditor && options="${options:+$options\n}  Zed"
+  arcalos-cmd-present sublime_text && options="${options:+$options\n}  Sublime Text"
+  arcalos-cmd-present helix && options="${options:+$options\n}  Helix"
+  arcalos-cmd-present vim && options="${options:+$options\n}  Vim"
+  arcalos-cmd-present emacs && options="${options:+$options\n}  Emacs"
 
   local current=""
-  case "$(omarchy-default-editor)" in
+  case "$(arcalos-default-editor)" in
   nvim) current="  Neovim" ;;
   code) current="  VSCode" ;;
   cursor) current="  Cursor" ;;
@@ -476,14 +476,14 @@ show_setup_default_editor_menu() {
   esac
 
   case $(menu "Default Editor" "$options" "" "$current") in
-  *Neovim*) omarchy-default-editor nvim ;;
-  *VSCode*) omarchy-default-editor code ;;
-  *Cursor*) omarchy-default-editor cursor ;;
-  *Zed*) omarchy-default-editor zed ;;
-  *Sublime*) omarchy-default-editor sublime_text ;;
-  *Helix*) omarchy-default-editor helix ;;
-  *Vim*) omarchy-default-editor vim ;;
-  *Emacs*) omarchy-default-editor emacs ;;
+  *Neovim*) arcalos-default-editor nvim ;;
+  *VSCode*) arcalos-default-editor code ;;
+  *Cursor*) arcalos-default-editor cursor ;;
+  *Zed*) arcalos-default-editor zed ;;
+  *Sublime*) arcalos-default-editor sublime_text ;;
+  *Helix*) arcalos-default-editor helix ;;
+  *Vim*) arcalos-default-editor vim ;;
+  *Emacs*) arcalos-default-editor emacs ;;
   *) show_setup_default_menu ;;
   esac
 }
@@ -491,13 +491,13 @@ show_setup_default_editor_menu() {
 show_setup_config_menu() {
   case $(menu "Setup" "  Hyprland\n  Hypridle\n  Hyprlock\n  Hyprsunset\n  Swayosd\n󰌧  Walker\n󰍜  Waybar\n󰞅  XCompose") in
   *Hyprland*) open_in_editor "$(hypr_config_file hyprland)" ;;
-  *Hypridle*) open_in_editor ~/.config/hypr/hypridle.conf && omarchy-restart-hypridle ;;
+  *Hypridle*) open_in_editor ~/.config/hypr/hypridle.conf && arcalos-restart-hypridle ;;
   *Hyprlock*) open_in_editor ~/.config/hypr/hyprlock.conf ;;
-  *Hyprsunset*) open_in_editor ~/.config/hypr/hyprsunset.conf && omarchy-restart-hyprsunset ;;
-  *Swayosd*) open_in_editor ~/.config/swayosd/config.toml && omarchy-restart-swayosd ;;
-  *Walker*) open_in_editor ~/.config/walker/config.toml && omarchy-restart-walker ;;
-  *Waybar*) open_in_editor ~/.config/waybar/config.jsonc && omarchy-restart-waybar ;;
-  *XCompose*) open_in_editor ~/.XCompose && omarchy-restart-xcompose ;;
+  *Hyprsunset*) open_in_editor ~/.config/hypr/hyprsunset.conf && arcalos-restart-hyprsunset ;;
+  *Swayosd*) open_in_editor ~/.config/swayosd/config.toml && arcalos-restart-swayosd ;;
+  *Walker*) open_in_editor ~/.config/walker/config.toml && arcalos-restart-walker ;;
+  *Waybar*) open_in_editor ~/.config/waybar/config.jsonc && arcalos-restart-waybar ;;
+  *XCompose*) open_in_editor ~/.XCompose && arcalos-restart-xcompose ;;
   *) show_setup_menu ;;
   esac
 }
@@ -505,32 +505,32 @@ show_setup_config_menu() {
 show_setup_system_menu() {
   local options=""
 
-  if omarchy-toggle-enabled suspend-off; then
+  if arcalos-toggle-enabled suspend-off; then
     options="$options󰒲  Enable Suspend"
   else
     options="$options󰒲  Disable Suspend"
   fi
 
-  if omarchy-hibernation-available; then
+  if arcalos-hibernation-available; then
     options="$options\n󰤁  Disable Hibernate"
   else
     options="$options\n󰤁  Enable Hibernate"
   fi
 
   case $(menu "System" "$options") in
-  *Suspend*) omarchy-toggle-suspend ;;
-  *"Enable Hibernate"*) present_terminal omarchy-hibernation-setup ;;
-  *"Disable Hibernate"*) present_terminal omarchy-hibernation-remove ;;
+  *Suspend*) arcalos-toggle-suspend ;;
+  *"Enable Hibernate"*) present_terminal arcalos-hibernation-setup ;;
+  *"Disable Hibernate"*) present_terminal arcalos-hibernation-remove ;;
   *) show_setup_menu ;;
   esac
 }
 
 show_install_menu() {
   case $(menu "Install" "󰣇  Package\n󰣇  AUR\n  Web App\n  TUI\n  Service\n  Style\n󰵮  Development\n  Editor\n  Terminal\n  Browser\n󱚤  AI\n  Gaming\n󰍲  Windows") in
-  *Package*) terminal omarchy-pkg-install ;;
-  *AUR*) terminal omarchy-pkg-aur-install ;;
-  *Web*) present_terminal omarchy-webapp-install ;;
-  *TUI*) present_terminal omarchy-tui-install ;;
+  *Package*) terminal arcalos-pkg-install ;;
+  *AUR*) terminal arcalos-pkg-aur-install ;;
+  *Web*) present_terminal arcalos-webapp-install ;;
+  *TUI*) present_terminal arcalos-tui-install ;;
   *Service*) show_install_service_menu ;;
   *Style*) show_install_style_menu ;;
   *Development*) show_install_development_menu ;;
@@ -539,43 +539,43 @@ show_install_menu() {
   *Browser*) show_install_browser_menu ;;
   *Gaming*) show_install_gaming_menu ;;
   *AI*) show_install_ai_menu ;;
-  *Windows*) present_terminal "omarchy-windows-vm install" ;;
+  *Windows*) present_terminal "arcalos-windows-vm install" ;;
   *) show_main_menu ;;
   esac
 }
 
 show_install_browser_menu() {
   case $(menu "Install" "  Chrome\n  Edge\n  Brave\n  Brave Origin\n  Firefox\n󰖟  Zen") in
-  *Chrome*) present_terminal "omarchy-install-browser chrome" ;;
-  *Edge*) present_terminal "omarchy-install-browser edge" ;;
-  *"Brave Origin"*) present_terminal "omarchy-install-browser brave-origin" ;;
-  *Brave*) present_terminal "omarchy-install-browser brave" ;;
-  *Firefox*) present_terminal "omarchy-install-browser firefox" ;;
-  *Zen*) present_terminal "omarchy-install-browser zen" ;;
+  *Chrome*) present_terminal "arcalos-install-browser chrome" ;;
+  *Edge*) present_terminal "arcalos-install-browser edge" ;;
+  *"Brave Origin"*) present_terminal "arcalos-install-browser brave-origin" ;;
+  *Brave*) present_terminal "arcalos-install-browser brave" ;;
+  *Firefox*) present_terminal "arcalos-install-browser firefox" ;;
+  *Zen*) present_terminal "arcalos-install-browser zen" ;;
   *) show_install_menu ;;
   esac
 }
 
 show_install_service_menu() {
   case $(menu "Install" "  Dropbox\n  Tailscale\n󱇱  NordVPN [AUR]\n󰏖  ONCE\n☀  Sunshine\n󰟵  Bitwarden\n  Chromium Account") in
-  *Dropbox*) present_terminal omarchy-install-dropbox ;;
-  *Tailscale*) present_terminal omarchy-install-tailscale ;;
-  *NordVPN*) present_terminal omarchy-install-nordvpn ;;
-  *ONCE*) present_terminal omarchy-install-once ;;
-  *Sunshine*) present_terminal omarchy-install-service-sunshine ;;
+  *Dropbox*) present_terminal arcalos-install-dropbox ;;
+  *Tailscale*) present_terminal arcalos-install-tailscale ;;
+  *NordVPN*) present_terminal arcalos-install-nordvpn ;;
+  *ONCE*) present_terminal arcalos-install-once ;;
+  *Sunshine*) present_terminal arcalos-install-service-sunshine ;;
   *Bitwarden*) install_and_launch "Bitwarden" "bitwarden bitwarden-cli" "bitwarden" ;;
-  *Chromium*) present_terminal omarchy-install-chromium-google-account ;;
+  *Chromium*) present_terminal arcalos-install-chromium-google-account ;;
   *) show_install_menu ;;
   esac
 }
 
 show_install_editor_menu() {
   case $(menu "Install" "  VSCode\n  Cursor\n  Zed\n  Sublime Text\n  Helix\n  Vim\n  Emacs") in
-  *VSCode*) present_terminal omarchy-install-vscode ;;
+  *VSCode*) present_terminal arcalos-install-vscode ;;
   *Cursor*) install_and_launch "Cursor" "cursor-bin" "cursor" ;;
-  *Zed*) present_terminal omarchy-install-zed ;;
+  *Zed*) present_terminal arcalos-install-zed ;;
   *Sublime*) install_and_launch "Sublime Text" "sublime-text-4" "sublime_text" ;;
-  *Helix*) present_terminal omarchy-install-helix ;;
+  *Helix*) present_terminal arcalos-install-helix ;;
   *Vim*) install "Vim" "vim" ;;
   *Emacs*) install "Emacs" "emacs-wayland" && systemctl --user enable --now emacs.service ;;
   *) show_install_menu ;;
@@ -594,13 +594,13 @@ show_install_terminal_menu() {
 
 show_install_ai_menu() {
   ollama_pkg=$(
-    (omarchy-cmd-present nvidia-smi && echo ollama-cuda) ||
-      (omarchy-cmd-present rocminfo && echo ollama-rocm) ||
+    (arcalos-cmd-present nvidia-smi && echo ollama-cuda) ||
+      (arcalos-cmd-present rocminfo && echo ollama-rocm) ||
       echo ollama
   )
 
   case $(menu "Install" "  Dictation\n󱚤  LM Studio\n󱚤  Ollama\n󱚤  Crush") in
-  *Dictation*) present_terminal omarchy-voxtype-install ;;
+  *Dictation*) present_terminal arcalos-voxtype-install ;;
   *Studio*) install "LM Studio" "lmstudio-bin" ;;
   *Ollama*) install "Ollama" $ollama_pkg ;;
   *Crush*) install "Crush" "crush-bin" ;;
@@ -610,24 +610,24 @@ show_install_ai_menu() {
 
 show_install_gaming_menu() {
   case $(menu "Install" "  Steam\n󰯉  RetroArch\n󰍳  Minecraft\n󰢹  NVIDIA GeForce NOW\n  Xbox Cloud Gaming\n󰂯  Xbox Controller\n󰍹  Moonlight (GameStream)\n  Lutris (Battle.net)\n󱓟  Heroic (Epic Games)\n󰯉  RetroArch Game Launcher") in
-  *Steam*) present_terminal omarchy-install-gaming-steam ;;
-  *"RetroArch Game Launcher"*) omarchy-games-retro-install ;;
-  *RetroArch*) present_terminal omarchy-install-gaming-retroarch ;;
+  *Steam*) present_terminal arcalos-install-gaming-steam ;;
+  *"RetroArch Game Launcher"*) arcalos-games-retro-install ;;
+  *RetroArch*) present_terminal arcalos-install-gaming-retroarch ;;
   *Minecraft*) install_and_launch "Minecraft" "minecraft-launcher" "minecraft-launcher" ;;
-  *GeForce*) present_terminal omarchy-install-gaming-geforce-now ;;
-  *"Xbox Cloud"*) present_terminal omarchy-install-gaming-xbox-cloud ;;
-  *Xbox*) present_terminal omarchy-install-gaming-xbox-controllers ;;
-  *Lutris*) present_terminal omarchy-install-gaming-lutris ;;
-  *Heroic*) present_terminal omarchy-install-gaming-heroic ;;
-  *Moonlight*) present_terminal omarchy-install-gaming-moonlight ;;
+  *GeForce*) present_terminal arcalos-install-gaming-geforce-now ;;
+  *"Xbox Cloud"*) present_terminal arcalos-install-gaming-xbox-cloud ;;
+  *Xbox*) present_terminal arcalos-install-gaming-xbox-controllers ;;
+  *Lutris*) present_terminal arcalos-install-gaming-lutris ;;
+  *Heroic*) present_terminal arcalos-install-gaming-heroic ;;
+  *Moonlight*) present_terminal arcalos-install-gaming-moonlight ;;
   *) show_install_menu ;;
   esac
 }
 
 show_install_style_menu() {
   case $(menu "Install" "󰸌  Theme\n  Background\n  Font") in
-  *Theme*) present_terminal omarchy-theme-install ;;
-  *Background*) omarchy-theme-bg-install ;;
+  *Theme*) present_terminal arcalos-theme-install ;;
+  *Background*) arcalos-theme-bg-install ;;
   *Font*) show_install_font_menu ;;
   *) show_install_menu ;;
   esac
@@ -647,62 +647,62 @@ show_install_font_menu() {
 
 show_install_development_menu() {
   case $(menu "Install" "󰫏  Ruby on Rails\n  Docker DB\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure\n  Scala") in
-  *Rails*) present_terminal "omarchy-install-dev-env ruby" ;;
-  *Docker*) present_terminal omarchy-install-docker-dbs ;;
+  *Rails*) present_terminal "arcalos-install-dev-env ruby" ;;
+  *Docker*) present_terminal arcalos-install-docker-dbs ;;
   *JavaScript*) show_install_javascript_menu ;;
-  *Go*) present_terminal "omarchy-install-dev-env go" ;;
+  *Go*) present_terminal "arcalos-install-dev-env go" ;;
   *PHP*) show_install_php_menu ;;
-  *Python*) present_terminal "omarchy-install-dev-env python" ;;
+  *Python*) present_terminal "arcalos-install-dev-env python" ;;
   *Elixir*) show_install_elixir_menu ;;
-  *Zig*) present_terminal "omarchy-install-dev-env zig" ;;
-  *Rust*) present_terminal "omarchy-install-dev-env rust" ;;
-  *Java*) present_terminal "omarchy-install-dev-env java" ;;
-  *NET*) present_terminal "omarchy-install-dev-env dotnet" ;;
-  *OCaml*) present_terminal "omarchy-install-dev-env ocaml" ;;
-  *Clojure*) present_terminal "omarchy-install-dev-env clojure" ;;
-  *Scala*) present_terminal "omarchy-install-dev-env scala" ;;
+  *Zig*) present_terminal "arcalos-install-dev-env zig" ;;
+  *Rust*) present_terminal "arcalos-install-dev-env rust" ;;
+  *Java*) present_terminal "arcalos-install-dev-env java" ;;
+  *NET*) present_terminal "arcalos-install-dev-env dotnet" ;;
+  *OCaml*) present_terminal "arcalos-install-dev-env ocaml" ;;
+  *Clojure*) present_terminal "arcalos-install-dev-env clojure" ;;
+  *Scala*) present_terminal "arcalos-install-dev-env scala" ;;
   *) show_install_menu ;;
   esac
 }
 
 show_install_javascript_menu() {
   case $(menu "Install" "  Node.js\n  Bun\n  Deno") in
-  *Node*) present_terminal "omarchy-install-dev-env node" ;;
-  *Bun*) present_terminal "omarchy-install-dev-env bun" ;;
-  *Deno*) present_terminal "omarchy-install-dev-env deno" ;;
+  *Node*) present_terminal "arcalos-install-dev-env node" ;;
+  *Bun*) present_terminal "arcalos-install-dev-env bun" ;;
+  *Deno*) present_terminal "arcalos-install-dev-env deno" ;;
   *) show_install_development_menu ;;
   esac
 }
 
 show_install_php_menu() {
   case $(menu "Install" "  PHP\n  Laravel\n  Symfony") in
-  *PHP*) present_terminal "omarchy-install-dev-env php" ;;
-  *Laravel*) present_terminal "omarchy-install-dev-env laravel" ;;
-  *Symfony*) present_terminal "omarchy-install-dev-env symfony" ;;
+  *PHP*) present_terminal "arcalos-install-dev-env php" ;;
+  *Laravel*) present_terminal "arcalos-install-dev-env laravel" ;;
+  *Symfony*) present_terminal "arcalos-install-dev-env symfony" ;;
   *) show_install_development_menu ;;
   esac
 }
 
 show_install_elixir_menu() {
   case $(menu "Install" "  Elixir\n  Phoenix") in
-  *Elixir*) present_terminal "omarchy-install-dev-env elixir" ;;
-  *Phoenix*) present_terminal "omarchy-install-dev-env phoenix" ;;
+  *Elixir*) present_terminal "arcalos-install-dev-env elixir" ;;
+  *Phoenix*) present_terminal "arcalos-install-dev-env phoenix" ;;
   *) show_install_development_menu ;;
   esac
 }
 
 show_remove_menu() {
   case $(menu "Remove" "󰣇  Package\n  Web App\n  TUI\n󰵮  Development\n󰸌  Theme\n  Browser\n  Dictation\n  Gaming\n󰍲  Windows\n󰏓  Preinstalls\n  Security") in
-  *Package*) terminal omarchy-pkg-remove ;;
-  *Web*) present_terminal omarchy-webapp-remove ;;
-  *TUI*) present_terminal omarchy-tui-remove ;;
+  *Package*) terminal arcalos-pkg-remove ;;
+  *Web*) present_terminal arcalos-webapp-remove ;;
+  *TUI*) present_terminal arcalos-tui-remove ;;
   *Development*) show_remove_development_menu ;;
-  *Theme*) present_terminal omarchy-theme-remove ;;
+  *Theme*) present_terminal arcalos-theme-remove ;;
   *Browser*) show_remove_browser_menu ;;
-  *Dictation*) present_terminal omarchy-voxtype-remove ;;
+  *Dictation*) present_terminal arcalos-voxtype-remove ;;
   *Gaming*) show_remove_gaming_menu ;;
-  *Windows*) present_terminal "omarchy-windows-vm remove" ;;
-  *Preinstalls*) present_terminal omarchy-remove-preinstalls ;;
+  *Windows*) present_terminal "arcalos-windows-vm remove" ;;
+  *Preinstalls*) present_terminal arcalos-remove-preinstalls ;;
   *Security*) show_remove_security_menu ;;
   *) show_main_menu ;;
   esac
@@ -710,95 +710,95 @@ show_remove_menu() {
 
 show_remove_security_menu() {
   case $(menu "Remove" "󰈷  Fingerprint\n  Fido2") in
-  *Fingerprint*) present_terminal omarchy-remove-security-fingerprint ;;
-  *Fido2*) present_terminal omarchy-remove-security-fido2 ;;
+  *Fingerprint*) present_terminal arcalos-remove-security-fingerprint ;;
+  *Fido2*) present_terminal arcalos-remove-security-fido2 ;;
   *) show_remove_menu ;;
   esac
 }
 
 show_remove_browser_menu() {
   case $(menu "Remove" "  Chrome\n  Edge\n  Brave\n  Brave Origin\n  Firefox\n  Zen") in
-  *Chrome*) present_terminal "omarchy-remove-browser chrome" ;;
-  *Edge*) present_terminal "omarchy-remove-browser edge" ;;
-  *"Brave Origin"*) present_terminal "omarchy-remove-browser brave-origin" ;;
-  *Brave*) present_terminal "omarchy-remove-browser brave" ;;
-  *Firefox*) present_terminal "omarchy-remove-browser firefox" ;;
-  *Zen*) present_terminal "omarchy-remove-browser zen" ;;
+  *Chrome*) present_terminal "arcalos-remove-browser chrome" ;;
+  *Edge*) present_terminal "arcalos-remove-browser edge" ;;
+  *"Brave Origin"*) present_terminal "arcalos-remove-browser brave-origin" ;;
+  *Brave*) present_terminal "arcalos-remove-browser brave" ;;
+  *Firefox*) present_terminal "arcalos-remove-browser firefox" ;;
+  *Zen*) present_terminal "arcalos-remove-browser zen" ;;
   *) show_remove_menu ;;
   esac
 }
 
 show_remove_gaming_menu() {
   case $(menu "Remove" "  Steam\n  RetroArch\n󰍳  Minecraft\n󰢹  NVIDIA GeForce NOW\n  Xbox Cloud Gaming\n󰖺  Xbox Controller (󰂯)\n󰍹  Moonlight (GameStream)\n  Lutris (Battle.net)\n󱓟  Heroic (Epic Games)") in
-  *Steam*) present_terminal omarchy-remove-gaming-steam ;;
-  *RetroArch*) present_terminal omarchy-remove-gaming-retroarch ;;
-  *Minecraft*) present_terminal omarchy-remove-gaming-minecraft ;;
-  *GeForce*) present_terminal omarchy-remove-gaming-geforce-now ;;
-  *"Xbox Cloud"*) present_terminal omarchy-remove-gaming-xbox-cloud ;;
-  *Xbox*) present_terminal omarchy-remove-gaming-xbox-controllers ;;
-  *Moonlight*) present_terminal omarchy-remove-gaming-moonlight ;;
-  *Lutris*) present_terminal omarchy-remove-gaming-lutris ;;
-  *Heroic*) present_terminal omarchy-remove-gaming-heroic ;;
+  *Steam*) present_terminal arcalos-remove-gaming-steam ;;
+  *RetroArch*) present_terminal arcalos-remove-gaming-retroarch ;;
+  *Minecraft*) present_terminal arcalos-remove-gaming-minecraft ;;
+  *GeForce*) present_terminal arcalos-remove-gaming-geforce-now ;;
+  *"Xbox Cloud"*) present_terminal arcalos-remove-gaming-xbox-cloud ;;
+  *Xbox*) present_terminal arcalos-remove-gaming-xbox-controllers ;;
+  *Moonlight*) present_terminal arcalos-remove-gaming-moonlight ;;
+  *Lutris*) present_terminal arcalos-remove-gaming-lutris ;;
+  *Heroic*) present_terminal arcalos-remove-gaming-heroic ;;
   *) show_remove_menu ;;
   esac
 }
 
 show_remove_development_menu() {
   case $(menu "Remove" "󰫏  Ruby on Rails\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure\n  Scala") in
-  *Rails*) present_terminal "omarchy-remove-dev-env ruby" ;;
+  *Rails*) present_terminal "arcalos-remove-dev-env ruby" ;;
   *JavaScript*) show_remove_javascript_menu ;;
-  *Go*) present_terminal "omarchy-remove-dev-env go" ;;
+  *Go*) present_terminal "arcalos-remove-dev-env go" ;;
   *PHP*) show_remove_php_menu ;;
-  *Python*) present_terminal "omarchy-remove-dev-env python" ;;
+  *Python*) present_terminal "arcalos-remove-dev-env python" ;;
   *Elixir*) show_remove_elixir_menu ;;
-  *Zig*) present_terminal "omarchy-remove-dev-env zig" ;;
-  *Rust*) present_terminal "omarchy-remove-dev-env rust" ;;
-  *Java*) present_terminal "omarchy-remove-dev-env java" ;;
-  *NET*) present_terminal "omarchy-remove-dev-env dotnet" ;;
-  *OCaml*) present_terminal "omarchy-remove-dev-env ocaml" ;;
-  *Clojure*) present_terminal "omarchy-remove-dev-env clojure" ;;
-  *Scala*) present_terminal "omarchy-remove-dev-env scala" ;;
+  *Zig*) present_terminal "arcalos-remove-dev-env zig" ;;
+  *Rust*) present_terminal "arcalos-remove-dev-env rust" ;;
+  *Java*) present_terminal "arcalos-remove-dev-env java" ;;
+  *NET*) present_terminal "arcalos-remove-dev-env dotnet" ;;
+  *OCaml*) present_terminal "arcalos-remove-dev-env ocaml" ;;
+  *Clojure*) present_terminal "arcalos-remove-dev-env clojure" ;;
+  *Scala*) present_terminal "arcalos-remove-dev-env scala" ;;
   *) show_remove_menu ;;
   esac
 }
 
 show_remove_javascript_menu() {
   case $(menu "Remove" "  Node.js\n  Bun\n  Deno") in
-  *Node*) present_terminal "omarchy-remove-dev-env node" ;;
-  *Bun*) present_terminal "omarchy-remove-dev-env bun" ;;
-  *Deno*) present_terminal "omarchy-remove-dev-env deno" ;;
+  *Node*) present_terminal "arcalos-remove-dev-env node" ;;
+  *Bun*) present_terminal "arcalos-remove-dev-env bun" ;;
+  *Deno*) present_terminal "arcalos-remove-dev-env deno" ;;
   *) show_remove_development_menu ;;
   esac
 }
 
 show_remove_php_menu() {
   case $(menu "Remove" "  PHP\n  Laravel\n  Symfony") in
-  *PHP*) present_terminal "omarchy-remove-dev-env php" ;;
-  *Laravel*) present_terminal "omarchy-remove-dev-env laravel" ;;
-  *Symfony*) present_terminal "omarchy-remove-dev-env symfony" ;;
+  *PHP*) present_terminal "arcalos-remove-dev-env php" ;;
+  *Laravel*) present_terminal "arcalos-remove-dev-env laravel" ;;
+  *Symfony*) present_terminal "arcalos-remove-dev-env symfony" ;;
   *) show_remove_development_menu ;;
   esac
 }
 
 show_remove_elixir_menu() {
   case $(menu "Remove" "  Elixir\n  Phoenix") in
-  *Elixir*) present_terminal "omarchy-remove-dev-env elixir" ;;
-  *Phoenix*) present_terminal "omarchy-remove-dev-env phoenix" ;;
+  *Elixir*) present_terminal "arcalos-remove-dev-env elixir" ;;
+  *Phoenix*) present_terminal "arcalos-remove-dev-env phoenix" ;;
   *) show_remove_development_menu ;;
   esac
 }
 
 show_update_menu() {
-  case $(menu "Update" "  Omarchy\n󰔫  Channel\n  Config\n󰸌  Extra Themes\n  Process\n󰇅  Hardware\n  Firmware\n  Password\n  Timezone\n  Time") in
-  *Omarchy*) present_terminal omarchy-update ;;
+  case $(menu "Update" "  arcalos\n󰔫  Channel\n  Config\n󰸌  Extra Themes\n  Process\n󰇅  Hardware\n  Firmware\n  Password\n  Timezone\n  Time") in
+  *arcalos*) present_terminal arcalos-update ;;
   *Channel*) show_update_channel_menu ;;
   *Config*) show_update_config_menu ;;
-  *Themes*) present_terminal omarchy-theme-update ;;
+  *Themes*) present_terminal arcalos-theme-update ;;
   *Process*) show_update_process_menu ;;
   *Hardware*) show_update_hardware_menu ;;
-  *Firmware*) present_terminal omarchy-update-firmware ;;
-  *Timezone*) present_terminal omarchy-tz-select ;;
-  *Time*) present_terminal omarchy-update-time ;;
+  *Firmware*) present_terminal arcalos-update-firmware ;;
+  *Timezone*) present_terminal arcalos-tz-select ;;
+  *Time*) present_terminal arcalos-update-time ;;
   *Password*) show_update_password_menu ;;
   *) show_main_menu ;;
   esac
@@ -806,76 +806,76 @@ show_update_menu() {
 
 show_update_channel_menu() {
   case $(menu "Update channel" "🟢 Stable\n🟡 RC\n🟠 Edge\n🔴 Dev") in
-  *Stable*) present_terminal "omarchy-channel-set stable" ;;
-  *RC*) present_terminal "omarchy-channel-set rc" ;;
-  *Edge*) present_terminal "omarchy-channel-set edge" ;;
-  *Dev*) present_terminal "omarchy-channel-set dev" ;;
+  *Stable*) present_terminal "arcalos-channel-set stable" ;;
+  *RC*) present_terminal "arcalos-channel-set rc" ;;
+  *Edge*) present_terminal "arcalos-channel-set edge" ;;
+  *Dev*) present_terminal "arcalos-channel-set dev" ;;
   *) show_update_menu ;;
   esac
 }
 show_update_process_menu() {
   case $(menu "Restart" "  Hypridle\n  Hyprsunset\n󰎟  Mako\n  Swayosd\n󰌧  Walker\n󰍜  Waybar") in
-  *Hypridle*) omarchy-restart-hypridle ;;
-  *Hyprsunset*) omarchy-restart-hyprsunset ;;
-  *Mako*) omarchy-restart-mako ;;
-  *Swayosd*) omarchy-restart-swayosd ;;
-  *Walker*) omarchy-restart-walker ;;
-  *Waybar*) omarchy-restart-waybar ;;
+  *Hypridle*) arcalos-restart-hypridle ;;
+  *Hyprsunset*) arcalos-restart-hyprsunset ;;
+  *Mako*) arcalos-restart-mako ;;
+  *Swayosd*) arcalos-restart-swayosd ;;
+  *Walker*) arcalos-restart-walker ;;
+  *Waybar*) arcalos-restart-waybar ;;
   *) show_update_menu ;;
   esac
 }
 
 show_update_config_menu() {
   case $(menu "Use default config" "  Hyprland\n  Hypridle\n  Hyprlock\n  Hyprsunset\n󱣴  Plymouth\n  Swayosd\n  Tmux\n󰌧  Walker\n󰍜  Waybar") in
-  *Hyprland*) present_terminal omarchy-refresh-hyprland ;;
-  *Hypridle*) present_terminal omarchy-refresh-hypridle ;;
-  *Hyprlock*) present_terminal omarchy-refresh-hyprlock ;;
-  *Hyprsunset*) present_terminal omarchy-refresh-hyprsunset ;;
-  *Plymouth*) present_terminal omarchy-refresh-plymouth ;;
-  *Swayosd*) present_terminal omarchy-refresh-swayosd ;;
-  *Tmux*) present_terminal omarchy-refresh-tmux ;;
-  *Walker*) present_terminal omarchy-refresh-walker ;;
-  *Waybar*) present_terminal omarchy-refresh-waybar ;;
+  *Hyprland*) present_terminal arcalos-refresh-hyprland ;;
+  *Hypridle*) present_terminal arcalos-refresh-hypridle ;;
+  *Hyprlock*) present_terminal arcalos-refresh-hyprlock ;;
+  *Hyprsunset*) present_terminal arcalos-refresh-hyprsunset ;;
+  *Plymouth*) present_terminal arcalos-refresh-plymouth ;;
+  *Swayosd*) present_terminal arcalos-refresh-swayosd ;;
+  *Tmux*) present_terminal arcalos-refresh-tmux ;;
+  *Walker*) present_terminal arcalos-refresh-walker ;;
+  *Waybar*) present_terminal arcalos-refresh-waybar ;;
   *) show_update_menu ;;
   esac
 }
 
 show_update_hardware_menu() {
   case $(menu "Restart" "  Audio\n󱚾  Wi-Fi\n󰂯  Bluetooth\n󰟸  Trackpad") in
-  *Audio*) present_terminal omarchy-restart-pipewire ;;
-  *Wi-Fi*) present_terminal omarchy-restart-wifi ;;
-  *Bluetooth*) present_terminal omarchy-restart-bluetooth ;;
-  *Trackpad*) present_terminal omarchy-restart-trackpad ;;
+  *Audio*) present_terminal arcalos-restart-pipewire ;;
+  *Wi-Fi*) present_terminal arcalos-restart-wifi ;;
+  *Bluetooth*) present_terminal arcalos-restart-bluetooth ;;
+  *Trackpad*) present_terminal arcalos-restart-trackpad ;;
   *) show_update_menu ;;
   esac
 }
 
 show_update_password_menu() {
   case $(menu "Update Password" "  Drive Encryption\n  User") in
-  *Drive*) present_terminal omarchy-drive-password ;;
+  *Drive*) present_terminal arcalos-drive-password ;;
   *User*) present_terminal passwd ;;
   *) show_update_menu ;;
   esac
 }
 
 show_about() {
-  omarchy-launch-about
+  arcalos-launch-about
 }
 
 show_system_menu() {
   local options="󱄄  Screensaver\n  Lock"
-  ! omarchy-toggle-enabled suspend-off && options="$options\n󰒲  Suspend"
-  omarchy-hibernation-available && options="$options\n󰤁  Hibernate"
+  ! arcalos-toggle-enabled suspend-off && options="$options\n󰒲  Suspend"
+  arcalos-hibernation-available && options="$options\n󰤁  Hibernate"
   options="$options\n󰍃  Logout\n󰜉  Restart\n󰐥  Shutdown"
 
   case $(menu "System" "$options") in
-  *Screensaver*) omarchy-launch-screensaver force ;;
-  *Lock*) omarchy-system-lock ;;
+  *Screensaver*) arcalos-launch-screensaver force ;;
+  *Lock*) arcalos-system-lock ;;
   *Suspend*) systemctl suspend ;;
   *Hibernate*) systemctl hibernate ;;
-  *Logout*) omarchy-system-logout ;;
-  *Restart*) omarchy-system-reboot ;;
-  *Shutdown*) omarchy-system-shutdown ;;
+  *Logout*) arcalos-system-logout ;;
+  *Restart*) arcalos-system-reboot ;;
+  *Shutdown*) arcalos-system-shutdown ;;
   *) back_to show_main_menu ;;
   esac
 }
@@ -910,7 +910,7 @@ go_to_menu() {
 }
 
 # Allow user extensions and overrides
-USER_EXTENSIONS="$HOME/.config/omarchy/extensions/menu.sh"
+USER_EXTENSIONS="$HOME/.config/arcalos/extensions/menu.sh"
 [[ -f $USER_EXTENSIONS ]] && source "$USER_EXTENSIONS"
 
 toggle_existing_menu

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Refresh the SDDM theme from default
-# omarchy:requires-sudo=true
+# arcalos:summary=Refresh the SDDM theme from default
+# arcalos:requires-sudo=true
 
-sudo rm -rf /usr/share/sddm/themes/omarchy
-sudo cp -r $OMARCHY_PATH/default/sddm/omarchy /usr/share/sddm/themes/omarchy
+sudo rm -rf /usr/share/sddm/themes/arcalos
+sudo cp -r $ARCALOS_PATH/default/sddm/arcalos /usr/share/sddm/themes/arcalos

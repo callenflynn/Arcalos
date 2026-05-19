@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress"
 
 export default defineConfig({
   title: "Arcalos",
-  description: "Documentation for the Arcalos Arch-based Linux skin",
+  description: "A sleek, modern, and opinionated Linux",
   base: "/Arcalos/",
   themeConfig: {
     nav: [

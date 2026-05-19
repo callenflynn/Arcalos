@@ -1,4 +1,4 @@
-# Omarchy core package list installed via install/packaging/base.sh
+# arcalos core package list installed via install/packaging/base.sh
 # This file is also used by the ISO builder when determining needs
 
 1password-beta
@@ -94,8 +94,8 @@ nss-mdns
 nvim
 obs-studio
 obsidian
-omarchy-nvim
-omarchy-walker
+arcalos-nvim
+arcalos-walker
 pamixer
 pinta
 playerctl

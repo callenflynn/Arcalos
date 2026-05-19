@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Detect ASUS ExpertBook B9406 series laptops on Intel Panther Lake.
+# arcalos:summary=Detect ASUS ExpertBook B9406 series laptops on Intel Panther Lake.
 
-omarchy-hw-match "B9406" && omarchy-hw-intel-ptl
+arcalos-hw-match "B9406" && arcalos-hw-intel-ptl

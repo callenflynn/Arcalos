@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# omarchy:summary=Update system firmware using fwupd. Ensures the fwupd EFI binary is installed
-# omarchy:requires-sudo=true
+# arcalos:summary=Update system firmware using fwupd. Ensures the fwupd EFI binary is installed
+# arcalos:requires-sudo=true
 
 set -e
 echo -e "\e[32mUpdate Firmware\e[0m"
 
-if omarchy-cmd-missing fwupdmgr; then
-  omarchy-pkg-add fwupd
+if arcalos-cmd-missing fwupdmgr; then
+  arcalos-pkg-add fwupd
 fi
 
 if [[ -d /sys/firmware/efi ]] && [[ -f /usr/lib/fwupd/efi/fwupdx64.efi ]]; then

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Remove the xpadneo Xbox controller driver and undo its module/blacklist config.
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove the xpadneo Xbox controller driver and undo its module/blacklist config.
+# arcalos:requires-sudo=true
 
 set -e
 
-omarchy-pkg-drop xpadneo-dkms
+arcalos-pkg-drop xpadneo-dkms
 
 sudo rm -f /etc/modprobe.d/blacklist-xpad.conf /etc/modules-load.d/xpadneo.conf
 

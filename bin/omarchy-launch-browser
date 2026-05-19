@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Launch the default browser as determined by xdg-settings.
-# omarchy:args=[url]
+# arcalos:summary=Launch the default browser as determined by xdg-settings.
+# arcalos:args=[url]
 
 default_browser=$(xdg-settings get default-web-browser)
 browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$default_browser 2>/dev/null | head -1)
@@ -14,6 +14,6 @@ else
   private_flag="--incognito"
 fi
 
-systemd-run --user --quiet --collect --unit="omarchy-browser-$(date +%s%N)" \
+systemd-run --user --quiet --collect --unit="arcalos-browser-$(date +%s%N)" \
   --property=StandardOutput=null --property=StandardError=null \
   uwsm-app -- "$browser_exec" "${@/--private/$private_flag}"

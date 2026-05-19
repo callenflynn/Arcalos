@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Install, launch, stop, inspect, or remove the Windows VM
-# omarchy:args=<install|remove|launch|stop|status> [options]
-# omarchy:requires-sudo=true
+# arcalos:summary=Install, launch, stop, inspect, or remove the Windows VM
+# arcalos:args=<install|remove|launch|stop|status> [options]
+# arcalos:requires-sudo=true
 
 COMPOSE_FILE="$HOME/.config/windows/docker-compose.yml"
 
@@ -40,22 +40,22 @@ install_windows() {
 
   check_prerequisites
 
-  omarchy-pkg-add freerdp openbsd-netcat gum
+  arcalos-pkg-add freerdp openbsd-netcat gum
 
   mkdir -p "$HOME/.windows"
   mkdir -p "$HOME/.config/windows"
   mkdir -p "$HOME/.local/share/applications/icons"
 
   # Install Windows VM icon and desktop file
-  if [[ -f $OMARCHY_PATH/applications/icons/windows.png ]]; then
-    cp "$OMARCHY_PATH/applications/icons/windows.png" "$HOME/.local/share/applications/icons/windows.png"
+  if [[ -f $ARCALOS_PATH/applications/icons/windows.png ]]; then
+    cp "$ARCALOS_PATH/applications/icons/windows.png" "$HOME/.local/share/applications/icons/windows.png"
   fi
 
   cat << EOF | tee "$HOME/.local/share/applications/windows-vm.desktop" > /dev/null
 [Desktop Entry]
 Name=Windows
 Comment=Start Windows VM via Docker and connect with RDP
-Exec=uwsm app -- omarchy-windows-vm launch
+Exec=uwsm app -- arcalos-windows-vm launch
 Icon=$HOME/.local/share/applications/icons/windows.png
 Terminal=false
 Type=Application
@@ -182,7 +182,7 @@ EOF
 services:
   windows:
     image: dockurr/windows
-    container_name: omarchy-windows
+    container_name: arcalos-windows
     environment:
       VERSION: "11"
       RAM_SIZE: "$SELECTED_RAM"
@@ -241,7 +241,7 @@ EOF
   echo ""
   echo "Once finished, launch 'Windows' via Super + Space"
   echo ""
-  echo "To stop the VM: omarchy-windows-vm stop"
+  echo "To stop the VM: arcalos-windows-vm stop"
   echo "To change resources: ~/.config/windows/docker-compose.yml"
   echo ""
 }
@@ -274,7 +274,7 @@ launch_windows() {
 
   # Check if config exists
   if [[ ! -f $COMPOSE_FILE ]]; then
-    echo "Windows VM not configured. Please run: omarchy-windows-vm install"
+    echo "Windows VM not configured. Please run: arcalos-windows-vm install"
     exit 1
   fi
 
@@ -287,7 +287,7 @@ launch_windows() {
   [[ -z $WIN_PASS ]] && WIN_PASS="admin"
 
   # Check if container is already running
-  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null)
+  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' arcalos-windows 2>/dev/null)
 
   if [[ $CONTAINER_STATUS != "running" ]]; then
     echo "Starting Windows VM..."
@@ -297,21 +297,21 @@ launch_windows() {
 
     if ! docker-compose -f "$COMPOSE_FILE" up -d 2>&1; then
       echo "❌ Failed to start Windows VM!"
-      echo "   Try checking: omarchy-windows-vm status"
-      echo "   View logs: docker logs omarchy-windows"
+      echo "   Try checking: arcalos-windows-vm status"
+      echo "   View logs: docker logs arcalos-windows"
       notify-send -u critical "Windows VM" "Failed to start Windows VM"
       exit 1
     fi
 
     echo "Waiting for Windows VM to start..."
     WAIT_COUNT=0
-    until docker logs omarchy-windows 2>&1 | grep -qi "windows started successfully"; do
+    until docker logs arcalos-windows 2>&1 | grep -qi "windows started successfully"; do
       sleep 2
       WAIT_COUNT=$((WAIT_COUNT + 1))
       if (( WAIT_COUNT > 60 )); then  # 2 minutes timeout
         echo ""
         echo "❌ Timeout: Windows VM failed to start within 2 minutes"
-        echo "   Check logs: docker logs omarchy-windows"
+        echo "   Check logs: docker logs arcalos-windows"
         exit 1
       fi
     done
@@ -320,7 +320,7 @@ launch_windows() {
   # Build the connection info
   if [[ $KEEP_ALIVE = "true" ]]; then
     LIFECYCLE="VM will keep running after RDP closes
-To stop: omarchy-windows-vm stop"
+To stop: arcalos-windows-vm stop"
   else
     LIFECYCLE="VM will auto-stop when RDP closes"
   fi
@@ -347,7 +347,7 @@ To stop: omarchy-windows-vm stop"
   # If scale is less than 130%, don't set any scale (use default 100)
 
   # Connect with RDP in fullscreen (auto-detects resolution)
-  xfreerdp3 /u:"$WIN_USER" /p:"$WIN_PASS" /v:127.0.0.1:3389 -grab-keyboard /sound /microphone /clipboard /cert:ignore /title:"Windows VM - Omarchy" /dynamic-resolution /gfx:AVC444 /floatbar:sticky:off,default:visible,show:fullscreen $RDP_SCALE
+  xfreerdp3 /u:"$WIN_USER" /p:"$WIN_PASS" /v:127.0.0.1:3389 -grab-keyboard /sound /microphone /clipboard /cert:ignore /title:"Windows VM - arcalos" /dynamic-resolution /gfx:AVC444 /floatbar:sticky:off,default:visible,show:fullscreen $RDP_SCALE
 
   # After RDP closes, stop the container unless --keep-alive was specified
   if [[ $KEEP_ALIVE = "false" ]]; then
@@ -358,7 +358,7 @@ To stop: omarchy-windows-vm stop"
   else
     echo ""
     echo "RDP session closed. Windows VM is still running."
-    echo "To stop it: omarchy-windows-vm stop"
+    echo "To stop it: arcalos-windows-vm stop"
   fi
 }
 
@@ -376,15 +376,15 @@ stop_windows() {
 status_windows() {
   if [[ ! -f $COMPOSE_FILE ]]; then
     echo "Windows VM not configured."
-    echo "To set up: omarchy-windows-vm install"
+    echo "To set up: arcalos-windows-vm install"
     exit 1
   fi
 
-  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null)
+  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' arcalos-windows 2>/dev/null)
 
   if [[ -z $CONTAINER_STATUS ]]; then
     echo "Windows VM container not found."
-    echo "To start: omarchy-windows-vm launch"
+    echo "To start: arcalos-windows-vm launch"
   elif [[ $CONTAINER_STATUS = "running" ]]; then
     gum style \
       --border normal \
@@ -396,16 +396,16 @@ status_windows() {
       "Web interface: http://127.0.0.1:8006" \
       "RDP available: port 3389" \
       "" \
-      "To connect: omarchy-windows-vm launch" \
-      "To stop:    omarchy-windows-vm stop"
+      "To connect: arcalos-windows-vm launch" \
+      "To stop:    arcalos-windows-vm stop"
   else
     echo "Windows VM is stopped (status: $CONTAINER_STATUS)"
-    echo "To start: omarchy-windows-vm launch"
+    echo "To start: arcalos-windows-vm launch"
   fi
 }
 
 show_usage() {
-  echo "Usage: omarchy-windows-vm [command] [options]"
+  echo "Usage: arcalos-windows-vm [command] [options]"
   echo ""
   echo "Commands:"
   echo "  install              Install and configure Windows VM"
@@ -418,10 +418,10 @@ show_usage() {
   echo "  help                 Show this help message"
   echo ""
   echo "Examples:"
-  echo "  omarchy-windows-vm install           # Set up Windows VM for first time"
-  echo "  omarchy-windows-vm launch            # Connect to VM (auto-stop on exit)"
-  echo "  omarchy-windows-vm launch -k         # Connect to VM (keep running)"
-  echo "  omarchy-windows-vm stop              # Shut down the VM"
+  echo "  arcalos-windows-vm install           # Set up Windows VM for first time"
+  echo "  arcalos-windows-vm launch            # Connect to VM (auto-stop on exit)"
+  echo "  arcalos-windows-vm launch -k         # Connect to VM (keep running)"
+  echo "  arcalos-windows-vm stop              # Shut down the VM"
 }
 
 # Main command dispatcher

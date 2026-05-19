@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Overwrite the user config for the Plymouth drive decryption and boot sequence with the Omarchy default and rebuild it.
-# omarchy:requires-sudo=true
+# arcalos:summary=Overwrite the user config for the Plymouth drive decryption and boot sequence with the arcalos default and rebuild it.
+# arcalos:requires-sudo=true
 
-sudo cp -r ~/.local/share/omarchy/default/plymouth/* /usr/share/plymouth/themes/omarchy/
-sudo plymouth-set-default-theme omarchy
+sudo cp -r ~/.local/share/arcalos/default/plymouth/* /usr/share/plymouth/themes/arcalos/
+sudo plymouth-set-default-theme arcalos
 
 if command -v limine-mkinitcpio &>/dev/null; then
   sudo limine-mkinitcpio

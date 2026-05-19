@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Set the system monospace font
-# omarchy:args=<font-name>
-# omarchy:examples=omarchy font list | omarchy font set "CaskaydiaMono Nerd Font"
+# arcalos:summary=Set the system monospace font
+# arcalos:args=<font-name>
+# arcalos:examples=arcalos font list | arcalos font set "CaskaydiaMono Nerd Font"
 
 font_name="$1"
 
@@ -34,8 +34,8 @@ if [[ -n $font_name ]]; then
       -v "$font_name" \
       ~/.config/fontconfig/fonts.conf
 
-    omarchy-restart-waybar
-    omarchy-restart-swayosd
+    arcalos-restart-waybar
+    arcalos-restart-swayosd
 
     if pgrep -x ghostty; then
       notify-send -u low "    You must restart Ghostty to see font change"
@@ -45,11 +45,11 @@ if [[ -n $font_name ]]; then
       notify-send -u low "    You must restart Foot to see font change"
     fi
 
-    omarchy-hook font-set "$font_name"
+    arcalos-hook font-set "$font_name"
   else
     echo "Font '$font_name' not found."
     exit 1
   fi
 else
-  echo "Usage: omarchy-font-set <font-name>"
+  echo "Usage: arcalos-font-set <font-name>"
 fi

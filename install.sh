@@ -4,15 +4,20 @@
 set -eEo pipefail
 
 # Define Arcalos locations
-export OMARCHY_PATH="$HOME/.local/share/omarchy"
-export OMARCHY_INSTALL="$OMARCHY_PATH/install"
-export OMARCHY_INSTALL_LOG_FILE="/var/log/omarchy-install.log"
-export PATH="$OMARCHY_PATH/bin:$PATH"
+export ARCALOS_PATH="$HOME/.local/share/arcalos"
+export ARCALOS_INSTALL="$ARCALOS_PATH/install"
+export ARCALOS_INSTALL_LOG_FILE="/var/log/arcalos-install.log"
+export PATH="$ARCALOS_PATH/bin:$PATH"
+
+# Legacy Omarchy environment variables for backwards compatibility
+export OMARCHY_PATH="$ARCALOS_PATH"
+export OMARCHY_INSTALL="$ARCALOS_INSTALL"
+export OMARCHY_INSTALL_LOG_FILE="$ARCALOS_INSTALL_LOG_FILE"
 
 # Install
-source "$OMARCHY_INSTALL/helpers/all.sh"
-source "$OMARCHY_INSTALL/preflight/all.sh"
-source "$OMARCHY_INSTALL/packaging/all.sh"
-source "$OMARCHY_INSTALL/config/all.sh"
-source "$OMARCHY_INSTALL/login/all.sh"
-source "$OMARCHY_INSTALL/post-install/all.sh"
+source "$ARCALOS_INSTALL/helpers/all.sh"
+source "$ARCALOS_INSTALL/preflight/all.sh"
+source "$ARCALOS_INSTALL/packaging/all.sh"
+source "$ARCALOS_INSTALL/config/all.sh"
+source "$ARCALOS_INSTALL/login/all.sh"
+source "$ARCALOS_INSTALL/post-install/all.sh"

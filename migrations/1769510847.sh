@@ -1,10 +1,10 @@
 echo "Switch back to mainline chromium now that it supports full live theming"
 
-if omarchy-pkg-present omarchy-chromium; then
+if arcalos-pkg-present arcalos-chromium; then
   if gum confirm "Ready to switch to mainstream chromium? (Will close Chromium + reset settings)"; then
     pkill -x chromium
-    omarchy-pkg-drop omarchy-chromium
-    omarchy-pkg-add chromium
-    omarchy-theme-set-browser
+    arcalos-pkg-drop arcalos-chromium
+    arcalos-pkg-add chromium
+    arcalos-theme-set-browser
   fi
 fi

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Show Omarchy bin metadata fields and defaults
-# omarchy:args=[--json]
+# arcalos:summary=Show arcalos bin metadata fields and defaults
+# arcalos:args=[--json]
 
 set -euo pipefail
 
@@ -9,9 +9,9 @@ show_json() {
   jq -n '{
     ok: true,
     defaults: {
-      group: "first filename segment after omarchy-",
+      group: "first filename segment after arcalos-",
       name: "remaining filename segments with dashes converted to spaces",
-      route: "omarchy <group> <name>",
+      route: "arcalos <group> <name>",
       binary: "filename",
       requires_sudo: false
     },
@@ -21,7 +21,7 @@ show_json() {
       {name: "name", required: false, type: "string", note: "Only set when the route name should differ from the filename-derived name. May be empty for root commands."},
       {name: "args", required: false, type: "string", note: "Only set when the command accepts arguments."},
       {name: "examples", required: false, type: "string", note: "Pipe-separated examples."},
-      {name: "aliases", required: false, type: "string", note: "Pipe-separated alternate routes, e.g. omarchy screenshot."},
+      {name: "aliases", required: false, type: "string", note: "Pipe-separated alternate routes, e.g. arcalos screenshot."},
       {name: "requires-sudo", required: false, type: "true", default: false, note: "Only include when true."},
       {name: "hidden", required: false, type: "true", default: false, note: "Hide from default command listings; visible with --all."}
     ]
@@ -30,30 +30,30 @@ show_json() {
 
 show_help() {
   cat <<'EOF'
-Omarchy bin metadata
+arcalos bin metadata
 
-Metadata lives in the top comment block of each executable bin/omarchy-* file.
+Metadata lives in the top comment block of each executable bin/arcalos-* file.
 Keep it slim: define only fields that are required or override defaults.
 
 Required:
-  # omarchy:summary=<one-line description>
+  # arcalos:summary=<one-line description>
 
 Inferred defaults:
-  group         first filename segment after omarchy-
+  group         first filename segment after arcalos-
   name          remaining filename segments, with dashes converted to spaces
-  route         omarchy <group> <name>
+  route         arcalos <group> <name>
   binary        filename
   requires-sudo false
   hidden        false
 
 Optional fields:
-  # omarchy:group=<group>                  route override only
-  # omarchy:name=<name>                    route override only; may be empty
-  # omarchy:args=<args>                    only if the command accepts args
-  # omarchy:examples=<cmd> | <cmd>         pipe-separated examples
-  # omarchy:aliases=<route> | <route>      pipe-separated alternate routes
-  # omarchy:requires-sudo=true             only when true
-  # omarchy:hidden=true                    hide from default command listings
+  # arcalos:group=<group>                  route override only
+  # arcalos:name=<name>                    route override only; may be empty
+  # arcalos:args=<args>                    only if the command accepts args
+  # arcalos:examples=<cmd> | <cmd>         pipe-separated examples
+  # arcalos:aliases=<route> | <route>      pipe-separated alternate routes
+  # arcalos:requires-sudo=true             only when true
+  # arcalos:hidden=true                    hide from default command listings
 
 Do not define:
   binary      inferred from filename
@@ -61,13 +61,13 @@ Do not define:
   false flags or empty args
 
 Examples:
-  # omarchy:summary=Restart Walker and related user services
+  # arcalos:summary=Restart Walker and related user services
 
-  # omarchy:summary=Take a screenshot
-  # omarchy:group=capture
-  # omarchy:args=[smart|region|windows|fullscreen] [slurp|copy] [--editor=<name>]
-  # omarchy:examples=omarchy screenshot | omarchy capture screenshot region
-  # omarchy:aliases=omarchy screenshot
+  # arcalos:summary=Take a screenshot
+  # arcalos:group=capture
+  # arcalos:args=[smart|region|windows|fullscreen] [slurp|copy] [--editor=<name>]
+  # arcalos:examples=arcalos screenshot | arcalos capture screenshot region
+  # arcalos:aliases=arcalos screenshot
 EOF
 }
 

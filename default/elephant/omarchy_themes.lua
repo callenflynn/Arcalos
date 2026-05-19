@@ -1,7 +1,7 @@
 --
 -- Dynamic Arcalos Theme Menu for Elephant/Walker
 --
-Name = "omarchythemes"
+Name = "arcalosthemes"
 NamePretty = "Arcalos Themes"
 HideFromProviderlist = true
 
@@ -40,9 +40,9 @@ end
 -- The main function elephant will call
 function GetEntries()
   local entries = {}
-  local user_theme_dir = os.getenv("HOME") .. "/.config/omarchy/themes"
-  local omarchy_path = os.getenv("OMARCHY_PATH") or ""
-  local default_theme_dir = omarchy_path .. "/themes"
+  local user_theme_dir = os.getenv("HOME") .. "/.config/arcalos/themes"
+  local ARCALOS_PATH = os.getenv("ARCALOS_PATH") or ""
+  local default_theme_dir = ARCALOS_PATH .. "/themes"
 
   local seen_themes = {}
 
@@ -77,7 +77,7 @@ function GetEntries()
             Preview = preview_path,
             PreviewType = "file",
             Actions = {
-              activate = "omarchy-theme-set " .. theme_name,
+              activate = "arcalos-theme-set " .. theme_name,
             },
           })
         end

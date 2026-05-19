@@ -2,8 +2,8 @@
 
 This repository does not ship an `archiso` profile. Build your ISO with your own profile and include the package lists from:
 
-- `install/omarchy-base.packages`
-- `install/omarchy-other.packages`
+- `install/arcalos-base.packages`
+- `install/arcalos-other.packages`
 
 Then run the installer on first boot.
 
@@ -23,8 +23,8 @@ Steps:
 2. Copy an official profile as a base:
    - `cp -r /usr/share/archiso/configs/releng ./arcalos-iso`
 3. Add packages to `./arcalos-iso/packages.x86_64`:
-   - Append the contents of `install/omarchy-base.packages`
-   - Append the contents of `install/omarchy-other.packages`
+   - Append the contents of `install/arcalos-base.packages`
+   - Append the contents of `install/arcalos-other.packages`
 4. Build the ISO:
    - `mkarchiso -v -w work -o out ./arcalos-iso`
 5. Boot the ISO and run the online installer from the live system.

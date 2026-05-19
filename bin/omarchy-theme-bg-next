@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# omarchy:summary=Cycle to the next background for the current theme
-# omarchy:examples=omarchy theme bg next
+# arcalos:summary=Cycle to the next background for the current theme
+# arcalos:examples=arcalos theme bg next
 
-THEME_NAME=$(cat "$HOME/.config/omarchy/current/theme.name" 2>/dev/null)
-THEME_BACKGROUNDS_PATH="$HOME/.config/omarchy/current/theme/backgrounds/"
-USER_BACKGROUNDS_PATH="$HOME/.config/omarchy/backgrounds/$THEME_NAME/"
-CURRENT_BACKGROUND_LINK="$HOME/.config/omarchy/current/background"
+THEME_NAME=$(cat "$HOME/.config/arcalos/current/theme.name" 2>/dev/null)
+THEME_BACKGROUNDS_PATH="$HOME/.config/arcalos/current/theme/backgrounds/"
+USER_BACKGROUNDS_PATH="$HOME/.config/arcalos/backgrounds/$THEME_NAME/"
+CURRENT_BACKGROUND_LINK="$HOME/.config/arcalos/current/background"
 
 mapfile -d '' -t BACKGROUNDS < <(
   find -L "$USER_BACKGROUNDS_PATH" "$THEME_BACKGROUNDS_PATH" -maxdepth 1 -type f \
@@ -16,7 +16,7 @@ mapfile -d '' -t BACKGROUNDS < <(
 TOTAL=${#BACKGROUNDS[@]}
 
 if (( TOTAL == 0 )); then
-  omarchy-notification-send "No background was found for theme" -t 2000
+  arcalos-notification-send "No background was found for theme" -t 2000
 else
   # Get current background from symlink
   if [[ -L $CURRENT_BACKGROUND_LINK ]]; then
@@ -44,5 +44,5 @@ else
     NEW_BACKGROUND="${BACKGROUNDS[$NEXT_INDEX]}"
   fi
 
-  omarchy-theme-bg-set "$NEW_BACKGROUND"
+  arcalos-theme-bg-set "$NEW_BACKGROUND"
 fi

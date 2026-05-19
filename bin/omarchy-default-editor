@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Set the default editor for $EDITOR
-# omarchy:args=[code|cursor|zed|sublime_text|helix|vim|emacs|nvim]
-# omarchy:examples=omarchy default editor | omarchy default editor code | omarchy default editor helix
+# arcalos:summary=Set the default editor for $EDITOR
+# arcalos:args=[code|cursor|zed|sublime_text|helix|vim|emacs|nvim]
+# arcalos:examples=arcalos default editor | arcalos default editor code | arcalos default editor helix
 
 if (($# == 0)); then
   sed -n 's/^export EDITOR=//p' ~/.config/uwsm/default | head -n 1
@@ -19,7 +19,7 @@ vim) editor="vim"; name="Vim"; glyph="" ;;
 emacs) editor="emacs"; name="Emacs"; glyph="" ;;
 nvim) editor="nvim"; name="Neovim"; glyph="" ;;
 *)
-  echo "Usage: omarchy-default-editor <code|cursor|zed|sublime_text|helix|vim|emacs|nvim>"
+  echo "Usage: arcalos-default-editor <code|cursor|zed|sublime_text|helix|vim|emacs|nvim>"
   exit 1
   ;;
 esac

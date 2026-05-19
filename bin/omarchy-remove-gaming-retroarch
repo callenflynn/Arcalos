@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Remove RetroArch, all libretro cores, and its config/saves. Leaves ~/Games/roms and ~/Games/bios alone.
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove RetroArch, all libretro cores, and its config/saves. Leaves ~/Games/roms and ~/Games/bios alone.
+# arcalos:requires-sudo=true
 
 set -e
 
-omarchy-pkg-drop \
+arcalos-pkg-drop \
   retroarch \
   retroarch-assets-glui retroarch-assets-ozone retroarch-assets-xmb \
   libretro-beetle-pce libretro-beetle-pce-fast libretro-beetle-psx libretro-beetle-psx-hw libretro-beetle-supergrafx \

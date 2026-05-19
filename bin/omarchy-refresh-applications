@@ -1,24 +1,24 @@
 #!/bin/bash
 
-# omarchy:summary=Ensure all default .desktop, web apps, TUIs, and npm wrappers are installed.
+# arcalos:summary=Ensure all default .desktop, web apps, TUIs, and npm wrappers are installed.
 
 mkdir -p ~/.local/share/icons/hicolor/48x48/apps/
-cp ~/.local/share/omarchy/applications/icons/*.png ~/.local/share/icons/hicolor/48x48/apps/
+cp ~/.local/share/arcalos/applications/icons/*.png ~/.local/share/icons/hicolor/48x48/apps/
 gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null
 
 # Copy .desktop declarations
 mkdir -p ~/.local/share/applications
-cp ~/.local/share/omarchy/applications/*.desktop ~/.local/share/applications/
-cp ~/.local/share/omarchy/applications/hidden/*.desktop ~/.local/share/applications/
+cp ~/.local/share/arcalos/applications/*.desktop ~/.local/share/applications/
+cp ~/.local/share/arcalos/applications/hidden/*.desktop ~/.local/share/applications/
 
-if omarchy-cmd-present alacritty; then
-  cp ~/.local/share/omarchy/default/alacritty/alacritty.desktop ~/.local/share/applications/
+if arcalos-cmd-present alacritty; then
+  cp ~/.local/share/arcalos/default/alacritty/alacritty.desktop ~/.local/share/applications/
 fi
 
 # Refresh the webapps, TUIs, and npm wrappers
-bash $OMARCHY_PATH/install/packaging/icons.sh
-bash $OMARCHY_PATH/install/packaging/webapps.sh
-bash $OMARCHY_PATH/install/packaging/tuis.sh
-bash $OMARCHY_PATH/install/packaging/npm.sh
+bash $ARCALOS_PATH/install/packaging/icons.sh
+bash $ARCALOS_PATH/install/packaging/webapps.sh
+bash $ARCALOS_PATH/install/packaging/tuis.sh
+bash $ARCALOS_PATH/install/packaging/npm.sh
 
 update-desktop-database ~/.local/share/applications

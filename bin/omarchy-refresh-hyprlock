@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Overwrite the user config for hyprlock with the Omarchy default.
+# arcalos:summary=Overwrite the user config for hyprlock with the arcalos default.
 
-omarchy-refresh-config hypr/hyprlock.conf
+arcalos-refresh-config hypr/hyprlock.conf

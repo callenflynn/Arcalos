@@ -1,6 +1,6 @@
-# Copy over Omarchy configs
+# Copy over arcalos configs
 mkdir -p ~/.config
-cp -R ~/.local/share/omarchy/config/* ~/.config/
+cp -R ~/.local/share/arcalos/config/* ~/.config/
 
-# Use default bashrc from Omarchy
-cp ~/.local/share/omarchy/default/bashrc ~/.bashrc
+# Use default bashrc from arcalos
+cp ~/.local/share/arcalos/default/bashrc ~/.bashrc

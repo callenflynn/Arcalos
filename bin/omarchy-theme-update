@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Update user-installed git themes
+# arcalos:summary=Update user-installed git themes
 
-for dir in ~/.config/omarchy/themes/*/; do
+for dir in ~/.config/arcalos/themes/*/; do
   if [[ -d $dir ]] && [[ ! -L ${dir%/} ]] && [[ -d $dir/.git ]]; then
     echo "Updating: $(basename "$dir")"
     git -C "$dir" pull

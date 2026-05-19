@@ -1,21 +1,21 @@
 #!/bin/bash
 
-# omarchy:summary=Install a hook into ~/.config/omarchy/hooks/<type>.d/
-# omarchy:group=hook
-# omarchy:name=install
-# omarchy:args=<type> <file>
-# omarchy:examples=omarchy hook install post-update ~/my-hook
+# arcalos:summary=Install a hook into ~/.config/arcalos/hooks/<type>.d/
+# arcalos:group=hook
+# arcalos:name=install
+# arcalos:args=<type> <file>
+# arcalos:examples=arcalos hook install post-update ~/my-hook
 
 set -e
 
 if (( $# != 2 )); then
-  echo "Usage: omarchy-hook-install <type> <file>"
+  echo "Usage: arcalos-hook-install <type> <file>"
   exit 1
 fi
 
 HOOK_TYPE=$1
 HOOK_FILE=$2
-HOOK_DIR="$HOME/.config/omarchy/hooks/$HOOK_TYPE.d"
+HOOK_DIR="$HOME/.config/arcalos/hooks/$HOOK_TYPE.d"
 HOOK_NAME=$(basename "$HOOK_FILE")
 HOOK_PATH="$HOOK_DIR/$HOOK_NAME"
 

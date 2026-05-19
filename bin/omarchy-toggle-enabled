@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Check if a toggle is enabled (flag file exists)
-# omarchy:args=<flag-name>
+# arcalos:summary=Check if a toggle is enabled (flag file exists)
+# arcalos:args=<flag-name>
 
-[[ -f "$HOME/.local/state/omarchy/toggles/$1" ]]
+[[ -f "$HOME/.local/state/arcalos/toggles/$1" ]]

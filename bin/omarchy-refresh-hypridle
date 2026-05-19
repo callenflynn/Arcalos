@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Overwrite the user config for hypridle with the Omarchy default and restart the service.
+# arcalos:summary=Overwrite the user config for hypridle with the arcalos default and restart the service.
 
-omarchy-refresh-config hypr/hypridle.conf
-omarchy-restart-hypridle
+arcalos-refresh-config hypr/hypridle.conf
+arcalos-restart-hypridle

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# omarchy:summary=Creates a new Omarchy migration named after the unix timestamp of the last commit.
+# arcalos:summary=Creates a new arcalos migration named after the unix timestamp of the last commit.
 
-cd ~/.local/share/omarchy
-migration_file="$HOME/.local/share/omarchy/migrations/$(git log -1 --format=%cd --date=unix).sh"
+cd ~/.local/share/arcalos
+migration_file="$HOME/.local/share/arcalos/migrations/$(git log -1 --format=%cd --date=unix).sh"
 touch $migration_file
 
 if [[ $1 != "--no-edit" ]]; then

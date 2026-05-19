@@ -1,5 +1,5 @@
 echo "Add the new Flexoki Light theme"
 
-if [[ ! -L ~/.config/omarchy/themes/flexoki-light ]]; then
-  ln -nfs ~/.local/share/omarchy/themes/flexoki-light ~/.config/omarchy/themes/
+if [[ ! -L ~/.config/arcalos/themes/flexoki-light ]]; then
+  ln -nfs ~/.local/share/arcalos/themes/flexoki-light ~/.config/arcalos/themes/
 fi

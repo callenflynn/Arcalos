@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Install the NordVPN service with optional GUI.
-# omarchy:requires-sudo=true
+# arcalos:summary=Install the NordVPN service with optional GUI.
+# arcalos:requires-sudo=true
 
 echo "Installing NordVPN..."
-omarchy-pkg-aur-add nordvpn-bin
+arcalos-pkg-aur-add nordvpn-bin
 
 echo "Enabling NordVPN daemon..."
 sudo systemctl enable --now nordvpnd
@@ -15,4 +15,4 @@ sudo usermod -aG nordvpn "$USER"
 echo -e "\nNordVPN installed! After reboot, run 'nordvpn login' to authenticate."
 
 echo
-gum confirm "Reboot now to make NordVPN usable?" && omarchy-system-reboot
+gum confirm "Reboot now to make NordVPN usable?" && arcalos-system-reboot

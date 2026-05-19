@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Edit, set, or reset screensaver branding
-# omarchy:group=branding
-# omarchy:name=screensaver
-# omarchy:args=<image|text|reset>
-# omarchy:examples=omarchy branding screensaver image | omarchy branding screensaver text | omarchy branding screensaver reset
+# arcalos:summary=Edit, set, or reset screensaver branding
+# arcalos:group=branding
+# arcalos:name=screensaver
+# arcalos:args=<image|text|reset>
+# arcalos:examples=arcalos branding screensaver image | arcalos branding screensaver text | arcalos branding screensaver reset
 
 set -euo pipefail
 
@@ -12,19 +12,19 @@ SOURCE_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
 
 case "${1:-}" in
 image)
-  image=$(omarchy-menu-file "Pick png/svg from $SOURCE_DIR" "${SOURCE_DIR}" "svg png")
-  if [[ -n $image ]] && omarchy-transcode-ascii "$image" ~/.config/omarchy/branding/screensaver.txt; then
-    omarchy-launch-screensaver force >/dev/null 2>&1
+  image=$(arcalos-menu-file "Pick png/svg from $SOURCE_DIR" "${SOURCE_DIR}" "svg png")
+  if [[ -n $image ]] && arcalos-transcode-ascii "$image" ~/.config/arcalos/branding/screensaver.txt; then
+    arcalos-launch-screensaver force >/dev/null 2>&1
   fi
   ;;
 text)
-  omarchy-launch-editor ~/.config/omarchy/branding/screensaver.txt >/dev/null 2>&1 && omarchy-launch-screensaver force >/dev/null 2>&1
+  arcalos-launch-editor ~/.config/arcalos/branding/screensaver.txt >/dev/null 2>&1 && arcalos-launch-screensaver force >/dev/null 2>&1
   ;;
 reset)
-  cp "$OMARCHY_PATH/logo.txt" ~/.config/omarchy/branding/screensaver.txt && omarchy-launch-screensaver force >/dev/null 2>&1
+  cp "$ARCALOS_PATH/logo.txt" ~/.config/arcalos/branding/screensaver.txt && arcalos-launch-screensaver force >/dev/null 2>&1
   ;;
 *)
-  echo "Usage: omarchy-branding-screensaver <image|text|reset>" >&2
+  echo "Usage: arcalos-branding-screensaver <image|text|reset>" >&2
   exit 1
   ;;
 esac

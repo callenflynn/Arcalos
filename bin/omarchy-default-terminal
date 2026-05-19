@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Set the default terminal used by xdg-terminal-exec
-# omarchy:args=[alacritty|foot|ghostty|kitty]
-# omarchy:examples=omarchy default terminal ghostty | omarchy default terminal kitty
+# arcalos:summary=Set the default terminal used by xdg-terminal-exec
+# arcalos:args=[alacritty|foot|ghostty|kitty]
+# arcalos:examples=arcalos default terminal ghostty | arcalos default terminal kitty
 
 if (($# == 0)); then
   desktop_id=$(grep -vE '^($|#)' ~/.config/xdg-terminals.list 2>/dev/null | head -n 1)
@@ -22,7 +22,7 @@ foot) desktop_id="foot.desktop"; name="Foot"; glyph="" ;;
 ghostty) desktop_id="com.mitchellh.ghostty.desktop"; name="Ghostty"; glyph="" ;;
 kitty) desktop_id="kitty.desktop"; name="Kitty"; glyph="" ;;
 *)
-  echo "Usage: omarchy-default-terminal <alacritty|foot|ghostty|kitty>"
+  echo "Usage: arcalos-default-terminal <alacritty|foot|ghostty|kitty>"
   exit 1
   ;;
 esac

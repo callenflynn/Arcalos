@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# omarchy:summary=Set Hyprland, Hyprlock, Mako, and Walker corners to sharp or round
-# omarchy:args=<sharp|round>
-# omarchy:examples=omarchy style corners round | omarchy style corners sharp
+# arcalos:summary=Set Hyprland, Hyprlock, Mako, and Walker corners to sharp or round
+# arcalos:args=<sharp|round>
+# arcalos:examples=arcalos style corners round | arcalos style corners sharp
 
 if [[ $1 != "sharp" && $1 != "round" ]]; then
-  echo "Usage: omarchy-style-corners <sharp|round>"
+  echo "Usage: arcalos-style-corners <sharp|round>"
   exit 1
 fi
 
-omarchy-style-corners-hyprland "$1"
-omarchy-style-corners-hyprlock "$1"
-omarchy-style-corners-mako "$1"
-omarchy-style-corners-walker "$1"
+arcalos-style-corners-hyprland "$1"
+arcalos-style-corners-hyprlock "$1"
+arcalos-style-corners-mako "$1"
+arcalos-style-corners-walker "$1"
 
 case $1 in
-  sharp) omarchy-notification-send "Sharp corners enabled" -g 󰝣 ;;
-  round) omarchy-notification-send "Round corners enabled" -g 󰘇 ;;
+  sharp) arcalos-notification-send "Sharp corners enabled" -g 󰝣 ;;
+  round) arcalos-notification-send "Round corners enabled" -g 󰘇 ;;
 esac

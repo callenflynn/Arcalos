@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Overwrite the user tmux config with the Omarchy default and reload tmux.
+# arcalos:summary=Overwrite the user tmux config with the arcalos default and reload tmux.
 
-omarchy-refresh-config tmux/tmux.conf
-omarchy-restart-tmux
+arcalos-refresh-config tmux/tmux.conf
+arcalos-restart-tmux

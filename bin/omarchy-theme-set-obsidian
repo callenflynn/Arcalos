@@ -1,26 +1,26 @@
 #!/bin/bash
 
-# omarchy:summary=Sync Omarchy theme to all Obsidian vaults
-# omarchy:hidden=true
+# arcalos:summary=Sync arcalos theme to all Obsidian vaults
+# arcalos:hidden=true
 
-CURRENT_THEME_DIR="$HOME/.config/omarchy/current/theme"
+CURRENT_THEME_DIR="$HOME/.config/arcalos/current/theme"
 
 [[ -f $CURRENT_THEME_DIR/obsidian.css ]] || exit 0
 
 jq -r '.vaults | values[].path' ~/.config/obsidian/obsidian.json 2>/dev/null | while read -r vault_path; do
   [[ -d $vault_path/.obsidian ]] || continue
 
-  theme_dir="$vault_path/.obsidian/themes/Omarchy"
+  theme_dir="$vault_path/.obsidian/themes/arcalos"
   mkdir -p "$theme_dir"
 
   [[ -f $theme_dir/manifest.json ]] || cat >"$theme_dir/manifest.json" <<'EOF'
 {
-  "name": "Omarchy",
+  "name": "arcalos",
   "version": "1.0.0",
   "minAppVersion": "0.16.0",
-  "description": "Automatically syncs with your current Omarchy system theme colors and fonts",
-  "author": "Omarchy",
-  "authorUrl": "https://omarchy.org"
+  "description": "Automatically syncs with your current arcalos system theme colors and fonts",
+  "author": "arcalos",
+  "authorUrl": "https://arcalos.org"
 }
 EOF
 

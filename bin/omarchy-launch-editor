@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# omarchy:summary=Launch the default editor as determined by $EDITOR (set via ~/.config/uwsm/default) (or nvim if missing).
-# omarchy:args=<path>
+# arcalos:summary=Launch the default editor as determined by $EDITOR (set via ~/.config/uwsm/default) (or nvim if missing).
+# arcalos:args=<path>
 
-omarchy-cmd-present "$EDITOR" || EDITOR=nvim
+arcalos-cmd-present "$EDITOR" || EDITOR=nvim
 
 case "$EDITOR" in
 nvim | vim | nano | micro | hx | helix | fresh)
-  exec omarchy-launch-tui "$EDITOR" "$@"
+  exec arcalos-launch-tui "$EDITOR" "$@"
   ;;
 *)
   exec setsid uwsm-app -- "$EDITOR" "$@"

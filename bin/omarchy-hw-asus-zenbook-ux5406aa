@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Detect ASUS Zenbook UX5406AA series laptops on Intel Panther Lake.
+# arcalos:summary=Detect ASUS Zenbook UX5406AA series laptops on Intel Panther Lake.
 
-omarchy-hw-match "ux5406aa" && omarchy-hw-intel-ptl
+arcalos-hw-match "ux5406aa" && arcalos-hw-intel-ptl

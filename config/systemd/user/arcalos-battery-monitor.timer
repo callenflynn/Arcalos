@@ -1,6 +1,6 @@
 [Unit]
 Description=Arcalos Battery Monitor Timer
-Requires=omarchy-battery-monitor.service
+Requires=arcalos-battery-monitor.service
 
 [Timer]
 OnBootSec=1min

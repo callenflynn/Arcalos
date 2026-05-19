@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Cycle focused Hyprland monitor scaling through 1x, 1.25x, 1.6x, 2x, 3x, and 4x
+# arcalos:summary=Cycle focused Hyprland monitor scaling through 1x, 1.25x, 1.6x, 2x, 3x, and 4x
 
 MONITOR_INFO=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true)')
 ACTIVE_MONITOR=$(echo "$MONITOR_INFO" | jq -r '.name')
@@ -36,13 +36,13 @@ NEW_GDK_SCALE=${GDK_SCALES[$NEW_IDX]}
 
 hyprctl eval "hl.monitor({ output = \"$ACTIVE_MONITOR\", mode = \"${WIDTH}x${HEIGHT}@${REFRESH_RATE}\", position = \"auto\", scale = $NEW_SCALE })" >/dev/null
 
-# Persist to monitors.lua if the user still has Omarchy's generic catch-all
+# Persist to monitors.lua if the user still has arcalos's generic catch-all
 # defaults, so the scale survives reboots.
 MONITOR_LUA="$HOME/.config/hypr/monitors.lua"
-if [[ -f $MONITOR_LUA ]] && grep -q '^local omarchy_monitor_scale = ' "$MONITOR_LUA"; then
+if [[ -f $MONITOR_LUA ]] && grep -q '^local ARCALOS_monitor_scale = ' "$MONITOR_LUA"; then
   sed -i -E \
-    -e "s|^local omarchy_monitor_scale = .*|local omarchy_monitor_scale = ${NEW_SCALE}|" \
-    -e "s|^local omarchy_gdk_scale = .*|local omarchy_gdk_scale = ${NEW_GDK_SCALE}|" \
+    -e "s|^local ARCALOS_monitor_scale = .*|local ARCALOS_monitor_scale = ${NEW_SCALE}|" \
+    -e "s|^local ARCALOS_gdk_scale = .*|local ARCALOS_gdk_scale = ${NEW_GDK_SCALE}|" \
     "$MONITOR_LUA"
 elif [[ -f $MONITOR_LUA ]] && grep -Eq '^hl\.monitor\(\{ output = "", mode = "preferred", position = "auto", scale = ("auto"|[0-9.]+) \}\)' "$MONITOR_LUA"; then
   sed -i -E \

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Returns a formatted battery status string with percentage and power draw/charge.
+# arcalos:summary=Returns a formatted battery status string with percentage and power draw/charge.
 
 battery_info=$(upower -i $(upower -e | grep BAT))
 
@@ -17,8 +17,8 @@ power_rate=$(echo "$battery_info" | awk '/energy-rate/ {
 }')
 
 state=$(echo "$battery_info" | awk '/state/ { print $2; exit }')
-time_remaining=$(omarchy-battery-remaining-time)
-capacity=$(omarchy-battery-capacity)
+time_remaining=$(arcalos-battery-remaining-time)
+capacity=$(arcalos-battery-capacity)
 
 if [[ $state == "charging" ]]; then
     echo "Battery ${percentage}%  ·  ${time_remaining} to full  ·   ${power_rate}W / ${capacity}Wh"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Set up fingerprint authentication for sudo, polkit, and lock screen
-# omarchy:requires-sudo=true
+# arcalos:summary=Set up fingerprint authentication for sudo, polkit, and lock screen
+# arcalos:requires-sudo=true
 
 set -e
 
@@ -55,14 +55,14 @@ echo "Installing required packages..."
 
 # libfprint-git provides+conflicts libfprint; pacman -S --noconfirm
 # defaults the conflict prompt to N and aborts. Pre-remove libfprint
-# with -Rdd so the install goes silent. -Rdd (not omarchy-pkg-drop's
+# with -Rdd so the install goes silent. -Rdd (not arcalos-pkg-drop's
 # -Rns) is required because fprintd requires libfprint; the dep is
 # re-satisfied immediately by libfprint-git's provides=libfprint.
-if omarchy-pkg-present libfprint; then
+if arcalos-pkg-present libfprint; then
   sudo pacman -Rdd --noconfirm libfprint
 fi
 
-omarchy-pkg-add libfprint-git fprintd usbutils
+arcalos-pkg-add libfprint-git fprintd usbutils
 
 if ! check_fingerprint_hardware; then
   exit 1

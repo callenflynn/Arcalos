@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Set Waybar position
-# omarchy:args=<top|bottom|left|right>
-# omarchy:examples=omarchy-style-waybar-position top | omarchy style waybar-position bottom
+# arcalos:summary=Set Waybar position
+# arcalos:args=<top|bottom|left|right>
+# arcalos:examples=arcalos-style-waybar-position top | arcalos style waybar-position bottom
 
 set -e
 
@@ -11,7 +11,7 @@ WAYBAR_CONFIG="$HOME/.config/waybar/config.jsonc"
 position=$1
 
 if [[ ! $position =~ ^(top|bottom|left|right)$ ]]; then
-  echo "Usage: omarchy-style-waybar-position top|bottom|left|right" >&2
+  echo "Usage: arcalos-style-waybar-position top|bottom|left|right" >&2
   exit 1
 fi
 
@@ -26,4 +26,4 @@ fi
 sed -i -E "s/(\"position\"[[:space:]]*:[[:space:]]*\")[a-z]+(\")/\\1${position}\\2/" "$WAYBAR_CONFIG"
 sed -i -E "s/(\"height\"[[:space:]]*:[[:space:]]*)[0-9]+/\\1${height}/; s/(\"width\"[[:space:]]*:[[:space:]]*)[0-9]+/\\1${width}/" "$WAYBAR_CONFIG"
 
-omarchy-restart-waybar
+arcalos-restart-waybar

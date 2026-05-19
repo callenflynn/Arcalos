@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Print the installed Arcalos version
+# arcalos:summary=Print the installed Arcalos version
 
-cat $OMARCHY_PATH/version
+cat $ARCALOS_PATH/version

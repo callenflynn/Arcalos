@@ -1,4 +1,4 @@
-echo "Copy Omarchy logo to ~/.config/omarchy/branding/screensaver.txt so screensaver can be personalized"
+echo "Copy arcalos logo to ~/.config/arcalos/branding/screensaver.txt so screensaver can be personalized"
 
-mkdir -p ~/.config/omarchy/branding
-cp $OMARCHY_PATH/logo.txt ~/.config/omarchy/branding/screensaver.txt
+mkdir -p ~/.config/arcalos/branding
+cp $ARCALOS_PATH/logo.txt ~/.config/arcalos/branding/screensaver.txt

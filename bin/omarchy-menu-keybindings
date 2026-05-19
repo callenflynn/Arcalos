@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# omarchy:summary=Display Hyprland keybindings defined in your configuration using walker for an interactive search menu.
+# arcalos:summary=Display Hyprland keybindings defined in your configuration using walker for an interactive search menu.
 
 declare -A KEYCODE_SYM_MAP
 # Hyprland reports XKB keycodes for code: bindings. Keep a small fallback for
@@ -118,7 +118,7 @@ parse_keycodes() {
 build_lua_bind_key_cache() {
   local modmask description key
 
-  omarchy-cmd-present lua || return 0
+  arcalos-cmd-present lua || return 0
 
   while IFS=$'\t' read -r modmask description key; do
     [[ -z $modmask || -z $description || -z $key ]] && continue
@@ -227,7 +227,7 @@ modmask_to_text() {
 #
 # Also do some pre-processing:
 # - Fill missing Lua code:... keys from the Lua source cache
-# - Remove standard Omarchy bin path prefix
+# - Remove standard arcalos bin path prefix
 # - Map numeric modifier key mask to a textual rendition
 # - Output comma-separated values that the parser can understand
 dynamic_bindings() {
@@ -247,7 +247,7 @@ dynamic_bindings() {
       [[ -z $description && $dispatcher == "__lua" ]] && continue
 
       modifiers=$(modmask_to_text "$modmask")
-      arg="${arg//~\/.local\/share\/omarchy\/bin\//}"
+      arg="${arg//~\/.local\/share\/arcalos\/bin\//}"
       arg="${arg//uwsm app -- /}"
       arg="${arg//uwsm-app -- /}"
 
@@ -324,7 +324,7 @@ prioritize_entries() {
     if (match(line, /Browser/) && !match(line, /Browser[[:space:]]*\(/) && !match(line, /SUPER SHIFT.*\+.*B.*→.*Browser/)) prio = 2
     if (match(line, /File manager/) && !match(line, /File manager \(cwd\)/))  prio = 3
     if (match(line, /Launch apps/))  prio = 4
-    if (match(line, /Omarchy menu/))  prio = 5
+    if (match(line, /arcalos menu/))  prio = 5
     if (match(line, /System menu/))  prio = 6
     if (match(line, /Theme menu/))  prio = 7
     if (match(line, /Full screen/))  prio = 8

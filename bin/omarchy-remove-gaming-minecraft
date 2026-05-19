@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Remove the Minecraft launcher along with its worlds, mods, and caches.
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove the Minecraft launcher along with its worlds, mods, and caches.
+# arcalos:requires-sudo=true
 
 set -e
 
-omarchy-pkg-drop minecraft-launcher
+arcalos-pkg-drop minecraft-launcher
 
 rm -rf \
   "$HOME/.minecraft" \

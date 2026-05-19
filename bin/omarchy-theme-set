@@ -1,22 +1,22 @@
 #!/bin/bash
 
-# omarchy:summary=Apply an Arcalos theme
-# omarchy:args=<theme-name>
-# omarchy:examples=omarchy theme list | omarchy theme set "Tokyo Night"
+# arcalos:summary=Apply an Arcalos theme
+# arcalos:args=<theme-name>
+# arcalos:examples=arcalos theme list | arcalos theme set "Tokyo Night"
 
 if [[ -z $1 ]]; then
-  echo "Usage: omarchy-theme-set <theme-name>"
+  echo "Usage: arcalos-theme-set <theme-name>"
   exit 1
 fi
 
-CURRENT_THEME_PATH="$HOME/.config/omarchy/current/theme"
-NEXT_THEME_PATH="$HOME/.config/omarchy/current/next-theme"
-USER_THEMES_PATH="$HOME/.config/omarchy/themes"
-OMARCHY_THEMES_PATH="$OMARCHY_PATH/themes"
+CURRENT_THEME_PATH="$HOME/.config/arcalos/current/theme"
+NEXT_THEME_PATH="$HOME/.config/arcalos/current/next-theme"
+USER_THEMES_PATH="$HOME/.config/arcalos/themes"
+ARCALOS_THEMES_PATH="$ARCALOS_PATH/themes"
 
 THEME_NAME=$(echo "$1" | sed -E 's/<[^>]+>//g' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
-if [[ ! -d $OMARCHY_THEMES_PATH/$THEME_NAME ]] && [[ ! -d $USER_THEMES_PATH/$THEME_NAME ]]; then
+if [[ ! -d $ARCALOS_THEMES_PATH/$THEME_NAME ]] && [[ ! -d $USER_THEMES_PATH/$THEME_NAME ]]; then
   echo "Theme '$THEME_NAME' does not exist"
   exit 1
 fi
@@ -26,51 +26,51 @@ rm -rf "$NEXT_THEME_PATH"
 mkdir -p "$NEXT_THEME_PATH"
 
 # Copy official theme first, then overlay user customizations on top
-cp -r "$OMARCHY_THEMES_PATH/$THEME_NAME/"* "$NEXT_THEME_PATH/" 2>/dev/null
+cp -r "$ARCALOS_THEMES_PATH/$THEME_NAME/"* "$NEXT_THEME_PATH/" 2>/dev/null
 cp -r "$USER_THEMES_PATH/$THEME_NAME/"* "$NEXT_THEME_PATH/" 2>/dev/null
 
 # Generate colors.toml from alacritty.toml if theme is missing colors.toml
 if [[ ! -f $NEXT_THEME_PATH/colors.toml && -f $NEXT_THEME_PATH/alacritty.toml ]]; then
-  omarchy-theme-colors-from-alacritty "$NEXT_THEME_PATH"
+  arcalos-theme-colors-from-alacritty "$NEXT_THEME_PATH"
 fi
 
 # Generate dynamic configs
-omarchy-theme-set-templates
+arcalos-theme-set-templates
 
 # Swap next theme in as current
 rm -rf "$CURRENT_THEME_PATH"
 mv "$NEXT_THEME_PATH" "$CURRENT_THEME_PATH"
 
 # Store theme name for reference
-echo "$THEME_NAME" >"$HOME/.config/omarchy/current/theme.name"
+echo "$THEME_NAME" >"$HOME/.config/arcalos/current/theme.name"
 
 # Change background with theme
-if [[ $OMARCHY_THEME_SKIP_BACKGROUND != "1" ]]; then
-  omarchy-theme-bg-next
+if [[ $ARCALOS_THEME_SKIP_BACKGROUND != "1" ]]; then
+  arcalos-theme-bg-next
 fi
 
 # Restart components to apply new theme
 if pgrep -x waybar >/dev/null; then
-  omarchy-restart-waybar
+  arcalos-restart-waybar
 fi
-omarchy-restart-swayosd
-omarchy-restart-terminal
-omarchy-restart-hyprctl
-omarchy-restart-btop
-omarchy-restart-opencode
-omarchy-restart-mako
-omarchy-restart-helix
+arcalos-restart-swayosd
+arcalos-restart-terminal
+arcalos-restart-hyprctl
+arcalos-restart-btop
+arcalos-restart-opencode
+arcalos-restart-mako
+arcalos-restart-helix
 
 # Change app-specific themes
-omarchy-theme-set-foot
-omarchy-theme-set-gnome
-omarchy-theme-set-browser
-omarchy-theme-set-vscode
-omarchy-theme-set-obsidian
-omarchy-theme-set-keyboard
+arcalos-theme-set-foot
+arcalos-theme-set-gnome
+arcalos-theme-set-browser
+arcalos-theme-set-vscode
+arcalos-theme-set-obsidian
+arcalos-theme-set-keyboard
 
 # Call hook on theme set
-omarchy-hook theme-set "$THEME_NAME" >/dev/null
+arcalos-hook theme-set "$THEME_NAME" >/dev/null
 
 # Warm the background selector cache after the theme is applied, off the critical path.
-omarchy-theme-bg-cache >/dev/null 2>&1 &
+arcalos-theme-bg-cache >/dev/null 2>&1 &

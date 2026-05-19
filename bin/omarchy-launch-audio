@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Launch the Omarchy audio controls TUI (provided by wiremix).
+# arcalos:summary=Launch the arcalos audio controls TUI (provided by wiremix).
 
-omarchy-launch-or-focus-tui wiremix
+arcalos-launch-or-focus-tui wiremix

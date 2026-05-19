@@ -1,6 +1,6 @@
-# Place in each assistant's global skills directory so the Omarchy skill is available on first install
+# Place in each assistant's global skills directory so the arcalos skill is available on first install
 mkdir -p ~/.agents/skills ~/.claude/skills ~/.codex/skills ~/.pi/agent/skills
-ln -sfn "$OMARCHY_PATH/default/omarchy-skill" ~/.agents/skills/omarchy
-ln -sfn "$OMARCHY_PATH/default/omarchy-skill" ~/.claude/skills/omarchy
-ln -sfn "$OMARCHY_PATH/default/omarchy-skill" ~/.codex/skills/omarchy
-ln -sfn "$OMARCHY_PATH/default/omarchy-skill" ~/.pi/agent/skills/omarchy
+ln -sfn "$ARCALOS_PATH/default/arcalos-skill" ~/.agents/skills/arcalos
+ln -sfn "$ARCALOS_PATH/default/arcalos-skill" ~/.claude/skills/arcalos
+ln -sfn "$ARCALOS_PATH/default/arcalos-skill" ~/.codex/skills/arcalos
+ln -sfn "$ARCALOS_PATH/default/arcalos-skill" ~/.pi/agent/skills/arcalos

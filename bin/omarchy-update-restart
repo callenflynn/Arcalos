@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Prompt for required reboot or service restarts after updates
+# arcalos:summary=Prompt for required reboot or service restarts after updates
 
 echo
 
 confirm_reboot() {
-  gum confirm "$1" && { omarchy-system-reboot; exit 0; }
+  gum confirm "$1" && { arcalos-system-reboot; exit 0; }
 }
 
 running_kernel=$(uname -r)
@@ -24,7 +24,7 @@ done
 
 if [[ $kernel_updated == "true" ]]; then
   confirm_reboot "Linux kernel has been updated. Reboot?"
-elif [[ -f $HOME/.local/state/omarchy/reboot-required ]]; then
+elif [[ -f $HOME/.local/state/arcalos/reboot-required ]]; then
   confirm_reboot "Updates require reboot. Ready?"
 fi
 
@@ -33,12 +33,12 @@ if [[ $running_hyprland == *"(deleted)"* ]]; then
   confirm_reboot "Hyprland has been updated. Reboot?"
 fi
 
-for file in "$HOME"/.local/state/omarchy/restart-*-required; do
+for file in "$HOME"/.local/state/arcalos/restart-*-required; do
   if [[ -f $file ]]; then
     filename=$(basename "$file")
     service=$(echo "$filename" | sed 's/restart-\(.*\)-required/\1/')
     echo "Restarting $service"
-    omarchy-state clear "$filename"
-    omarchy-restart-"$service"
+    arcalos-state clear "$filename"
+    arcalos-restart-"$service"
   fi
 done

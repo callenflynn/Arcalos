@@ -2,7 +2,7 @@
  * Syncs pi's light/dark theme with the active Arcalos theme.
  *
  * Arcalos light themes include:
- *   ~/.config/omarchy/current/theme/light.mode
+ *   ~/.config/arcalos/current/theme/light.mode
  */
 
 import { existsSync } from "node:fs";
@@ -10,9 +10,9 @@ import { join } from "node:path";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const home = process.env.HOME ?? "";
-const lightModePath = join(home, ".config/omarchy/current/theme/light.mode");
+const lightModePath = join(home, ".config/arcalos/current/theme/light.mode");
 
-function omarchyPiTheme(): "light" | "dark" {
+function arcalosPiTheme(): "light" | "dark" {
 	return existsSync(lightModePath) ? "light" : "dark";
 }
 
@@ -20,11 +20,11 @@ export default function (pi: ExtensionAPI) {
 	let intervalId: ReturnType<typeof setInterval> | null = null;
 
 	pi.on("session_start", (_event, ctx) => {
-		let currentTheme = omarchyPiTheme();
+		let currentTheme = arcalosPiTheme();
 		ctx.ui.setTheme(currentTheme);
 
 		intervalId = setInterval(() => {
-			const nextTheme = omarchyPiTheme();
+			const nextTheme = arcalosPiTheme();
 			if (nextTheme !== currentTheme) {
 				currentTheme = nextTheme;
 				ctx.ui.setTheme(currentTheme);

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Print the current Omarchy git branch
+# arcalos:summary=Print the current Arcalos git branch
 
-echo $(git -C "$OMARCHY_PATH" rev-parse --abbrev-ref HEAD)
+echo $(git -C "$ARCALOS_PATH" rev-parse --abbrev-ref HEAD)

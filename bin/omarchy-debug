@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# omarchy:summary=Print debugging information
-# omarchy:args=[--no-sudo] [--print]
-# omarchy:examples=omarchy debug --print --no-sudo
-# omarchy:requires-sudo=true
+# arcalos:summary=Print debugging information
+# arcalos:args=[--no-sudo] [--print]
+# arcalos:examples=arcalos debug --print --no-sudo
+# arcalos:requires-sudo=true
 
 NO_SUDO=false
 PRINT_ONLY=false
@@ -20,13 +20,13 @@ while (( $# > 0 )); do
       ;;
     *)
       echo "Unknown option: $1"
-      echo "Usage: omarchy-debug [--no-sudo] [--print]"
+      echo "Usage: arcalos-debug [--no-sudo] [--print]"
       exit 1
       ;;
   esac
 done
 
-LOG_FILE="/tmp/omarchy-debug.log"
+LOG_FILE="/tmp/arcalos-debug.log"
 
 if [[ $NO_SUDO = "true" ]]; then
   DMESG_OUTPUT="(skipped - --no-sudo flag used)"
@@ -37,7 +37,7 @@ fi
 cat > "$LOG_FILE" <<EOF
 Date: $(date)
 Hostname: $(hostname)
-Omarchy Branch: $(git -C "$OMARCHY_PATH" branch --show-current 2>/dev/null || echo "unknown")
+arcalos Branch: $(git -C "$ARCALOS_PATH" branch --show-current 2>/dev/null || echo "unknown")
 
 =========================================
 SYSTEM INFORMATION
@@ -92,7 +92,7 @@ case "$ACTION" in
     less "$LOG_FILE"
     ;;
   "Save in current directory")
-    cp "$LOG_FILE" "./omarchy-debug.log"
-    echo "✓ Log saved to $(pwd)/omarchy-debug.log"
+    cp "$LOG_FILE" "./arcalos-debug.log"
+    echo "✓ Log saved to $(pwd)/arcalos-debug.log"
     ;;
 esac

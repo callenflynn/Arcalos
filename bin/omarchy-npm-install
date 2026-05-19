@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Install a pnpm dlx wrapper for a given npm package.
-# omarchy:args=<package> [command-name]
+# arcalos:summary=Install a pnpm dlx wrapper for a given npm package.
+# arcalos:args=<package> [command-name]
 
 if [[ -z $1 ]]; then
-  echo "Usage: omarchy-npm-install <package> [command-name]"
+  echo "Usage: arcalos-npm-install <package> [command-name]"
   exit 1
 fi
 
@@ -23,9 +23,9 @@ if ! node_root="\$(mise where node@latest 2>/dev/null)"; then
   node_root="\$(mise where node@latest)"
 fi
 
-if omarchy-cmd-missing pnpm; then
+if arcalos-cmd-missing pnpm; then
   echo "Installing pnpm for \$package..."
-  omarchy-pkg-add pnpm
+  arcalos-pkg-add pnpm
   hash -r
 fi
 
@@ -38,9 +38,9 @@ ensure_bin_runtime() {
   IFS= read -r shebang < "\$bin_path"
 
   if [[ \$shebang == "#!"*"/bun"* || \$shebang == "#!"*"/env bun"* ]]; then
-    if omarchy-cmd-missing bun; then
+    if arcalos-cmd-missing bun; then
       echo "Installing bun runtime for \$package..."
-      omarchy-pkg-add bun
+      arcalos-pkg-add bun
       hash -r
     fi
   fi

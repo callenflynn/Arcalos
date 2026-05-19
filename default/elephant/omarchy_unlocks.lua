@@ -1,12 +1,12 @@
 --
 -- Dynamic Arcalos Unlocks Menu for Elephant/Walker
 --
--- A "Default" entry restores the omarchy-shipped Plymouth via
--- omarchy-plymouth-reset. After that, every theme that has a preview-unlock.png
--- appears as a customised unlock; picking one runs omarchy-plymouth-set-by-theme
+-- A "Default" entry restores the arcalos-shipped Plymouth via
+-- arcalos-plymouth-reset. After that, every theme that has a preview-unlock.png
+-- appears as a customised unlock; picking one runs arcalos-plymouth-set-by-theme
 -- <theme>. Both run in a floating terminal so sudo can prompt.
 --
-Name = "omarchyunlocks"
+Name = "arcalosunlocks"
 NamePretty = "Arcalos Unlocks"
 HideFromProviderlist = true
 FixedOrder = true
@@ -27,10 +27,10 @@ end
 function GetEntries()
   local entries = {}
   local home = os.getenv("HOME")
-  local user_themes_dir = home .. "/.config/omarchy/themes"
-  local omarchy_path = os.getenv("OMARCHY_PATH") or ""
-  local default_themes_dir = omarchy_path .. "/themes"
-  local default_preview = omarchy_path .. "/default/plymouth/preview-unlock.png"
+  local user_themes_dir = home .. "/.config/arcalos/themes"
+  local ARCALOS_PATH = os.getenv("ARCALOS_PATH") or ""
+  local default_themes_dir = ARCALOS_PATH .. "/themes"
+  local default_preview = ARCALOS_PATH .. "/default/plymouth/preview-unlock.png"
 
   local seen_themes = {}
 
@@ -60,8 +60,8 @@ function GetEntries()
             Preview = preview_path,
             PreviewType = "file",
             Actions = {
-              activate = "omarchy-launch-floating-terminal-with-presentation "
-                .. shell_escape("omarchy-plymouth-set-by-theme " .. shell_escape(theme_name)),
+              activate = "arcalos-launch-floating-terminal-with-presentation "
+                .. shell_escape("arcalos-plymouth-set-by-theme " .. shell_escape(theme_name)),
             },
           })
         end
@@ -78,8 +78,8 @@ function GetEntries()
   local default_entry = {
     Text = "Default  ",
     Actions = {
-      activate = "omarchy-launch-floating-terminal-with-presentation "
-        .. shell_escape("omarchy-plymouth-reset"),
+      activate = "arcalos-launch-floating-terminal-with-presentation "
+        .. shell_escape("arcalos-plymouth-reset"),
     },
   }
   if file_exists(default_preview) then

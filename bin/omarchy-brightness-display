@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# omarchy:summary=Adjust brightness on the most likely display device.
-# omarchy:args=<+N%|N%-|N%|off|on>
-# omarchy:examples=omarchy brightness display +5% | omarchy brightness display 5%- | omarchy brightness display 50% | omarchy brightness display off | omarchy brightness display on
+# arcalos:summary=Adjust brightness on the most likely display device.
+# arcalos:args=<+N%|N%-|N%|off|on>
+# arcalos:examples=arcalos brightness display +5% | arcalos brightness display 5%- | arcalos brightness display 50% | arcalos brightness display off | arcalos brightness display on
 
 step="${1:-+5%}"
 
@@ -18,7 +18,7 @@ runtime_dir="${XDG_RUNTIME_DIR:-/tmp}"
 
 # Drop overlapping brightness key events so concurrent invocations do not race.
 # Hardware key repeat present on some devices can otherwise glitch SwayOSD rendering.
-exec 9>"$runtime_dir/omarchy-brightness-display.lock"
+exec 9>"$runtime_dir/arcalos-brightness-display.lock"
 flock -n 9 || exit 0
 
 # Start with the first possible output, then refine to the most likely given an order heuristic.
@@ -31,8 +31,8 @@ for candidate in amdgpu_bl* intel_backlight acpi_video*; do
 done
 
 
-if omarchy-hyprland-monitor-focused-apple; then
-  omarchy-brightness-display-apple "$step"
+if arcalos-hyprland-monitor-focused-apple; then
+  arcalos-brightness-display-apple "$step"
   exit
 fi
 
@@ -65,4 +65,4 @@ fi
 brightnessctl -d "$device" set "$step" >/dev/null
 
 # Use SwayOSD to display the new brightness setting.
-omarchy-swayosd-brightness "$(brightnessctl -d "$device" -m | cut -d',' -f4 | tr -d '%')"
+arcalos-swayosd-brightness "$(brightnessctl -d "$device" -m | cut -d',' -f4 | tr -d '%')"

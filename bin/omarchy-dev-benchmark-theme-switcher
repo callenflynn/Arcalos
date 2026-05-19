@@ -1,26 +1,26 @@
 #!/bin/bash
 
-# omarchy:summary=Measure theme switcher cache and selector prep times
-# omarchy:args=[--repeat=<count>] [--keep-cache]
-# omarchy:examples=omarchy dev benchmark theme switcher | omarchy dev benchmark theme-switcher --repeat=10
-# omarchy:aliases=omarchy dev benchmark theme-switcher
+# arcalos:summary=Measure theme switcher cache and selector prep times
+# arcalos:args=[--repeat=<count>] [--keep-cache]
+# arcalos:examples=arcalos dev benchmark theme switcher | arcalos dev benchmark theme-switcher --repeat=10
+# arcalos:aliases=arcalos dev benchmark theme-switcher
 
 set -euo pipefail
 
-OMARCHY_BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-OMARCHY_PATH=${OMARCHY_PATH:-$(cd -- "$OMARCHY_BIN_DIR/.." && pwd)}
+ARCALOS_BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+ARCALOS_PATH=${ARCALOS_PATH:-$(cd -- "$ARCALOS_BIN_DIR/.." && pwd)}
 REPEAT=5
 KEEP_CACHE=false
 
 show_help() {
   cat <<'EOF'
 Usage:
-  omarchy dev benchmark theme switcher [--repeat=<count>] [--keep-cache]
+  arcalos dev benchmark theme switcher [--repeat=<count>] [--keep-cache]
 
 Measure the non-interactive parts of the theme switcher:
-- theme preview index build (omarchy-theme-switcher before UI handoff)
+- theme preview index build (arcalos-theme-switcher before UI handoff)
 - lazy selector row prep used by the interactive theme switcher
-- full thumbnail cache warmup cost (omarchy-menu-images --cache-only)
+- full thumbnail cache warmup cost (arcalos-menu-images --cache-only)
 
 Options:
   --repeat=<count>  Number of warm runs to measure for each case (default: 5)
@@ -116,39 +116,39 @@ cleanup() {
 }
 trap cleanup EXIT
 
-cat >"$stub_bin/omarchy-menu-images" <<'EOF'
+cat >"$stub_bin/arcalos-menu-images" <<'EOF'
 #!/bin/bash
 exit 0
 EOF
-chmod +x "$stub_bin/omarchy-menu-images"
+chmod +x "$stub_bin/arcalos-menu-images"
 
 benchmark_env=(
   env
-  "OMARCHY_PATH=$OMARCHY_PATH"
+  "ARCALOS_PATH=$ARCALOS_PATH"
   "XDG_CACHE_HOME=$benchmark_cache"
-  "PATH=$stub_bin:$OMARCHY_BIN_DIR:$PATH"
+  "PATH=$stub_bin:$ARCALOS_BIN_DIR:$PATH"
 )
 
 thumbnail_env=(
   env
-  "OMARCHY_PATH=$OMARCHY_PATH"
+  "ARCALOS_PATH=$ARCALOS_PATH"
   "XDG_CACHE_HOME=$thumbnail_cache"
-  "PATH=$stub_bin:$OMARCHY_BIN_DIR:$PATH"
+  "PATH=$stub_bin:$ARCALOS_BIN_DIR:$PATH"
 )
 
-preview_dir="$benchmark_cache/omarchy/theme-selector/previews"
-thumbnail_preview_dir="$thumbnail_cache/omarchy/theme-selector/previews"
+preview_dir="$benchmark_cache/arcalos/theme-selector/previews"
+thumbnail_preview_dir="$thumbnail_cache/arcalos/theme-selector/previews"
 
 build_theme_index() {
-  "${benchmark_env[@]}" "$OMARCHY_BIN_DIR/omarchy-theme-switcher"
+  "${benchmark_env[@]}" "$ARCALOS_BIN_DIR/arcalos-theme-switcher"
 }
 
 prepare_selector_lazy() {
-  "${benchmark_env[@]}" "$OMARCHY_BIN_DIR/omarchy-menu-images" --prepare-only --lazy-thumbnails --show-labels --filterable "$preview_dir"
+  "${benchmark_env[@]}" "$ARCALOS_BIN_DIR/arcalos-menu-images" --prepare-only --lazy-thumbnails --show-labels --filterable "$preview_dir"
 }
 
 prepare_image_cache() {
-  "${thumbnail_env[@]}" "$OMARCHY_BIN_DIR/omarchy-menu-images" --cache-only "$thumbnail_preview_dir"
+  "${thumbnail_env[@]}" "$ARCALOS_BIN_DIR/arcalos-menu-images" --cache-only "$thumbnail_preview_dir"
 }
 
 printf 'Theme switcher benchmark (%d warm runs each)\n\n' "$REPEAT"
@@ -156,7 +156,7 @@ printf '%-34s %s ms\n' "theme index cold" "$(format_ms "$(measure_once build_the
 run_case "theme index warm" build_theme_index
 printf '%-34s %s ms\n' "selector prep cold (lazy)" "$(format_ms "$(measure_once prepare_selector_lazy)")"
 run_case "selector prep warm (lazy)" prepare_selector_lazy
-"${thumbnail_env[@]}" "$OMARCHY_BIN_DIR/omarchy-theme-switcher" >/dev/null
+"${thumbnail_env[@]}" "$ARCALOS_BIN_DIR/arcalos-theme-switcher" >/dev/null
 printf '%-34s %s ms\n' "thumbnail cache cold" "$(format_ms "$(measure_once prepare_image_cache)")"
 run_case "thumbnail cache warm" prepare_image_cache
 

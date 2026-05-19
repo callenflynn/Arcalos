@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Toggle Omarchy features between enabled and disabled
-# omarchy:args=[--enabled-notification <text>] [--disabled-notification <text>] <flag-name>
+# arcalos:summary=Toggle arcalos features between enabled and disabled
+# arcalos:args=[--enabled-notification <text>] [--disabled-notification <text>] <flag-name>
 
 ENABLED_NOTIFICATION=""
 DISABLED_NOTIFICATION=""
@@ -15,7 +15,7 @@ while [[ $# -gt 1 ]]; do
 done
 
 FLAG_NAME="$1"
-FLAG="$HOME/.local/state/omarchy/toggles/$FLAG_NAME"
+FLAG="$HOME/.local/state/arcalos/toggles/$FLAG_NAME"
 
 if [[ -f $FLAG ]]; then
   rm $FLAG

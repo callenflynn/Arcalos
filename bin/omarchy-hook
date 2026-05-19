@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# omarchy:summary=Run a named hook from ~/.config/omarchy/hooks/<name> and ~/.config/omarchy/hooks/<name>.d/.
-# omarchy:args=[name] [args...]
+# arcalos:summary=Run a named hook from ~/.config/arcalos/hooks/<name> and ~/.config/arcalos/hooks/<name>.d/.
+# arcalos:args=[name] [args...]
 
 set -e
 
 if (( $# < 1 )); then
-  echo "Usage: omarchy-hook [name] [args...]"
+  echo "Usage: arcalos-hook [name] [args...]"
   exit 1
 fi
 
 HOOK=$1
-HOOK_PATH="$HOME/.config/omarchy/hooks/$1"
+HOOK_PATH="$HOME/.config/arcalos/hooks/$1"
 HOOK_DIR="$HOOK_PATH.d"
 shift
 

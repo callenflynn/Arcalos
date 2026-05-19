@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Remove Moonlight and its configs and caches.
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove Moonlight and its configs and caches.
+# arcalos:requires-sudo=true
 
 set -e
 
-omarchy-pkg-drop moonlight-qt
+arcalos-pkg-drop moonlight-qt
 
 rm -rf \
   "$HOME/.config/Moonlight Game Streaming Project" \

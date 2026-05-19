@@ -1,26 +1,26 @@
 #!/bin/bash
 
-# omarchy:summary=Overwrite the user configs for the Walker application launcher (which also powers the Omarchy Menu) and restart the services.
+# arcalos:summary=Overwrite the user configs for the Walker application launcher (which also powers the arcalos Menu) and restart the services.
 
 mkdir -p ~/.config/autostart/
-cp $OMARCHY_PATH/default/walker/walker.desktop ~/.config/autostart/
+cp $ARCALOS_PATH/default/walker/walker.desktop ~/.config/autostart/
 
 # And restarts if it crashes or is killed
 mkdir -p ~/.config/systemd/user/app-walker@autostart.service.d/
-cp $OMARCHY_PATH/default/walker/restart.conf ~/.config/systemd/user/app-walker@autostart.service.d/restart.conf
+cp $ARCALOS_PATH/default/walker/restart.conf ~/.config/systemd/user/app-walker@autostart.service.d/restart.conf
 
 systemctl --user daemon-reload
 
 # Refresh configs
-omarchy-refresh-config walker/config.toml
-omarchy-refresh-config elephant/calc.toml
-omarchy-refresh-config elephant/desktopapplications.toml
+arcalos-refresh-config walker/config.toml
+arcalos-refresh-config elephant/calc.toml
+arcalos-refresh-config elephant/desktopapplications.toml
 
 # Link all elephant menus
 mkdir -p ~/.config/elephant/menus
-for menu in $OMARCHY_PATH/default/elephant/*.lua; do
+for menu in $ARCALOS_PATH/default/elephant/*.lua; do
   ln -snf "$menu" ~/.config/elephant/menus/"$(basename "$menu")"
 done
 
 # Restart service
-omarchy-restart-walker
+arcalos-restart-walker

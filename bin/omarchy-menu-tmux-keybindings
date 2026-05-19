@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Display Tmux keybindings defined in your configuration using walker for an interactive search menu.
-# omarchy:args=[--print|-p] [--config <path>]
+# arcalos:summary=Display Tmux keybindings defined in your configuration using walker for an interactive search menu.
+# arcalos:args=[--print|-p] [--config <path>]
 
 print_only=false
 config_file="${TMUX_CONF:-$HOME/.config/tmux/tmux.conf}"
@@ -24,7 +24,7 @@ while (($#)); do
 done
 
 if [[ ! -f $config_file ]]; then
-  default_config="${OMARCHY_PATH:-$HOME/.local/share/omarchy}/config/tmux/tmux.conf"
+  default_config="${ARCALOS_PATH:-$HOME/.local/share/arcalos}/config/tmux/tmux.conf"
 
   if [[ -f $default_config ]]; then
     config_file="$default_config"
@@ -92,7 +92,7 @@ function pretty_command(command) {
 function command_action(command, normalized, target) {
   normalized = pretty_command(command)
 
-  if (normalized ~ /omarchy-menu-tmux-keybindings/) return "Show Tmux keybindings"
+  if (normalized ~ /arcalos-menu-tmux-keybindings/) return "Show Tmux keybindings"
   if (normalized ~ /^send(-keys)? -X begin-selection/) return "Begin selection"
   if (normalized ~ /^send(-keys)? -X copy-selection-and-cancel/) return "Copy selection"
   if (normalized ~ /^send-prefix/) return "Send prefix"
@@ -233,7 +233,7 @@ fi
 
 records=$(output_keybindings)
 
-if [[ -z $WAYLAND_DISPLAY ]] || omarchy-cmd-missing walker; then
+if [[ -z $WAYLAND_DISPLAY ]] || arcalos-cmd-missing walker; then
   printf '%s\n' "$records"
   exit 0
 fi

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# omarchy:summary=Share clipboard, files, or folders with LocalSend
-# omarchy:group=share
-# omarchy:name=
-# omarchy:args=<clipboard|file|folder> [path...]
-# omarchy:examples=omarchy share clipboard | omarchy share file ~/Downloads/example.txt
+# arcalos:summary=Share clipboard, files, or folders with LocalSend
+# arcalos:group=share
+# arcalos:name=
+# arcalos:args=<clipboard|file|folder> [path...]
+# arcalos:examples=arcalos share clipboard | arcalos share file ~/Downloads/example.txt
 
 if (($# == 0)); then
-  echo "Usage: omarchy-menu-share [clipboard|file|folder]"
+  echo "Usage: arcalos-menu-share [clipboard|file|folder]"
   exit 1
 fi
 

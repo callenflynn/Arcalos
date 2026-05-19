@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Install lib32 graphics drivers (Vulkan + NVIDIA) for any detected GPUs.
-# omarchy:requires-sudo=true
+# arcalos:summary=Install lib32 graphics drivers (Vulkan + NVIDIA) for any detected GPUs.
+# arcalos:requires-sudo=true
 
 set -e
 
@@ -19,10 +19,10 @@ for vendor in "${!VULKAN_DRIVERS[@]}"; do
   fi
 done
 
-if omarchy-hw-nvidia-gsp; then
+if arcalos-hw-nvidia-gsp; then
   PACKAGES+=(lib32-nvidia-utils)
-elif omarchy-hw-nvidia-without-gsp; then
+elif arcalos-hw-nvidia-without-gsp; then
   PACKAGES+=(lib32-nvidia-580xx-utils)
 fi
 
-[[ ${#PACKAGES[@]} -gt 0 ]] && omarchy-pkg-add "${PACKAGES[@]}"
+[[ ${#PACKAGES[@]} -gt 0 ]] && arcalos-pkg-add "${PACKAGES[@]}"

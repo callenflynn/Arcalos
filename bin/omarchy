@@ -2,7 +2,7 @@
 
 set -o pipefail
 
-OMARCHY_BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+ARCALOS_BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 METADATA_SCAN_LIMIT=80
 
 COMMAND_KEYS=()
@@ -162,7 +162,7 @@ register_command() {
       break
     fi
 
-    if [[ $line =~ ^[[:space:]]*#[[:space:]]*omarchy:([[:alnum:]_-]+)=(.*)$ ]]; then
+    if [[ $line =~ ^[[:space:]]*#[[:space:]]*arcalos:([[:alnum:]_-]+)=(.*)$ ]]; then
       metadata_key="${BASH_REMATCH[1]}"
       metadata_value="${BASH_REMATCH[2]}"
       metadata_value="${metadata_value%$'\r'}"
@@ -205,16 +205,16 @@ register_command() {
       fallback_summary="${fallback_summary%$'\r'}"
       fallback_summary="${fallback_summary//$'\t'/ }"
 
-      if [[ -z $fallback_summary || $fallback_summary == omarchy:* ]]; then
+      if [[ -z $fallback_summary || $fallback_summary == arcalos:* ]]; then
         fallback_summary=""
       fi
     fi
   done <"$file"
 
-  local stem="${file_binary#omarchy-}"
+  local stem="${file_binary#arcalos-}"
   local fallback_group="$stem"
   local fallback_name=""
-  local fallback_route="omarchy ${stem//-/ }"
+  local fallback_route="arcalos ${stem//-/ }"
 
   if [[ $stem == *-* ]]; then
     fallback_group="${stem%%-*}"
@@ -227,7 +227,7 @@ register_command() {
   [[ $name_seen != "true" ]] && name="$fallback_name"
   [[ -z $summary && -n $fallback_summary ]] && summary="$fallback_summary"
   [[ -z $summary ]] && summary="Run the ${stem//-/ } command"
-  local route="omarchy $group"
+  local route="arcalos $group"
   if [[ -n $name ]]; then
     route+=" $name"
   fi
@@ -278,7 +278,7 @@ register_command() {
 load_commands() {
   local file=""
 
-  for file in "$OMARCHY_BIN_DIR"/omarchy-*; do
+  for file in "$ARCALOS_BIN_DIR"/arcalos-*; do
     [[ -f $file && -x $file ]] || continue
     register_command "$file"
   done
@@ -287,7 +287,7 @@ load_commands() {
 
 load_command_by_binary() {
   local binary="$1"
-  local file="$OMARCHY_BIN_DIR/$binary"
+  local file="$ARCALOS_BIN_DIR/$binary"
 
   [[ -f $file && -x $file ]] || return 1
   register_command "$file"
@@ -297,7 +297,7 @@ load_child_commands_by_binary() {
   local binary="$1"
   local file=""
 
-  for file in "$OMARCHY_BIN_DIR/$binary"-*; do
+  for file in "$ARCALOS_BIN_DIR/$binary"-*; do
     [[ -f $file && -x $file ]] || continue
     register_command "$file"
   done
@@ -307,7 +307,7 @@ group_has_child_commands() {
   local group="$1"
   local file=""
 
-  for file in "$OMARCHY_BIN_DIR/omarchy-$group"-*; do
+  for file in "$ARCALOS_BIN_DIR/arcalos-$group"-*; do
     [[ -f $file && -x $file ]] && return 0
   done
 
@@ -317,7 +317,7 @@ group_has_child_commands() {
 group_has_binary_commands() {
   local group="$1"
 
-  [[ -x $OMARCHY_BIN_DIR/omarchy-$group ]] && return 0
+  [[ -x $ARCALOS_BIN_DIR/arcalos-$group ]] && return 0
   group_has_child_commands "$group"
 }
 
@@ -338,11 +338,11 @@ load_group_commands() {
   local group="$1"
   local file=""
 
-  if [[ -f $OMARCHY_BIN_DIR/omarchy-$group && -x $OMARCHY_BIN_DIR/omarchy-$group ]]; then
-    register_command "$OMARCHY_BIN_DIR/omarchy-$group"
+  if [[ -f $ARCALOS_BIN_DIR/arcalos-$group && -x $ARCALOS_BIN_DIR/arcalos-$group ]]; then
+    register_command "$ARCALOS_BIN_DIR/arcalos-$group"
   fi
 
-  for file in "$OMARCHY_BIN_DIR/omarchy-$group"-*; do
+  for file in "$ARCALOS_BIN_DIR/arcalos-$group"-*; do
     [[ -f $file && -x $file ]] || continue
     register_command "$file"
   done
@@ -359,10 +359,10 @@ resolve_direct_route() {
   local candidate=""
 
   for (( prefix_count = argc; prefix_count >= 1; prefix_count-- )); do
-    route="omarchy $(join_words " " "${args[@]:0:prefix_count}")"
+    route="arcalos $(join_words " " "${args[@]:0:prefix_count}")"
 
-    binary="omarchy-$(join_words "-" "${args[@]:0:prefix_count}")"
-    candidate="$OMARCHY_BIN_DIR/$binary"
+    binary="arcalos-$(join_words "-" "${args[@]:0:prefix_count}")"
+    candidate="$ARCALOS_BIN_DIR/$binary"
     if [[ -f $candidate && -x $candidate ]]; then
       DIRECT_RESOLVED_BINARY="$binary"
       DIRECT_RESOLVED_COUNT="$prefix_count"
@@ -388,7 +388,7 @@ sorted_keys() {
 
 fallback_group_for_key() {
   local key="$1"
-  local fallback="${COMMAND_FALLBACK_ROUTE[$key]#omarchy }"
+  local fallback="${COMMAND_FALLBACK_ROUTE[$key]#arcalos }"
 
   printf '%s' "${fallback%% *}"
 }
@@ -483,18 +483,18 @@ show_main_help() {
 Arcalos command center
 
 Usage:
-  omarchy <command> [args...]
-  omarchy commands [--all] [--json] [--check]
-  omarchy <group> --help
-  omarchy <group> <command> --help
+  arcalos <command> [args...]
+  arcalos commands [--all] [--json] [--check]
+  arcalos <group> --help
+  arcalos <group> <command> --help
 
 Common commands:
-  omarchy update              Update Arcalos and system packages
-  omarchy theme list          List available themes
-  omarchy theme set <name>    Apply a theme
-  omarchy font list           List available fonts
-  omarchy screenshot          Take a screenshot
-  omarchy debug               Print debugging information
+  arcalos update              Update Arcalos and system packages
+  arcalos theme list          List available themes
+  arcalos theme set <name>    Apply a theme
+  arcalos font list           List available fonts
+  arcalos screenshot          Take a screenshot
+  arcalos debug               Print debugging information
 
 Groups:
 EOF
@@ -502,17 +502,17 @@ EOF
   cat <<'EOF'
 
 Discovery:
-  omarchy commands            List all commands
-  omarchy commands --all      Include commands explicitly marked hidden
-  omarchy commands --json     Machine-readable command list
-  omarchy commands --check    Validate command metadata and routes
+  arcalos commands            List all commands
+  arcalos commands --all      Include commands explicitly marked hidden
+  arcalos commands --json     Machine-readable command list
+  arcalos commands --check    Validate command metadata and routes
 EOF
 }
 
 show_commands_help() {
   cat <<'EOF'
 Usage:
-  omarchy commands [--all] [--json] [--markdown] [--check]
+  arcalos commands [--all] [--json] [--markdown] [--check]
 
 List commands known to the Arcalos command center.
 
@@ -676,7 +676,7 @@ show_commands_check() {
       done < <(pipe_values_as_lines "${COMMAND_METADATA_ERRORS[$key]}")
     fi
 
-    if [[ ! -x $OMARCHY_BIN_DIR/${COMMAND_BINARY[$key]} ]]; then
+    if [[ ! -x $ARCALOS_BIN_DIR/${COMMAND_BINARY[$key]} ]]; then
       echo "Missing binary: ${COMMAND_BINARY[$key]}" >&2
       failures=$((failures + 1))
     fi
@@ -737,7 +737,7 @@ parse_commands_args() {
       return 0
       ;;
     *)
-      echo "Unknown option for omarchy commands: $1" >&2
+      echo "Unknown option for arcalos commands: $1" >&2
       show_commands_help >&2
       return 2
       ;;
@@ -790,7 +790,7 @@ show_group_help() {
   if [[ -n $rows ]]; then
     print_command_table "$rows"
   else
-    echo "  No documented commands found. Try: omarchy commands --all"
+    echo "  No documented commands found. Try: arcalos commands --all"
   fi
 }
 
@@ -809,7 +809,7 @@ show_prefix_help() {
 
   [[ -n $rows ]] || return 1
 
-  echo "${prefix#omarchy } commands:"
+  echo "${prefix#arcalos } commands:"
   print_command_table "$rows"
 }
 
@@ -890,7 +890,7 @@ resolve_route() {
   local key=""
 
   for (( prefix_count = argc; prefix_count >= 1; prefix_count-- )); do
-    route="omarchy $(join_words " " "${args[@]:0:prefix_count}")"
+    route="arcalos $(join_words " " "${args[@]:0:prefix_count}")"
     key="${ROUTE_TO_KEY[$route]}"
 
     if [[ -n $key ]]; then
@@ -909,7 +909,7 @@ suggest_command() {
   local candidate=""
 
   for candidate in "${!ROUTE_TO_KEY[@]}"; do
-    candidate="${candidate#omarchy }"
+    candidate="${candidate#arcalos }"
     if [[ $candidate == "$first"* ]]; then
       printf '%s' "${candidate%% *}"
       return 0
@@ -927,7 +927,7 @@ dispatch_fast_or_help() {
 
   if resolve_direct_route "$#" "${args[@]}"; then
     remaining=("${args[@]:DIRECT_RESOLVED_COUNT}")
-    binary_path="$OMARCHY_BIN_DIR/$DIRECT_RESOLVED_BINARY"
+    binary_path="$ARCALOS_BIN_DIR/$DIRECT_RESOLVED_BINARY"
 
     if (( ${#remaining[@]} > 0 )) && [[ ${remaining[0]} == "--help" || ${remaining[0]} == "-h" ]]; then
       if ! load_command_by_binary "$DIRECT_RESOLVED_BINARY"; then
@@ -1002,7 +1002,7 @@ dispatch_or_help() {
       return 0
     fi
 
-    binary_path="$OMARCHY_BIN_DIR/${COMMAND_BINARY[$key]}"
+    binary_path="$ARCALOS_BIN_DIR/${COMMAND_BINARY[$key]}"
     if [[ ! -x $binary_path ]]; then
       echo "Binary is missing or not executable: ${COMMAND_BINARY[$key]}" >&2
       return 127
@@ -1030,16 +1030,16 @@ dispatch_or_help() {
     return 0
   fi
 
-  if show_prefix_help "omarchy ${args[*]}"; then
+  if show_prefix_help "arcalos ${args[*]}"; then
     return 0
   fi
 
-  echo "Unknown Omarchy command: omarchy ${args[*]}" >&2
+  echo "Unknown arcalos command: arcalos ${args[*]}" >&2
   suggestion=$(suggest_command "${args[0]}")
   if [[ -n $suggestion ]]; then
-    echo "Did you mean: omarchy $suggestion ?" >&2
+    echo "Did you mean: arcalos $suggestion ?" >&2
   fi
-  echo "Run 'omarchy commands --all' to discover available commands." >&2
+  echo "Run 'arcalos commands --all' to discover available commands." >&2
   return 127
 }
 

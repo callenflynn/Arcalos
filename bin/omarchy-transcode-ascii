@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# omarchy:summary=Transcode an image into ASCII/Unicode art text
-# omarchy:group=transcode
-# omarchy:name=ascii
-# omarchy:args=<input-image.svg|png> <output-path> [--width <columns>] [--height <rows>] [--mode <braille|block>] [--threshold <percent>] [--invert]
-# omarchy:examples=omarchy transcode ascii ~/logo.svg /tmp/logo.txt | omarchy transcode ascii ~/logo.png ~/.config/omarchy/branding/screensaver.txt --width 80
+# arcalos:summary=Transcode an image into ASCII/Unicode art text
+# arcalos:group=transcode
+# arcalos:name=ascii
+# arcalos:args=<input-image.svg|png> <output-path> [--width <columns>] [--height <rows>] [--mode <braille|block>] [--threshold <percent>] [--invert]
+# arcalos:examples=arcalos transcode ascii ~/logo.svg /tmp/logo.txt | arcalos transcode ascii ~/logo.png ~/.config/arcalos/branding/screensaver.txt --width 80
 
 set -o pipefail
 
 usage() {
   cat <<'EOF'
-Usage: omarchy-transcode-ascii <input-image.svg|png> <output-path> [options]
+Usage: arcalos-transcode-ascii <input-image.svg|png> <output-path> [options]
 
 Transcodes an image into ASCII/Unicode art text.
 
@@ -165,7 +165,7 @@ if [[ ! -f $image_path ]]; then
   exit 1
 fi
 
-if omarchy-cmd-missing magick; then
+if arcalos-cmd-missing magick; then
   echo "ImageMagick is required to convert logo images" >&2
   exit 1
 fi

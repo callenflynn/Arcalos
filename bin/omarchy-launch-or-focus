@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# omarchy:summary=Launch an app or focus an existing window matching a pattern
-# omarchy:args=<window-pattern> <launch-command>
+# arcalos:summary=Launch an app or focus an existing window matching a pattern
+# arcalos:args=<window-pattern> <launch-command>
 
 if (($# == 0)); then
-  echo "Usage: omarchy-launch-or-focus [window-pattern] [launch-command]"
+  echo "Usage: arcalos-launch-or-focus [window-pattern] [launch-command]"
   exit 1
 fi
 

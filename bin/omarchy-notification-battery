@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Show the current battery status notification
+# arcalos:summary=Show the current battery status notification
 
-omarchy-notification-send -g 󰁹 -u low "$(omarchy-battery-status)"
+arcalos-notification-send -g 󰁹 -u low "$(arcalos-battery-status)"

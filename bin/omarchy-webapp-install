@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# omarchy:summary=Create a desktop launcher for a web app
-# omarchy:args=[name url icon [custom-exec] [mime-types]]
+# arcalos:summary=Create a desktop launcher for a web app
+# arcalos:args=[name url icon [custom-exec] [mime-types]]
 
 set -e
 
@@ -63,7 +63,7 @@ else
 fi
 
 # Use custom exec if provided, otherwise default behavior
-EXEC_COMMAND="${CUSTOM_EXEC:-omarchy-launch-webapp $APP_URL}"
+EXEC_COMMAND="${CUSTOM_EXEC:-arcalos-launch-webapp $APP_URL}"
 
 # Create application .desktop file
 DESKTOP_FILE="$HOME/.local/share/applications/$APP_NAME.desktop"

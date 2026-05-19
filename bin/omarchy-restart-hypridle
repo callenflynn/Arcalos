@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# omarchy:summary=Restart the hypridle service (used for idle detection and auto-lock).
+# arcalos:summary=Restart the hypridle service (used for idle detection and auto-lock).
 
-omarchy-restart-app hypridle
+arcalos-restart-app hypridle

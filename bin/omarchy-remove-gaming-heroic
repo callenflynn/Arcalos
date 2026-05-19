@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# omarchy:summary=Remove Heroic Games Launcher and its game libraries, configs, and caches.
-# omarchy:requires-sudo=true
+# arcalos:summary=Remove Heroic Games Launcher and its game libraries, configs, and caches.
+# arcalos:requires-sudo=true
 
 set -e
 
-omarchy-pkg-drop heroic-games-launcher-bin
+arcalos-pkg-drop heroic-games-launcher-bin
 
 rm -rf \
   "$HOME/.config/heroic" \

@@ -1,24 +1,24 @@
 #!/bin/bash
 
-# omarchy:summary=Reset all Omarchy user configs to the defaults
-# omarchy:requires-sudo=true
+# arcalos:summary=Reset all arcalos user configs to the defaults
+# arcalos:requires-sudo=true
 
 set -e
 
-# Overwrite all user configs with the Omarchy defaults.
+# Overwrite all user configs with the arcalos defaults.
 
 if (( EUID == 0 )); then
   echo "Error: This script should not be run as root"
   exit 1
 fi
 
-echo "Resetting all Omarchy configs"
-cp -R ~/.local/share/omarchy/config/* ~/.config/
-cp ~/.local/share/omarchy/default/bashrc ~/.bashrc
+echo "Resetting all arcalos configs"
+cp -R ~/.local/share/arcalos/config/* ~/.config/
+cp ~/.local/share/arcalos/default/bashrc ~/.bashrc
 echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' | tee ~/.bash_profile >/dev/null
 
-$(bash $OMARCHY_PATH/install/config/theme.sh)
+$(bash $ARCALOS_PATH/install/config/theme.sh)
 
-omarchy-refresh-limine
-omarchy-refresh-plymouth
-omarchy-nvim-setup
+arcalos-refresh-limine
+arcalos-refresh-plymouth
+arcalos-nvim-setup
