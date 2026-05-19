@@ -11,4 +11,4 @@ Welcome to the Arcalos community wiki! This is a collection of documentation, gu
 
 This wiki is community-maintained. Feel free to contribute and help others!
 
-[Back to Arcalos Docs](/Arcalos/)
+[Back to Arcalos Docs](../)
