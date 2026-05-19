@@ -7,6 +7,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: "Home", link: "/" },
+      { text: "Install options", link: "/installation-options" },
       { text: "Install", link: "/install" },
       { text: "ISO", link: "/iso" }
     ],
@@ -14,6 +15,7 @@ export default defineConfig({
       {
         text: "Getting Started",
         items: [
+          { text: "Installation options", link: "/installation-options" },
           { text: "Install (online)", link: "/install" },
           { text: "Build ISO", link: "/iso" }
         ]

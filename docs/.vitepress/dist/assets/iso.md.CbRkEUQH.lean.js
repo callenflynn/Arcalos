@@ -1,0 +1,1 @@
+import{_ as e,H as l,f as o,i as a}from"./chunks/framework.DqVL7uya.js";const p=JSON.parse('{"title":"Build ISO","description":"","frontmatter":{},"headers":[],"relativePath":"iso.md","filePath":"iso.md"}'),t={name:"iso.md"};function s(r,i,d,n,c,u){return l(),o("div",null,[...i[0]||(i[0]=[a("",21)])])}const f=e(t,[["render",s]]);export{p as __pageData,f as default};

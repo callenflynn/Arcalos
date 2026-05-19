@@ -1,0 +1,1 @@
+import{_ as i,H as l,f as t,i as e}from"./chunks/framework.DqVL7uya.js";const h=JSON.parse('{"title":"Arcalos","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),o={name:"index.md"};function n(r,a,s,c,d,_){return l(),t("div",null,[...a[0]||(a[0]=[e("",4)])])}const p=i(o,[["render",n]]);export{h as __pageData,p as default};
