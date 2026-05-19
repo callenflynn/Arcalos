@@ -17,16 +17,11 @@ echo -e "\n$ansi_art\n"
 # Use custom branch if instructed, otherwise default to master
 ARCALOS_REF="${ARCALOS_REF:-master}"
 
-# Set mirror based on branch - using Omarchy mirrors for now
-if [[ $ARCALOS_REF == "dev" ]]; then
-  export ARCALOS_MIRROR=edge
-  echo 'Server = https://mirror.omarchy.org/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist >/dev/null
-elif [[ $ARCALOS_REF == "rc" ]]; then
-  export ARCALOS_MIRROR=rc
-  echo 'Server = https://rc-mirror.omarchy.org/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist >/dev/null
-else
-  export ARCALOS_MIRROR=stable
-  echo 'Server = https://stable-mirror.omarchy.org/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist >/dev/null
+# Set mirror based on branch
+# For now using default Arch mirrors - can be customized with ARCALOS_MIRROR_URL
+ARCALOS_MIRROR_URL="${ARCALOS_MIRROR_URL:-}"
+if [[ -n $ARCALOS_MIRROR_URL ]]; then
+  echo "Server = $ARCALOS_MIRROR_URL" | sudo tee /etc/pacman.d/mirrorlist >/dev/null
 fi
 
 sudo pacman -Syu --noconfirm --needed git

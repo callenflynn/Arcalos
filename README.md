@@ -9,4 +9,4 @@ Instructions to install can be found [Here](https://callenflynn.github.io/Arcalo
 
 ## License
 
-Arcalos is released under the [MIT License](https://opensource.org/licenses/MIT).
+Arcalos is released under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
