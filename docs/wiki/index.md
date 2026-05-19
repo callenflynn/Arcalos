@@ -4,8 +4,8 @@ Welcome to the Arcalos community wiki! This is a collection of documentation, gu
 
 ## Getting Started
 
-- [Installation Guide](/Arcalos/install) - How to install Arcalos
-- [Configuration](/Arcalos/) - Learn how to configure your system
+- [Installation Guide](../install) - How to install Arcalos
+- [Configuration](../) - Learn how to configure your system
 
 ## Community
 
