@@ -110,6 +110,7 @@ python-terminaltexteffects
 qt5-wayland
 quickshell
 ripgrep
+rsync
 ruby
 rust
 satty
