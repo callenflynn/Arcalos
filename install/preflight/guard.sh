@@ -1,7 +1,7 @@
 abort() {
   echo -e "\e[31mArcalos install requires: $1\e[0m"
   echo
-  gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
+  exit 1
 }
 
 ensure_pacman_config_valid() {
