@@ -54,7 +54,7 @@ ensure_pacman_config_readable() {
   local mirrorlist_fallback='Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
 Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch
 Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
-  local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/$repo/$arch'
+  local chaotic_fallback='Server = https://geo-mirror.chaotic.cx/$repo/$arch'
 
   if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
     sudo chmod 644 "$pacman_conf" || abort "pacman.conf permissions"
@@ -77,7 +77,7 @@ Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
       printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null || abort "chaotic mirrorlist"
     elif ! grep -q "^[[:space:]]*Server[[:space:]]*=" "$chaotic_mirrorlist"; then
       printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null || abort "chaotic mirrorlist"
-    elif ! grep -q "cdn-mirror\.chaotic\.cx/\$repo/\$arch" "$chaotic_mirrorlist"; then
+    elif ! grep -Eq "(cdn|geo)-mirror\.chaotic\.cx/\$repo/\$arch" "$chaotic_mirrorlist"; then
       printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null || abort "chaotic mirrorlist"
     fi
 

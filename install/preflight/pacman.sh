@@ -6,7 +6,7 @@ if [[ -n ${ARCALOS_ONLINE_INSTALL:-} ]]; then
     local mirrorlist_fallback='Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
 Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch
 Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
-    local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/$repo/$arch'
+    local chaotic_fallback='Server = https://geo-mirror.chaotic.cx/$repo/$arch'
 
     if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
       sudo chmod 644 "$pacman_conf"
@@ -29,7 +29,7 @@ Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
         printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
       elif ! grep -q "^[[:space:]]*Server[[:space:]]*=" "$chaotic_mirrorlist"; then
         printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
-      elif ! grep -q "cdn-mirror\.chaotic\.cx/\$repo/\$arch" "$chaotic_mirrorlist"; then
+      elif ! grep -Eq "(cdn|geo)-mirror\.chaotic\.cx/\$repo/\$arch" "$chaotic_mirrorlist"; then
         printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
       fi
 
@@ -63,8 +63,10 @@ Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
 
   # Install Chaotic-AUR keyring and mirrorlist
   sudo pacman -U --noconfirm \
-    'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' \
-    'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+    'https://geo-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' \
+    'https://geo-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+
+  ensure_pacman_bootstrap
 
   # Trust Arcalos keyring (if using custom repo)
   sudo pacman-key --recv-keys 40DFB630FF42BCFFB047046CF0134EE680CAC571 --keyserver keys.openpgp.org
