@@ -7,6 +7,7 @@ abort() {
 ensure_pacman_config_readable() {
   local pacman_conf="/etc/pacman.conf"
   local mirrorlist="/etc/pacman.d/mirrorlist"
+  local chaotic_mirrorlist="/etc/pacman.d/chaotic-mirrorlist"
 
   if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
     sudo chmod 644 "$pacman_conf" || abort "pacman.conf permissions"
@@ -14,6 +15,17 @@ ensure_pacman_config_readable() {
 
   if [[ -f $mirrorlist && ! -r $mirrorlist ]]; then
     sudo chmod 644 "$mirrorlist" || abort "pacman mirrorlist permissions"
+  fi
+
+  if [[ -f $pacman_conf ]] && grep -q "chaotic-mirrorlist" "$pacman_conf"; then
+    if [[ ! -f $chaotic_mirrorlist ]]; then
+      sudo mkdir -p /etc/pacman.d
+      sudo touch "$chaotic_mirrorlist" || abort "chaotic mirrorlist"
+    fi
+
+    if [[ ! -r $chaotic_mirrorlist ]]; then
+      sudo chmod 644 "$chaotic_mirrorlist" || abort "chaotic mirrorlist permissions"
+    fi
   fi
 }
 

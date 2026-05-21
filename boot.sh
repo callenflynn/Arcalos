@@ -27,9 +27,26 @@ else
   export ARCALOS_MIRROR=stable
 fi
 
+ensure_pacman_include_files() {
+  local pacman_conf="/etc/pacman.conf"
+  local chaotic_mirrorlist="/etc/pacman.d/chaotic-mirrorlist"
+
+  if [[ -f $pacman_conf ]] && grep -q "chaotic-mirrorlist" "$pacman_conf"; then
+    if [[ ! -f $chaotic_mirrorlist ]]; then
+      sudo mkdir -p /etc/pacman.d
+      sudo touch "$chaotic_mirrorlist"
+    fi
+
+    if [[ ! -r $chaotic_mirrorlist ]]; then
+      sudo chmod 644 "$chaotic_mirrorlist"
+    fi
+  fi
+}
+
 # Use standard Arch mirrors
-sudo pacman -Sy --noconfirm reflector
-sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+ensure_pacman_include_files
+sudo pacman -Sy --noconfirm reflector rsync
+sudo reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 sudo pacman -Syu --noconfirm --needed git
 
