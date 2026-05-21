@@ -137,8 +137,8 @@ sudo reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mir
 
 sudo pacman -Syu --noconfirm --needed git
 
-# Use custom repo if specified, otherwise default to callenflynn/arcalos
-ARCALOS_REPO="${ARCALOS_REPO:-callenflynn/arcalos}"
+# Use custom repo if specified, otherwise default to callenflynn/Arcalos
+ARCALOS_REPO="${ARCALOS_REPO:-callenflynn/Arcalos}"
 
 echo -e "\nCloning Arcalos from: https://github.com/${ARCALOS_REPO}.git"
 rm -rf ~/.local/share/arcalos/

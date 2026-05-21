@@ -91,6 +91,30 @@ restore_outputs() {
   fi
 }
 
+restore_mkinitcpio_hooks() {
+  local install_hook="/usr/share/libalpm/hooks/90-mkinitcpio-install.hook.disabled"
+  local remove_hook="/usr/share/libalpm/hooks/60-mkinitcpio-remove.hook.disabled"
+  local failed="false"
+
+  if [[ -f $install_hook ]]; then
+    if ! sudo mv "$install_hook" "${install_hook%.disabled}"; then
+      echo "Warning: failed to restore mkinitcpio install hook" >&2
+      failed="true"
+    fi
+  fi
+
+  if [[ -f $remove_hook ]]; then
+    if ! sudo mv "$remove_hook" "${remove_hook%.disabled}"; then
+      echo "Warning: failed to restore mkinitcpio remove hook" >&2
+      failed="true"
+    fi
+  fi
+
+  if [[ $failed == "true" ]]; then
+    echo "Warning: mkinitcpio hooks may still be disabled" >&2
+  fi
+}
+
 # Error handler
 catch_errors() {
   # Prevent recursive error handling
@@ -156,6 +180,7 @@ catch_errors() {
 # Exit handler - ensures cleanup happens on any exit
 exit_handler() {
   local exit_code=$?
+  restore_mkinitcpio_hooks
 
   # Only run if we're exiting with an error and haven't already handled it
   if (( exit_code != 0 )) && [[ $ERROR_HANDLING != "true" ]]; then
