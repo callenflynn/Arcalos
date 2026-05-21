@@ -6,7 +6,7 @@ if [[ -n ${ARCALOS_ONLINE_INSTALL:-} ]]; then
     local mirrorlist_fallback='Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
 Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch
 Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
-    local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/chaotic-aur/$repo/$arch'
+    local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/$repo/$arch'
 
     if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
       sudo chmod 644 "$pacman_conf"

@@ -30,7 +30,7 @@ fi
 ensure_pacman_include_files() {
   local pacman_conf="/etc/pacman.conf"
   local chaotic_mirrorlist="/etc/pacman.d/chaotic-mirrorlist"
-  local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/chaotic-aur/$repo/$arch'
+  local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/$repo/$arch'
 
   if [[ -f $pacman_conf ]] && grep -q "chaotic-mirrorlist" "$pacman_conf"; then
     if [[ ! -f $chaotic_mirrorlist ]]; then
