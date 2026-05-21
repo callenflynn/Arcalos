@@ -48,6 +48,14 @@ ensure_pacman_include_files() {
   fi
 }
 
+ensure_pacman_config_permissions() {
+  local pacman_conf="/etc/pacman.conf"
+
+  if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
+    sudo chmod 644 "$pacman_conf"
+  fi
+}
+
 ensure_pacman_mirrorlist() {
   local mirrorlist="/etc/pacman.d/mirrorlist"
   local mirrorlist_fallback='Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
@@ -66,9 +74,18 @@ Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
   fi
 }
 
+ensure_pacman_keyring() {
+  if ! sudo pacman-key --list-keys >/dev/null 2>&1; then
+    sudo pacman-key --init
+    sudo pacman-key --populate archlinux
+  fi
+}
+
 # Use standard Arch mirrors
+ensure_pacman_config_permissions
 ensure_pacman_mirrorlist
 ensure_pacman_include_files
+ensure_pacman_keyring
 sudo pacman -Sy --noconfirm reflector rsync
 sudo reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
