@@ -4,6 +4,49 @@ abort() {
   gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
 }
 
+ensure_pacman_config_valid() {
+  local pacman_conf="/etc/pacman.conf"
+  local pacman_fallback='[options]
+Color
+ILoveCandy
+VerbosePkgLists
+HoldPkg = pacman glibc
+Architecture = auto
+CheckSpace
+ParallelDownloads = 5
+
+SigLevel = Required DatabaseOptional
+LocalFileSigLevel = Optional
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist'
+  local needs_reset="false"
+
+  if [[ ! -f $pacman_conf ]]; then
+    needs_reset="true"
+  elif [[ ! -r $pacman_conf ]]; then
+    needs_reset="true"
+  elif ! grep -q "^\[core\]" "$pacman_conf"; then
+    needs_reset="true"
+  elif ! grep -q "Include = /etc/pacman.d/mirrorlist" "$pacman_conf"; then
+    needs_reset="true"
+  fi
+
+  if [[ $needs_reset == "true" ]]; then
+    printf '%s\n' "$pacman_fallback" | sudo tee "$pacman_conf" >/dev/null || abort "pacman.conf"
+  fi
+
+  if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
+    sudo chmod 644 "$pacman_conf" || abort "pacman.conf permissions"
+  fi
+}
+
 ensure_pacman_config_readable() {
   local pacman_conf="/etc/pacman.conf"
   local mirrorlist="/etc/pacman.d/mirrorlist"
@@ -84,11 +127,12 @@ if bootctl status 2>/dev/null | grep -q 'Secure Boot: enabled'; then
   abort "Secure Boot disabled"
 fi
 
-# Ensure pacman config is readable before any pacman queries
+# Ensure pacman config is valid before any pacman queries
+ensure_pacman_config_valid
 ensure_pacman_config_readable
 
 # Must not have Gnome or KDE already install
-if pacman -Qe gnome-shell &>/dev/null || pacman -Qe plasma-desktop &>/dev/null; then
+if sudo pacman -Qe gnome-shell &>/dev/null || sudo pacman -Qe plasma-desktop &>/dev/null; then
   abort "Fresh + Vanilla Arch"
 fi
 

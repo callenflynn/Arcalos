@@ -48,6 +48,49 @@ ensure_pacman_include_files() {
   fi
 }
 
+ensure_pacman_config_valid() {
+  local pacman_conf="/etc/pacman.conf"
+  local pacman_fallback='[options]
+Color
+ILoveCandy
+VerbosePkgLists
+HoldPkg = pacman glibc
+Architecture = auto
+CheckSpace
+ParallelDownloads = 5
+
+SigLevel = Required DatabaseOptional
+LocalFileSigLevel = Optional
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist'
+  local needs_reset="false"
+
+  if [[ ! -f $pacman_conf ]]; then
+    needs_reset="true"
+  elif [[ ! -r $pacman_conf ]]; then
+    needs_reset="true"
+  elif ! grep -q "^\[core\]" "$pacman_conf"; then
+    needs_reset="true"
+  elif ! grep -q "Include = /etc/pacman.d/mirrorlist" "$pacman_conf"; then
+    needs_reset="true"
+  fi
+
+  if [[ $needs_reset == "true" ]]; then
+    printf '%s\n' "$pacman_fallback" | sudo tee "$pacman_conf" >/dev/null || exit 1
+  fi
+
+  if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
+    sudo chmod 644 "$pacman_conf"
+  fi
+}
+
 ensure_pacman_config_permissions() {
   local pacman_conf="/etc/pacman.conf"
 
@@ -82,6 +125,7 @@ ensure_pacman_keyring() {
 }
 
 # Use standard Arch mirrors
+ensure_pacman_config_valid
 ensure_pacman_config_permissions
 ensure_pacman_mirrorlist
 ensure_pacman_include_files
