@@ -30,11 +30,16 @@ fi
 ensure_pacman_include_files() {
   local pacman_conf="/etc/pacman.conf"
   local chaotic_mirrorlist="/etc/pacman.d/chaotic-mirrorlist"
+  local chaotic_fallback='Server = https://cdn-mirror.chaotic.cx/chaotic-aur/$repo/$arch'
 
   if [[ -f $pacman_conf ]] && grep -q "chaotic-mirrorlist" "$pacman_conf"; then
     if [[ ! -f $chaotic_mirrorlist ]]; then
       sudo mkdir -p /etc/pacman.d
-      sudo touch "$chaotic_mirrorlist"
+      printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
+    fi
+
+    if [[ -f $chaotic_mirrorlist ]] && ! grep -q "^[[:space:]]*Server[[:space:]]*=" "$chaotic_mirrorlist"; then
+      printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
     fi
 
     if [[ ! -r $chaotic_mirrorlist ]]; then
@@ -43,7 +48,26 @@ ensure_pacman_include_files() {
   fi
 }
 
+ensure_pacman_mirrorlist() {
+  local mirrorlist="/etc/pacman.d/mirrorlist"
+  local mirrorlist_fallback='Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
+Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch
+Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch'
+
+  if [[ ! -f $mirrorlist ]]; then
+    sudo mkdir -p /etc/pacman.d
+    printf '%s\n' "$mirrorlist_fallback" | sudo tee "$mirrorlist" >/dev/null
+  elif ! grep -q "^[[:space:]]*Server[[:space:]]*=" "$mirrorlist"; then
+    printf '%s\n' "$mirrorlist_fallback" | sudo tee "$mirrorlist" >/dev/null
+  fi
+
+  if [[ ! -r $mirrorlist ]]; then
+    sudo chmod 644 "$mirrorlist"
+  fi
+}
+
 # Use standard Arch mirrors
+ensure_pacman_mirrorlist
 ensure_pacman_include_files
 sudo pacman -Sy --noconfirm reflector rsync
 sudo reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
