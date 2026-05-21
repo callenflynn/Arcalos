@@ -4,6 +4,28 @@ abort() {
   gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
 }
 
+ensure_pacman_config_readable() {
+  local pacman_conf="/etc/pacman.conf"
+  local mirrorlist="/etc/pacman.d/mirrorlist"
+
+  if [[ -f $pacman_conf && ! -r $pacman_conf ]]; then
+    sudo chmod 644 "$pacman_conf" || abort "pacman.conf permissions"
+  fi
+
+  if [[ -f $mirrorlist && ! -r $mirrorlist ]]; then
+    sudo chmod 644 "$mirrorlist" || abort "pacman mirrorlist permissions"
+  fi
+}
+
+install_required_package() {
+  local pkg="$1"
+
+  if ! pacman -Q "$pkg" &>/dev/null; then
+    echo "Installing required package: $pkg"
+    sudo pacman -S --noconfirm --needed "$pkg" || abort "$pkg package"
+  fi
+}
+
 # Must be an Arch distro
 if [[ ! -f /etc/arch-release ]]; then
   abort "Vanilla Arch"
@@ -31,13 +53,20 @@ if bootctl status 2>/dev/null | grep -q 'Secure Boot: enabled'; then
   abort "Secure Boot disabled"
 fi
 
+# Ensure pacman config is readable before any pacman queries
+ensure_pacman_config_readable
+
 # Must not have Gnome or KDE already install
 if pacman -Qe gnome-shell &>/dev/null || pacman -Qe plasma-desktop &>/dev/null; then
   abort "Fresh + Vanilla Arch"
 fi
 
 # Must have limine installed
+install_required_package limine
 command -v limine &>/dev/null || abort "Limine bootloader"
+
+# Ensure btrfs tooling is present for later steps
+install_required_package btrfs-progs
 
 # Must have btrfs root filesystem
 [[ $(findmnt -n -o FSTYPE /) = "btrfs" ]] || abort "Btrfs root filesystem" 
