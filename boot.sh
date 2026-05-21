@@ -40,6 +40,8 @@ ensure_pacman_include_files() {
 
     if [[ -f $chaotic_mirrorlist ]] && ! grep -q "^[[:space:]]*Server[[:space:]]*=" "$chaotic_mirrorlist"; then
       printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
+    elif [[ -f $chaotic_mirrorlist ]] && ! grep -q "cdn-mirror\.chaotic\.cx/\$repo/\$arch" "$chaotic_mirrorlist"; then
+      printf '%s\n' "$chaotic_fallback" | sudo tee "$chaotic_mirrorlist" >/dev/null
     fi
 
     if [[ ! -r $chaotic_mirrorlist ]]; then
