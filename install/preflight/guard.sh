@@ -17,12 +17,18 @@ ensure_pacman_config_readable() {
   fi
 }
 
+abort_required_package() {
+  local pkg="$1"
+  echo -e "\e[31mArcalos install requires package: $pkg\e[0m"
+  exit 1
+}
+
 install_required_package() {
   local pkg="$1"
 
   if ! pacman -Q "$pkg" &>/dev/null; then
     echo "Installing required package: $pkg"
-    sudo pacman -S --noconfirm --needed "$pkg" || abort "$pkg package"
+    sudo pacman -S --noconfirm --needed "$pkg" || abort_required_package "$pkg"
   fi
 }
 
@@ -63,7 +69,7 @@ fi
 
 # Must have limine installed
 install_required_package limine
-command -v limine &>/dev/null || abort "Limine bootloader"
+command -v limine &>/dev/null || abort_required_package limine
 
 # Ensure btrfs tooling is present for later steps
 install_required_package btrfs-progs
