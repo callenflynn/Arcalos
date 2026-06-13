@@ -1,0 +1,13 @@
+hyprland
+waybar
+kitty
+rofi
+xdg-desktop-portal-hyprland
+pipewire
+pipewire-pulse
+wireplumber
+networkmanager
+polkit-kde-agent
+grim
+slurp
+wl-clipboard
