@@ -38,5 +38,6 @@ fi
 echo "Applying configs..."
 mkdir -p ~/.config
 cp -r "$repo_dir"/config/* ~/.config/
+cp -r "$repo_dir"/theme ~/.config/
 
 echo "Done. Reboot or relog into Hyprland."

@@ -2,6 +2,8 @@
 
 This file defines the current Arcalos desktop identity. Treat it as the source of truth when changing Hyprland, Waybar, launchers, and related system UI.
 
+If a config change conflicts with this file, the config is wrong. Update this file first only when the intended identity changes.
+
 ## System Position
 
 Arcalos is a functional Hyprland desktop distribution prototype. It should feel like a small operating system with a clear identity, not a loose config pack.
@@ -33,6 +35,8 @@ Avoid duplicate bindings for the same primary concept. Secondary bindings are al
 ## Visual Language
 
 Arcalos should use a dark glass surface with restrained contrast and a cool accent.
+
+Theme color decisions live in `theme/colors.conf`. Config files should consume or mirror those tokens instead of inventing local colors.
 
 Palette:
 
@@ -86,6 +90,8 @@ The bar should read as part of the OS shell, not a generic status strip. Keep la
 - Keep comments useful and operational.
 - Avoid adding visual styles that do not map back to this file.
 - When adding new UI, define whether it is shell, utility, workspace, or status.
+- Treat `theme/colors.conf` as the color and glass source for shell UI.
+- If a config breaks this document, change the config or update this document before shipping the config.
 
 # Arcalos Design Language
 

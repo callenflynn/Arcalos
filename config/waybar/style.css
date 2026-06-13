@@ -1,3 +1,5 @@
+@import "../theme/colors.conf";
+
 * {
     border: none;
     border-radius: 0;
@@ -10,18 +12,18 @@
 
 window#waybar {
     margin: 6px;
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    border: 1px solid @arcalos_border;
     border-radius: 12px;
-    background: rgba(15, 18, 26, 0.72);
-    color: #f8fafc;
+    background: @arcalos_surface;
+    color: @arcalos_text;
 }
 
 #custom-arcalos {
     margin: 4px 4px 4px 8px;
     padding: 0 12px;
     border-radius: 12px;
-    background: rgba(56, 189, 248, 0.18);
-    color: #38bdf8;
+    background: @arcalos_accent_soft;
+    color: @arcalos_accent;
     font-weight: 800;
 }
 
@@ -31,26 +33,26 @@ window#waybar {
     padding: 0 10px;
     border-radius: 12px;
     background: transparent;
-    color: #94a3b8;
+    color: @arcalos_muted;
 }
 
 #workspaces button:hover,
 #workspaces button.active {
-    background: rgba(22, 27, 38, 0.86);
-    color: #f8fafc;
+    background: @arcalos_surface_strong;
+    color: @arcalos_text;
 }
 
 #workspaces button.urgent {
-    background: rgba(239, 68, 68, 0.2);
-    color: #ef4444;
+    background: @arcalos_surface_strong;
+    color: @arcalos_critical;
 }
 
 #clock {
     margin: 4px 0;
     padding: 0 14px;
     border-radius: 12px;
-    background: rgba(22, 27, 38, 0.86);
-    color: #f8fafc;
+    background: @arcalos_surface_strong;
+    color: @arcalos_text;
     font-weight: 700;
 }
 
@@ -60,13 +62,13 @@ window#waybar {
     margin: 4px 4px;
     padding: 0 10px;
     border-radius: 12px;
-    background: rgba(22, 27, 38, 0.86);
-    color: #cbd5e1;
+    background: @arcalos_surface_strong;
+    color: @arcalos_text_soft;
 }
 
 #pulseaudio.muted,
 #network.disconnected {
-    color: #f59e0b;
+    color: @arcalos_warning;
 }
 
 #tray {

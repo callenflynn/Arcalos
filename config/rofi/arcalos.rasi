@@ -1,3 +1,5 @@
+/* UX authority: docs/UX.md. These tokens mirror theme/colors.conf. */
+
 * {
     base: #090b10;
     surface: #0f121ad1;

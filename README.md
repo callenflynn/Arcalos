@@ -8,6 +8,7 @@ Arcalos is a small Arch Linux Hyprland desktop setup. It installs the base deskt
 - `packages.txt` - pacman package list.
 - `aur.txt` - AUR package list installed with `yay`.
 - `docs/UX.md` - Arcalos interaction and visual identity spec.
+- `theme/colors.conf` - shared theme color and glass intent source.
 - `config/hypr/` - Hyprland config and keybinds.
 - `config/rofi/` - Spotlight launcher config and theme.
 - `config/waybar/` - Waybar layout and styling.
@@ -35,7 +36,7 @@ The script will:
 2. Install packages from `packages.txt`.
 3. Install `yay` if needed.
 4. Install AUR packages from `aur.txt`.
-5. Copy `config/*` into `~/.config/`.
+5. Copy `config/*` and `theme/` into `~/.config/`.
 
 After installation, reboot or log out and choose the Hyprland session.
 
@@ -74,3 +75,5 @@ Keybinds live in `config/hypr/keybinds.conf`, which is sourced by the main confi
 This setup expects `brave` from the `brave-bin` AUR package and `grimblast` from the AUR package list. Waybar uses JetBrains Mono Nerd Font for icons.
 
 The UX direction lives in `docs/UX.md`. Use it as the guide for future shell, bar, launcher, and theme changes.
+
+Theme color decisions live in `theme/colors.conf`. Waybar imports that file directly after install from `~/.config/theme/colors.conf`.
