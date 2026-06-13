@@ -1,13 +1,38 @@
+# Core desktop
 hyprland
-waybar
+wayland
+xdg-desktop-portal-hyprland
+polkit-kde-agent
+
+# Apps
 kitty
 rofi
-xdg-desktop-portal-hyprland
+brave-bin
+
+# Audio / system
 pipewire
 pipewire-pulse
 wireplumber
+wpctl
+
+# Network / system tools
 networkmanager
-polkit-kde-agent
+nm-connection-editor
+
+# Clipboard system (replaces DMS clipboard)
+wl-clipboard
+cliphist
+
+# Notifications (replaces DMS notifications)
+dunst
+
+# Screenshots
 grim
 slurp
-wl-clipboard
+grimblast
+
+# Brightness control
+brightnessctl
+
+# UI utilities
+wlogout
