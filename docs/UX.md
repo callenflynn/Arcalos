@@ -86,3 +86,26 @@ The bar should read as part of the OS shell, not a generic status strip. Keep la
 - Keep comments useful and operational.
 - Avoid adding visual styles that do not map back to this file.
 - When adding new UI, define whether it is shell, utility, workspace, or status.
+
+# Arcalos Design Language
+
+## Core Feel
+- soft glass UI
+- blurred layered depth
+- minimal visual noise
+- consistent spacing everywhere
+
+## Rules
+- Every UI element must use the same rounding (12px)
+- Backgrounds should be semi-transparent by default
+- Only one accent color across the system
+- No harsh borders or high contrast boxes unless focused
+
+## Density
+- UI should feel spacious, not packed
+- Prefer fewer modules over more information
+- Hide complexity unless user requests it
+
+## Behavior
+- SUPER key is system identity
+- Everything should feel like one integrated shell

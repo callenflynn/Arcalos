@@ -13,8 +13,6 @@
   "modules-right": [
     "pulseaudio",
     "network",
-    "cpu",
-    "memory",
     "tray"
   ],
 
@@ -29,20 +27,14 @@
 
   "pulseaudio": {
     "format": " {volume}%",
-    "format-muted": "󰖁 muted"
+    "format-muted": "󰖁 muted",
+    "tooltip": false
   },
 
   "network": {
     "format-wifi": " {signalStrength}%",
     "format-ethernet": "󰈀 wired",
-    "format-disconnected": "󰤮 offline"
-  },
-
-  "cpu": {
-    "format": " {usage}%"
-  },
-
-  "memory": {
-    "format": " {percentage}%"
+    "format-disconnected": "󰤮 offline",
+    "tooltip": false
   }
 }

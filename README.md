@@ -9,6 +9,7 @@ Arcalos is a small Arch Linux Hyprland desktop setup. It installs the base deskt
 - `aur.txt` - AUR package list installed with `yay`.
 - `docs/UX.md` - Arcalos interaction and visual identity spec.
 - `config/hypr/` - Hyprland config and keybinds.
+- `config/rofi/` - Spotlight launcher config and theme.
 - `config/waybar/` - Waybar layout and styling.
 
 ## Requirements

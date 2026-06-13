@@ -17,9 +17,9 @@ window#waybar {
 }
 
 #custom-arcalos {
-    margin: 4px 6px 4px 8px;
+    margin: 4px 4px 4px 8px;
     padding: 0 12px;
-    border-radius: 8px;
+    border-radius: 12px;
     background: rgba(56, 189, 248, 0.18);
     color: #38bdf8;
     font-weight: 800;
@@ -28,8 +28,8 @@ window#waybar {
 #workspaces button {
     min-width: 28px;
     margin: 4px 2px;
-    padding: 0 9px;
-    border-radius: 8px;
+    padding: 0 10px;
+    border-radius: 12px;
     background: transparent;
     color: #94a3b8;
 }
@@ -48,7 +48,7 @@ window#waybar {
 #clock {
     margin: 4px 0;
     padding: 0 14px;
-    border-radius: 8px;
+    border-radius: 12px;
     background: rgba(22, 27, 38, 0.86);
     color: #f8fafc;
     font-weight: 700;
@@ -56,12 +56,10 @@ window#waybar {
 
 #pulseaudio,
 #network,
-#cpu,
-#memory,
 #tray {
     margin: 4px 4px;
     padding: 0 10px;
-    border-radius: 8px;
+    border-radius: 12px;
     background: rgba(22, 27, 38, 0.86);
     color: #cbd5e1;
 }
@@ -71,12 +69,6 @@ window#waybar {
     color: #f59e0b;
 }
 
-#cpu.warning,
-#memory.warning {
-    color: #f59e0b;
-}
-
-#cpu.critical,
-#memory.critical {
-    color: #ef4444;
+#tray {
+    margin-right: 8px;
 }
