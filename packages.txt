@@ -3,21 +3,21 @@ hyprland
 wayland
 xdg-desktop-portal-hyprland
 polkit-kde-agent
+waybar
 
 # Apps
 kitty
 rofi
-brave-bin
 
 # Audio / system
 pipewire
 pipewire-pulse
 wireplumber
-wpctl
+gnome-keyring
 
 # Network / system tools
 networkmanager
-nm-connection-editor
+network-manager-applet
 
 # Clipboard system (replaces DMS clipboard)
 wl-clipboard
@@ -29,13 +29,13 @@ dunst
 # Screenshots
 grim
 slurp
-grimblast
 
 # Brightness control
 brightnessctl
 
 # UI utilities
 wlogout
+ttf-jetbrains-mono-nerd
 
 # greeter
 sddm
