@@ -1,9 +1,12 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 32,
+  "height": 34,
 
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": [
+    "custom/arcalos",
+    "hyprland/workspaces"
+  ],
 
   "modules-center": ["clock"],
 
@@ -15,17 +18,24 @@
     "tray"
   ],
 
+  "custom/arcalos": {
+    "format": "ARCALOS",
+    "tooltip": false
+  },
+
   "clock": {
     "format": "{:%a %b %d  %H:%M}"
   },
 
   "pulseaudio": {
-    "format": " {volume}%"
+    "format": " {volume}%",
+    "format-muted": "󰖁 muted"
   },
 
   "network": {
     "format-wifi": " {signalStrength}%",
-    "format-ethernet": "󰈀"
+    "format-ethernet": "󰈀 wired",
+    "format-disconnected": "󰤮 offline"
   },
 
   "cpu": {

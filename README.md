@@ -7,6 +7,7 @@ Arcalos is a small Arch Linux Hyprland desktop setup. It installs the base deskt
 - `install.sh` - install script for packages, AUR packages, and config files.
 - `packages.txt` - pacman package list.
 - `aur.txt` - AUR package list installed with `yay`.
+- `docs/UX.md` - Arcalos interaction and visual identity spec.
 - `config/hypr/` - Hyprland config and keybinds.
 - `config/waybar/` - Waybar layout and styling.
 
@@ -53,7 +54,7 @@ Keybinds live in `config/hypr/keybinds.conf`, which is sourced by the main confi
 ## Basic Keybinds
 
 - `SUPER + Return` - terminal.
-- `SUPER + D` or `SUPER + Space` - app launcher.
+- `SUPER + Space` - Spotlight app launcher.
 - `SUPER + Tab` - window switcher.
 - `SUPER + B` - browser.
 - `SUPER + Q` - close active window.
@@ -70,3 +71,5 @@ Keybinds live in `config/hypr/keybinds.conf`, which is sourced by the main confi
 ## Notes
 
 This setup expects `brave` from the `brave-bin` AUR package and `grimblast` from the AUR package list. Waybar uses JetBrains Mono Nerd Font for icons.
+
+The UX direction lives in `docs/UX.md`. Use it as the guide for future shell, bar, launcher, and theme changes.
